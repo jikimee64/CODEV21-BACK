@@ -1,0 +1,90 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.8.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	//querydsl 추가
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id 'java'
+	id "org.asciidoctor.convert" version "1.5.9.2"
+}
+
+group = 'com.j2kb'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenLocal()
+	maven { url 'https://repo.spring.io/libs-snapshot' }
+	mavenCentral()
+}
+
+ext {
+	snippetsDir = file('build/generated-snippets')          // (2)
+}
+
+ext['spring-restdocs.version'] = '2.0.4.BUILD-SNAPSHOT'   // (3)
+
+dependencies {
+
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'  // (4)
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//implementation 'org.springframework.boot:spring-boot-starter-security:'
+	implementation 'org.springframework.boot:spring-boot-starter-json'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.apache.httpcomponents:httpclient:4.5'
+	//쿼리 파라미터 로그
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+	//querydsl 추가
+	implementation 'com.querydsl:querydsl-jpa'
+	//쿼리 파라미터 로그
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test'
+	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'      // (5)
+	compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+}
+
+test {
+	outputs.dir snippetsDir // (6)
+	useJUnitPlatform()
+}
+
+asciidoctor {
+	inputs.dir snippetsDir  // (7)
+	dependsOn test          // (8)
+}
+
+bootJar {
+	dependsOn asciidoctor                      // (9)
+	from ("${asciidoctor.outputDir}/html5") {  // (10)
+		into 'static/docs'
+	}
+}
+
+
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝
