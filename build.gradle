@@ -4,7 +4,7 @@ plugins {
 	//querydsl 추가
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
-	id "org.asciidoctor.convert" version "1.5.9.2"
+	id 'org.asciidoctor.convert' version "1.5.3" // (1)
 }
 
 group = 'com.j2kb'
@@ -21,11 +21,11 @@ ext {
 	snippetsDir = file('build/generated-snippets')          // (2)
 }
 
-ext['spring-restdocs.version'] = '2.0.4.BUILD-SNAPSHOT'   // (3)
+//ext['spring-restdocs.version'] = '2.0.4.BUILD-SNAPSHOT'   // (3)
 
 dependencies {
 
-	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'  // (4)
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.6.RELEASE' // (4)
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -48,7 +48,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
-	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'      // (5)
+	testCompile group: 'org.springframework.restdocs', name: 'spring-restdocs-mockmvc', version: '2.0.2.RELEASE' //
 	compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
 	runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
 	runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
@@ -64,11 +64,18 @@ asciidoctor {
 	dependsOn test          // (8)
 }
 
-bootJar {
-	dependsOn asciidoctor                      // (9)
-	from ("${asciidoctor.outputDir}/html5") {  // (10)
-		into 'static/docs'
-	}
+//bootJar {
+//	dependsOn asciidoctor                      // (9)
+//	from ("${asciidoctor.outputDir}/html5") {  // (10)
+//		into 'static/docs'
+//	}
+//}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+
+	from file("build/asciidoc/html5/")
+	into file("src/main/resources/static/docs")
 }
 
 
@@ -87,4 +94,8 @@ configurations {
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
 }
-//querydsl 추가 끝
+//querydsl 추가
+
+build {
+	dependsOn copyDocument
+}
