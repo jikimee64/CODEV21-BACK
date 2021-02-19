@@ -17,7 +17,9 @@ import com.j2kb.codev21.domains.board.service.BoardService;
 import com.j2kb.codev21.global.common.CommonResponse;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/boards")
 @RequiredArgsConstructor
@@ -45,6 +47,7 @@ public class BoardController {
 	
 	@PostMapping
 	public CommonResponse<BoardDto.Res> insertBoard(BoardDto.Req req) {
+		log.info(req.toString());
 		return CommonResponse.<BoardDto.Res>builder()
 				.code("200")
 				.message("ok")

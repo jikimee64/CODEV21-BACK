@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,9 +28,9 @@ public class BoardDto {
 
 		private String summary;
 
-		private TeamInfo teamInfo;
+		private long teamId;
 
-		private String image;
+		private MultipartFile image;
 
 	}
 	
