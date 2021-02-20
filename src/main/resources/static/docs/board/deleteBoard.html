@@ -441,11 +441,8 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards' -i -X POST \
-    -H 'Content-Type: multipart/mixed' \
-    -H 'Accept: application/json' \
-    -F 'req={"gisu":"someGisu","title":"someTitle","content":"someContent","summary":"someSummary","teamInfo":{"teamName":"someTeam","teamMembers":["member1","member2","member3"]},"image":null};type=application/json' \
-    -F 'image=@filename-1.jpeg;type=image/jpeg'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards/1' -i -X DELETE \
+    -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -453,22 +450,9 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/boards HTTP/1.1
-Content-Type: multipart/mixed; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/boards/1 HTTP/1.1
 Accept: application/json
-Host: localhost.com:8080
-
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=req
-Content-Type: application/json
-
-{"gisu":"someGisu","title":"someTitle","content":"someContent","summary":"someSummary","teamInfo":{"teamName":"someTeam","teamMembers":["member1","member2","member3"]},"image":null}
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=image; filename=filename-1.jpeg
-Content-Type: image/jpeg
-
-&lt;&lt;jpeg data&gt;&gt;
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
+Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -478,12 +462,14 @@ Content-Type: image/jpeg
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 61
+Content-Length: 84
 
 {
   "code" : "200",
   "message" : "ok",
-  "data" : null
+  "data" : {
+    "result" : true
+  }
 }</code></pre>
 </div>
 </div>
@@ -492,7 +478,7 @@ Content-Length: 61
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-18 00:20:38 +09:00
+Last updated 2021-02-19 23:39:41 +09:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

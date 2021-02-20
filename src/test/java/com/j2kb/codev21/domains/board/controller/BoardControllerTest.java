@@ -53,11 +53,11 @@ import com.j2kb.codev21.util.MultiValueMapConverter;
 public class BoardControllerTest {
 
 	private MockMvc mockMvc;
-	
+
 	@MockBean BoardService boardService;
-	
+
     @Autowired private ObjectMapper objectMapper;
-    
+
 	@BeforeEach
 	public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
 		this.mockMvc = MockMvcBuilders
@@ -69,12 +69,12 @@ public class BoardControllerTest {
 						.withPort(8080))
 				.build();
 	}
-	
+
 	@DisplayName("기수 별 프로젝트 조회")
 	@Test
 	void find_all_boardList_ByGisu() throws Exception {
 		//given
-		
+
 		List<Res> resList = Stream.iterate(BoardDto.Res.builder()
 							.id(0)
 							.content("content0")
@@ -84,7 +84,7 @@ public class BoardControllerTest {
 							.build()
 							, res -> {
 								long curId = res.getId() + 1;
-								
+
 								return BoardDto.Res.builder()
 										.id(curId)
 										.content("content" + curId)
@@ -94,7 +94,7 @@ public class BoardControllerTest {
 										.build();
 							}).limit(5)
 				.collect(Collectors.toList());
-		
+
 		when(boardService.getBoardList(anyString()))
 			.thenReturn(resList);
 
@@ -111,7 +111,7 @@ public class BoardControllerTest {
                 		requestParameters(parameterWithName("gisu").description("검색 조건에 사용할 기수 정보"))));
 
 	}
-	
+
 	@DisplayName("프로젝트 단건 조회")
 	@Test
 	void find_board_ById() throws Exception {
@@ -124,8 +124,8 @@ public class BoardControllerTest {
 					.gisu("1")
 					.summary("summary")
 					.build());
-		
-		
+
+
 		//when
 		//then
         this.mockMvc
@@ -138,7 +138,7 @@ public class BoardControllerTest {
                 		pathParameters(parameterWithName("id").description("조회할 프로젝트 게시글 번호"))));
 
 	}
-	
+
     @DisplayName("프로젝트 등록")
     @Test
     void insert_Board() throws Exception {
@@ -146,9 +146,9 @@ public class BoardControllerTest {
     	MockMultipartFile image = new MockMultipartFile("image", "filename-1.jpeg", "image/jpeg", "<<jpeg data>>".getBytes());
     	MultiValueMap<String, String> params = MultiValueMapConverter.convert(objectMapper, getMockBoardReq());
     	 params.remove("image");
-    	 
+
     	 String content = objectMapper.writeValueAsString(getMockBoardReq());
-    	 
+
     	 MockMultipartFile json = new MockMultipartFile("meta-data", "meta-data", "application/json", content.getBytes(StandardCharsets.UTF_8));
     	//when
         //then
@@ -165,7 +165,7 @@ public class BoardControllerTest {
 					requestParts(partWithName("image").description("등록할 이미지"))));
     }
 
-    
+
     @DisplayName("프로젝트 수정")
     @Test
     void update_Board() throws Exception {
@@ -173,17 +173,17 @@ public class BoardControllerTest {
     	MockMultipartFile image = new MockMultipartFile("image", "filename-1.jpeg", "image/jpeg", "<<jpeg data>>".getBytes());
     	MultiValueMap<String, String> params = MultiValueMapConverter.convert(objectMapper, getMockBoardReq());
         params.remove("image");
-    	
+
         //when
         //then
-        
+
         // multipart() 혹은 fileUpload()의 HTTP 메소드는 POST로 하드코딩 되어 있음, 하여 with()을 통해 PUT으로 메소드를 수정해준다.
         MockMultipartHttpServletRequestBuilder fileUpload = RestDocumentationRequestBuilders.fileUpload("/api/v1/boards/{id}", 1l);
         fileUpload.with(request -> {
         	request.setMethod("PUT");
         	return request;
         });
-        
+
         this.mockMvc.perform(fileUpload
         	.file(image)
         	.params(params)
@@ -197,14 +197,14 @@ public class BoardControllerTest {
             		pathParameters(parameterWithName("id").description("수정할 프로젝트 게시글 번호")),
 					requestParts(partWithName("image").description("수정할 이미지"))));
     }
-    
+
     @DisplayName("프로젝트 삭제")
     @Test
     void delete_Board() throws Exception {
     	//given
     	when(boardService.deleteBoard(anyLong()))
     			.thenReturn(true);
-    	
+
         //when
         //then
         this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/boards/{id}", 1l)
@@ -215,7 +215,7 @@ public class BoardControllerTest {
             		preprocessResponse(prettyPrint()),
             		pathParameters(parameterWithName("id").description("삭제할 프로젝트 게시글 번호"))));
     }
-    
+
 
 	private Req getMockBoardReq() {
 		return BoardDto.Req.builder()
