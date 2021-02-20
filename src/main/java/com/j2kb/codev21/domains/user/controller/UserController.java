@@ -1,10 +1,13 @@
 package com.j2kb.codev21.domains.user.controller;
 
 import com.j2kb.codev21.domains.user.dto.UserDto;
+import com.j2kb.codev21.domains.user.dto.UserDto.selectUserOnlyIdRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.UserService;
 import com.j2kb.codev21.global.common.CommonResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +40,10 @@ public class UserController {
 
     //회원가입
     @PostMapping("/users")
-    public CommonResponse<Long> joinUser(
+    public CommonResponse<selectUserOnlyIdRes> joinUser(
         @RequestBody @Valid UserDto.joinReq dto) {
 
-        return CommonResponse.<Long>builder()
+        return CommonResponse.<selectUserOnlyIdRes>builder()
             .code("200")
             .message("ok")
             .data(userService.joinUser()).build();
@@ -84,13 +87,17 @@ public class UserController {
 
     //회원삭제
     @DeleteMapping(value = {"/users/{userId}", "/admin/users/{userId}"})
-    public CommonResponse<Boolean> deleteUser(
+    public CommonResponse<Map> deleteUser(
         @PathVariable("userId") final Long userId) {
 
-        return CommonResponse.<Boolean>builder()
+        Map<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("result", userService.deleteUser(userId));
+
+        return CommonResponse.<Map>builder()
             .code("200")
             .message("ok")
-            .data(userService.deleteUser(userId)).build();
+            .data(map)
+            .build();
     }
 
 }

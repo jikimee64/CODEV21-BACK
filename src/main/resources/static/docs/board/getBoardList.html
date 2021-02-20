@@ -441,7 +441,7 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards/1' -i -X GET \
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards?gisu=value' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -450,7 +450,7 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards?gisu=value HTTP/1.1
 Accept: application/json
 Host: localhost.com:8080</code></pre>
 </div>
@@ -462,24 +462,72 @@ Host: localhost.com:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 317
+Content-Length: 1384
 
 {
   "code" : "200",
   "message" : "ok",
-  "data" : {
-    "id" : 1,
+  "data" : [ {
+    "id" : 0,
     "gisu" : "1",
-    "title" : "title",
-    "content" : "content",
-    "summary" : "summary",
+    "title" : "title0",
+    "content" : "content0",
+    "summary" : "summary0",
     "writer" : null,
     "teamInfo" : null,
     "image" : null,
     "create_at" : null,
     "updated_at" : null,
     "voting" : false
-  }
+  }, {
+    "id" : 1,
+    "gisu" : "2",
+    "title" : "title1",
+    "content" : "content1",
+    "summary" : "summary1",
+    "writer" : null,
+    "teamInfo" : null,
+    "image" : null,
+    "create_at" : null,
+    "updated_at" : null,
+    "voting" : false
+  }, {
+    "id" : 2,
+    "gisu" : "1",
+    "title" : "title2",
+    "content" : "content2",
+    "summary" : "summary2",
+    "writer" : null,
+    "teamInfo" : null,
+    "image" : null,
+    "create_at" : null,
+    "updated_at" : null,
+    "voting" : false
+  }, {
+    "id" : 3,
+    "gisu" : "2",
+    "title" : "title3",
+    "content" : "content3",
+    "summary" : "summary3",
+    "writer" : null,
+    "teamInfo" : null,
+    "image" : null,
+    "create_at" : null,
+    "updated_at" : null,
+    "voting" : false
+  }, {
+    "id" : 4,
+    "gisu" : "1",
+    "title" : "title4",
+    "content" : "content4",
+    "summary" : "summary4",
+    "writer" : null,
+    "teamInfo" : null,
+    "image" : null,
+    "create_at" : null,
+    "updated_at" : null,
+    "voting" : false
+  } ]
 }</code></pre>
 </div>
 </div>
@@ -488,7 +536,7 @@ Content-Length: 317
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-18 00:20:39 +09:00
+Last updated 2021-02-17 12:07:35 +09:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

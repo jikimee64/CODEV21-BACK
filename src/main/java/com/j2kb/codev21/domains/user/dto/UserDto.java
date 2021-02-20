@@ -83,12 +83,21 @@ public class UserDto {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
     public static class selectUserRes {
+        private Long id;
         private String email;
         private String name;
         private String joinGisu;
         private String status;
-        private String filed;
+        private String field;
         private String githubId;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class selectUserOnlyIdRes {
+        private Long id;
     }
 
 }

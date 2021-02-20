@@ -21,23 +21,25 @@ public class UserService {
     }
 
     //회원가입
-    public Long joinUser(){
-        return 1L;
+    public UserDto.selectUserOnlyIdRes joinUser(){
+        return UserDto.selectUserOnlyIdRes.builder()
+                .id(1L)
+                .build();
     }
 
     //회원 단건 조회
     public UserDto.selectUserRes getUser(Long userId){
-        return new UserDto.selectUserRes();
+        return UserDto.selectUserRes.builder().build();
     }
 
     //회원수정(유저권한)
     public UserDto.selectUserRes updateUser(Long userId, UserDto.updateUserReq dto){
-        return new UserDto.selectUserRes();
+        return UserDto.selectUserRes.builder().build();
     }
 
     //회원수정(관리자 권한)
     public UserDto.selectUserRes updateUserByAdmin(Long userId, UserDto.updateUserByAdminReq dto){
-        return new UserDto.selectUserRes();
+        return UserDto.selectUserRes.builder().build();
     }
 
     //회원삭제

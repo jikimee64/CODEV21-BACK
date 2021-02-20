@@ -11,12 +11,16 @@ documentation snippets.
 
 One showing how to make a request using cURL:
 
-include::{snippets}/UserController/joinUser/curl-request.adoc[]
+include::{snippets}/UserController/deleteUser/curl-request.adoc[]
+
+include::{snippets}/UserController/deleteUser/path-parameters.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/UserController/joinUser/http-request.adoc[]
+include::{snippets}/UserController/deleteUser/http-request.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}/UserController/joinUser/http-response.adoc[]
+include::{snippets}/UserController/deleteUser/http-response.adoc[]
+
+include::{snippets}/UserController/deleteUser/response-fields.adoc[]
