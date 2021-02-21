@@ -1,0 +1,318 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+= API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:docinfo: shared-head
+
+[[introduction]]
+== 소개
+
+J2KB 스터디 CODEV-9팀 해커톤 API
+
+&#160;
+
+[[version]]
+=== API Versioning
+
+v1(SNAPSHOT): http://localhost:8080.com/api/v1/
+
+&#160;
+
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+=== Domain
+
+|===
+| 환경 | Domain
+
+| 개발서버
+| `http://localhost:8080`
+
+| 운영서버
+| `미정`
+|===
+// === Common Response
+
+// include::{snippets}/common/custom-response-fields.adoc[]
+
+// include::{snippets}/common/custom-response-fields-apiResponseCodes.adoc[]
+
+&#160;
+
+=== 인증
+
+&#160;
+
+=== 공통 Response
+
+&#160;
+
+=== 에러 코드
+
+&#160;
+
+== 게시글 API
+
+[[getBoardList]]
+=== 게시글 다건 조회
+
+==== Request
+
+include::{snippets}/BoardController/getBoardList/request-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/BoardController/getBoardList/http-request.adoc[]
+
+==== Response
+
+Response Fields 추가 예정
+
+===== Response HTTP Example
+
+include::{snippets}/BoardController/getBoardList/http-response.adoc[]
+
+&#160;
+
+[[getBoard]]
+=== 게시글 단건 조회
+
+==== Request
+
+include::{snippets}/BoardController/getBoard/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/BoardController/getBoard/http-request.adoc[]
+
+==== Response
+
+Response Fields 추가 예정
+
+===== Response HTTP Example:
+
+include::{snippets}/BoardController/getBoard/http-response.adoc[]
+
+&#160;
+
+[[insertBoard]]
+=== 게시글 등록
+
+==== Request
+
+include::{snippets}/BoardController/insertBoard/request-parts.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/BoardController/insertBoard/http-request.adoc[]
+
+==== Response
+
+Response Fields 추가 예정
+
+===== Response HTTP Example:
+
+include::{snippets}/BoardController/insertBoard/http-response.adoc[]
+
+&#160;
+
+[[updateBoard]]
+=== 게시글 수정
+
+==== Request
+
+include::{snippets}/BoardController/updateBoard/path-parameters.adoc[]
+
+Request Fields 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/BoardController/updateBoard/http-request.adoc[]
+
+==== Response
+
+Response Fields 추가 예정
+
+===== Response HTTP Example:
+
+include::{snippets}/BoardController/updateBoard/http-response.adoc[]
+
+&#160;
+
+[[deleteBoard]]
+=== 게시글 삭제
+
+==== Request
+
+include::{snippets}/BoardController/deleteBoard/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/BoardController/deleteBoard/http-request.adoc[]
+
+==== Response
+
+Response Fields 추가 예정
+
+===== Response HTTP Example:
+
+include::{snippets}/BoardController/deleteBoard/http-response.adoc[]
+
+&#160;
+
+== 투표 API
+
+[[insertVoteOfUser]]
+=== 유저 투표 요청
+
+==== Request
+include::{snippets}/VoteController/insertVoteOfUser/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/insertVoteOfUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/insertVoteOfUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/VoteController/insertVoteOfUser/http-response.adoc[]
+
+&#160;
+
+[[deleteVoteOfUser]]
+=== 유저 투표 취소 요청
+
+==== Request
+
+include::{snippets}/VoteController/deleteVoteOfUser/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/deleteVoteOfUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/deleteVoteOfUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/VoteController/deleteVoteOfUser/http-response.adoc[]
+
+&#160;
+
+[[getVote]]
+=== 투표 다건 조회
+
+==== Request
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/getVoteList/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/getVoteList/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/VoteController/getVoteList/http-response.adoc[]
+
+&#160;
+
+[[getVote]]
+=== 투표 단건 조회
+
+==== Request
+
+include::{snippets}/VoteController/getVote/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/getVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/getVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/getVote/http-response.adoc[]
+
+&#160;
+
+[[insertVote]]
+=== 투표 등록
+
+==== Request
+
+include::{snippets}/VoteController/insertVote/request-fields.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/insertVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/insertVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/insertVote/http-response.adoc[]
+
+&#160;
+
+[[updateVote]]
+=== 투표 수정
+
+==== Request
+
+include::{snippets}/VoteController/updateVote/path-parameters.adoc[]
+
+include::{snippets}/VoteController/updateVote/request-fields.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/updateVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/updateVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/updateVote/http-response.adoc[]
+
+&#160;
+
+[[deleteVote]]
+=== 투표 삭제
+
+==== Request
+
+include::{snippets}/VoteController/deleteVote/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/deleteVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/deleteVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/deleteVote/http-response.adoc[]
+
+&#160;
