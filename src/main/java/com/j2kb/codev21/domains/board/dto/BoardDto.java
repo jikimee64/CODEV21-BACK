@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.j2kb.codev21.domains.board.domain.Board;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,17 +53,31 @@ public class BoardDto {
 
 		private String summary;
 
-		private Writer writer;
+		private Writer writerInfo;
 
 		private TeamInfo teamInfo;
 
 		private String image;
 
-		private boolean isVoting;
+		private VoteInfo voteInfo;
 		
-		private LocalDateTime create_at;
+		private LocalDateTime created_At;
 		
-		private LocalDateTime updated_at;
+		private LocalDateTime updated_At;
+		
+		public Res(Board board){
+			this.id = board.getId();
+//			this.gisu = board.getGisuCategory().getGisu();
+			this.title = board.getTitle();
+			this.content = board.getContent();
+			this.summary = board.getSummary();
+//			this.writerInfo
+//			this.teamInfo
+			this.image = board.getImage();
+//			this.voteInfo
+			this.created_At = board.getCreatedAt();
+			this.updated_At = board.getUpdatedAt();
+		}
 
 	}
     
@@ -70,9 +87,9 @@ public class BoardDto {
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
     public static class Writer {
 
-    	private String id;
+    	private String userId;
     	
-    	private String name;
+    	private String userName;
     }
     
     @Data
@@ -84,6 +101,17 @@ public class BoardDto {
     	private String teamName;
     	
     	private List<String> teamMembers = new ArrayList<>();
+    }
+    
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class VoteInfo {
+
+    	private boolean voting;
+    	
+    	private Long boardVoteId;
     }
 
 }
