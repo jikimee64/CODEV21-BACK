@@ -1,5 +1,7 @@
 package com.j2kb.codev21.domains.user.controller;
 
+import com.j2kb.codev21.domains.user.domain.SocialLoginType;
+import com.j2kb.codev21.domains.user.dto.AuthDto.GithubCheckRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.OauthService;
 import com.j2kb.codev21.global.common.CommonResponse;
@@ -27,30 +29,41 @@ public class OauthController {
      * 사용자로부터 SNS 로그인 요청을 Social Login Type 을 받아 처리
      */
     @GetMapping(value = "/{socialLoginType}")
-    public void socialLoginType(
-        @PathVariable(name = "socialLoginType") String socialLoginType) {
-        log.info("========== 회원가입 깃허브 인증 요청 ==========");
+    public CommonResponse<GithubCheckRes> socialConfirm(
+        @PathVariable(name = "socialLoginType") SocialLoginType socialLoginType) {
+        log.info("========== 깃허브 인증 요청 ==========");
         oauthService.request(socialLoginType);
+
+        //return 안해도 되지만 Rest Doc문서출력용
+        return CommonResponse.<GithubCheckRes>builder()
+            .code("200")
+            .message("ok")
+            .data(
+                GithubCheckRes.builder()
+                    .isOauth(true)
+                    .build())
+            .build();
     }
 
     /**
      * Social Login API Server 요청에 의한 callback 을 처리
      */
     @GetMapping(value = "/{socialLoginType}/callback")
-    public CommonResponse<Boolean> callback(
-        @PathVariable(name = "socialLoginType") String socialLoginType
-        //@RequestParam(name = "code") String code,
-        ///;.;///////;[/@RequestParam(name= "state", required = false) String state
+    public CommonResponse<GithubCheckRes> callback(
+        @PathVariable(name = "socialLoginType") SocialLoginType socialLoginType,
+        @RequestParam(name = "code") String code
     ) {
         log.info("========== 깃허브 CallBack 요청 ==========");
 
-        boolean flag = oauthService
-            .requestAccessToken(socialLoginType);
-
-        return CommonResponse.<Boolean>builder()
+        return CommonResponse.<GithubCheckRes>builder()
             .code("200")
             .message("ok")
-            .data(flag).build();
+            .data(
+                GithubCheckRes.builder()
+                    .isOauth(oauthService
+                        .requestAccessToken(socialLoginType, code))
+                    .build()
+            ).build();
     }
 
 }

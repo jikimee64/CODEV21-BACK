@@ -1,8 +1,10 @@
 package com.j2kb.codev21.global.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private final long MAX_AGE_SECS = 3600;
@@ -11,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")
             .allowedOrigins("*") //클라이언트 포트 ex) http://localhost:8080
-            .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+            .allowedMethods("*")
             .allowedHeaders("*")
             .allowCredentials(true)
             .maxAge(MAX_AGE_SECS);

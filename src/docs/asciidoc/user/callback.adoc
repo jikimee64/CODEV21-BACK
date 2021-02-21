@@ -1,0 +1,26 @@
+//= Spring REST Docs JUnit 5 Sample
+//Andy Wilkinson;
+//:doctype: book
+//:icons: font
+//:source-highlighter: highlightjs
+//
+//Sample application demonstrating how to use Spring REST Docs with JUnit 5.
+//
+//`SampleJUnit5ApplicationTests` makes a call to a very simple service and produces three
+//documentation snippets.
+//
+//One showing how to make a request using cURL:
+//
+//include::{snippets}/OauthController/callback/curl-request.adoc[]
+//
+//include::{snippets}/OauthController/callback/path-parameters.adoc[]
+//
+//One showing the HTTP request:
+//
+//include::{snippets}/OauthController/callback/http-request.adoc[]
+//
+//And one showing the HTTP response:
+//
+//include::{snippets}/OauthController/callback/http-response.adoc[]
+//
+//include::{snippets}/OauthController/callback/response-fields.adoc[]

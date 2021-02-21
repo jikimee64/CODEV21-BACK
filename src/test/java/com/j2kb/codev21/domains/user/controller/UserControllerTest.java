@@ -55,7 +55,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-//@SpringBootTest
 @WebMvcTest(UserController.class)
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class UserControllerTest {
@@ -105,7 +104,7 @@ class UserControllerTest {
         when(userService.getUserList())
             .thenReturn(list);
 
-        this.mockMvc.perform(get("/api/v1/admin/users/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/users/")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andDo(document("UserController/selectAllUser",
@@ -140,7 +139,7 @@ class UserControllerTest {
                 .id(1L)
                 .build());
 
-        this.mockMvc.perform(post("/api/v1/users/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users/")
             .content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
