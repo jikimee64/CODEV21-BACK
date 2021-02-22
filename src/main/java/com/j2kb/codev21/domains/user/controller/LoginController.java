@@ -1,10 +1,14 @@
 package com.j2kb.codev21.domains.user.controller;
 
+import com.j2kb.codev21.domains.user.domain.Token;
 import com.j2kb.codev21.domains.user.dto.JwtTokenDto;
+import com.j2kb.codev21.domains.user.dto.LoginDto;
+import com.j2kb.codev21.domains.user.dto.LoginDto.LoginRes;
 import com.j2kb.codev21.domains.user.dto.UserDto;
 import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.LoginService;
 import com.j2kb.codev21.global.common.CommonResponse;
+import com.j2kb.codev21.global.jwt.JwtFilter;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
@@ -27,11 +31,21 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/login")
-    public CommonResponse<JwtTokenDto.TokenInRes> login(
-        @Valid @RequestBody UserDto.LoginReq loginDto) {
-        return CommonResponse.<JwtTokenDto.TokenInRes>builder()
-            .code("200")
-            .message("ok")
-            .data(loginService.login(loginDto)).build();
+    public ResponseEntity<?> login(
+        @Valid @RequestBody LoginDto.LoginReq loginDto) {
+
+        LoginRes login = loginService.login(loginDto);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER,
+            "Bearer " + (login.getAccessToken()));
+
+        return new ResponseEntity<>(
+            CommonResponse.<LoginRes>builder()
+                .code("200")
+                .message("ok")
+                .data(login).build(),
+            httpHeaders,
+            HttpStatus.OK);
     }
 }

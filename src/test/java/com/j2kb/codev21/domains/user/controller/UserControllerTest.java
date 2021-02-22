@@ -28,8 +28,10 @@ import com.j2kb.codev21.domains.board.controller.BoardController;
 import com.j2kb.codev21.domains.board.dto.BoardDto;
 import com.j2kb.codev21.domains.board.service.BoardService;
 import com.j2kb.codev21.domains.user.dto.UserDto;
+import com.j2kb.codev21.domains.user.dto.UserDto.joinReq;
 import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.updateUserReq;
+import com.j2kb.codev21.domains.user.repository.UserRepository;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,12 +52,21 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-@WebMvcTest(UserController.class)
+//@WebMvcTest(value = UserController.class)
+//@SpringBootTest(classes = {
+//    ObjectMapper.class,UserController.class,UserService.class}
+//    ,properties = {"test.property=dev-property"})
+//@ActiveProfiles("secret,dev")
+@SpringBootTest(properties = "spring.config.location=" +
+    "classpath:/application-dev.properties" +
+    ",classpath:/application-secret.properties")
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class UserControllerTest {
 
@@ -134,7 +145,7 @@ class UserControllerTest {
             getStubUser()
         );
 
-        when(userService.joinUser()).thenReturn(
+        when(userService.joinUser(getStubUser())).thenReturn(
             UserDto.selectUserOnlyIdRes.builder()
                 .id(1L)
                 .build());

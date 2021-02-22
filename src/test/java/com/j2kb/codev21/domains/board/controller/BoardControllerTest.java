@@ -28,6 +28,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -48,7 +49,10 @@ import com.j2kb.codev21.domains.board.dto.BoardDto.Res;
 import com.j2kb.codev21.domains.board.service.BoardService;
 import com.j2kb.codev21.util.MultiValueMapConverter;
 
-@WebMvcTest(BoardController.class)
+//@WebMvcTest(BoardController.class)
+@SpringBootTest(properties = "spring.config.location=" +
+	"classpath:/application-dev.properties" +
+	",classpath:/application-secret.properties")
 @ExtendWith({ MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class })
 public class BoardControllerTest {
 
