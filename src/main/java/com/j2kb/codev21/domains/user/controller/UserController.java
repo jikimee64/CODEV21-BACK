@@ -29,6 +29,7 @@ public class UserController {
     private final UserService userService;
 
     //회원 전체 조회
+
     //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
     @GetMapping("/admin/users")
     public CommonResponse<List<selectUserRes>> selectAllUser() {
@@ -46,7 +47,7 @@ public class UserController {
         return CommonResponse.<selectUserOnlyIdRes>builder()
             .code("200")
             .message("ok")
-            .data(userService.joinUser()).build();
+            .data(userService.joinUser(dto)).build();
     }
 
     //회원 단건 조회
