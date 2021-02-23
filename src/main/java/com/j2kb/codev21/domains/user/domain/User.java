@@ -27,27 +27,30 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="ID")
     private Long id;
 
-    @Column(length = 100, unique = true)
+    @Column(name = "EMAIL", length = 100, unique = true)
     private String email;
 
-    @Column(length = 200)
+    @Column(name = "PASSWORD", length = 200)
     private String password;
 
-    @Column(length = 45)
+    @Column(name = "NAME", length = 45)
     private String name;
 
-    @Column(length = 45)
+    @Column(name = "JOIN_GISU", length = 45)
     private String joinGisu;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", length = 45)
     private Status status;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "FIELD", length = 45)
     private Field field;
 
-    @Column(length = 100)
+    @Column(name = "GITHUB_ID", length = 100)
     private String githubId;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

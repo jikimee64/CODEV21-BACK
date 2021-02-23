@@ -5,7 +5,6 @@ import com.j2kb.codev21.domains.user.dto.JwtTokenDto;
 import com.j2kb.codev21.domains.user.dto.LoginDto;
 import com.j2kb.codev21.domains.user.dto.LoginDto.LoginRes;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.LoginService;
 import com.j2kb.codev21.global.common.CommonResponse;
 import com.j2kb.codev21.global.jwt.JwtFilter;

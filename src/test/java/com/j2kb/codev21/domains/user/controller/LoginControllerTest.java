@@ -18,8 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j2kb.codev21.domains.user.dto.LoginDto;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.LoginReq;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.LoginService;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;
@@ -43,10 +41,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-//@WebMvcTest
-@SpringBootTest(properties = "spring.config.location=" +
-    "classpath:/application-dev.properties" +
-    ",classpath:/application-secret.properties")
+@SpringBootTest
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class LoginControllerTest {
 
@@ -87,11 +82,11 @@ class LoginControllerTest {
         );
 
         when(userService.joinUser(getStubUser())).thenReturn(
-            UserDto.selectUserOnlyIdRes.builder()
+            UserDto.UserIdRes.builder()
                 .id(1L)
                 .build());
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users")
             .content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
@@ -130,8 +125,8 @@ class LoginControllerTest {
             ));
     }
 
-    UserDto.joinReq getStubUser() {
-        return UserDto.joinReq.builder()
+    UserDto.JoinReq getStubUser() {
+        return UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("password")
             .name("김우철")

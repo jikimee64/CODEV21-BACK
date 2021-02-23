@@ -9,7 +9,6 @@ import com.j2kb.codev21.domains.user.domain.Field;
 import com.j2kb.codev21.domains.user.domain.Status;
 import com.j2kb.codev21.domains.user.domain.User;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserOnlyIdRes;
 import com.j2kb.codev21.domains.user.dto.mapper.UserMapper;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
 import java.time.LocalDateTime;
@@ -22,13 +21,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-//@ExtendWith(MockitoExtension.class)
-@SpringBootTest(properties = "spring.config.location=" +
-    "classpath:/application-dev.properties" +
-    ",classpath:/application-secret.properties")
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
 class UserServiceTest {
 
     @Autowired
@@ -39,7 +38,7 @@ class UserServiceTest {
     @DisplayName("DTO에서 Entity로 변환하는 테스트")
     void test_dto_to_event() {
         /* given */
-        UserDto.joinReq dto = UserDto.joinReq.builder()
+        UserDto.JoinReq dto = UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("password")
             .name("이름")
@@ -64,7 +63,7 @@ class UserServiceTest {
     @DisplayName("회원가입")
     void shouldSortedInOrderOfGrade() {
         /* given */
-        UserDto.joinReq dto = UserDto.joinReq.builder()
+        UserDto.JoinReq dto = UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("password")
             .name("이름")

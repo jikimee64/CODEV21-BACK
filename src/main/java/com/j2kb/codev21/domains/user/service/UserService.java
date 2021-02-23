@@ -3,7 +3,8 @@ package com.j2kb.codev21.domains.user.service;
 import com.j2kb.codev21.domains.user.domain.Status;
 import com.j2kb.codev21.domains.user.domain.User;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.DeleteUserCheckRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
 import com.j2kb.codev21.domains.user.dto.mapper.UserMapper;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
 import java.util.ArrayList;
@@ -21,41 +22,41 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     //회원 전체 조회
-    public List<selectUserRes> getUserList(){
+    public List<SelectUserRes> getUserList(){
         return new ArrayList<>();
     }
 
     //회원가입
-    public UserDto.selectUserOnlyIdRes joinUser(UserDto.joinReq dto){
+    public UserDto.UserIdRes joinUser(UserDto.JoinReq dto){
 
         User user = UserMapper.INSTANCE.userDtoToEntity(dto);
         user.changePassword((passwordEncoder.encode(dto.getPassword())));
 
         User save = userRepository.save(user);
 
-        return UserDto.selectUserOnlyIdRes.builder()
+        return UserDto.UserIdRes.builder()
                 .id(save.getId())
                 .build();
     }
 
     //회원 단건 조회
-    public UserDto.selectUserRes getUser(Long userId){
-        return UserDto.selectUserRes.builder().build();
+    public UserDto.SelectUserRes getUser(Long userId){
+        return UserDto.SelectUserRes.builder().build();
     }
 
     //회원수정(유저권한)
-    public UserDto.selectUserRes updateUser(Long userId, UserDto.updateUserReq dto){
-        return UserDto.selectUserRes.builder().build();
+    public UserDto.SelectUserRes updateUser(Long userId, UserDto.UpdateUserReq dto){
+        return UserDto.SelectUserRes.builder().build();
     }
 
     //회원수정(관리자 권한)
-    public UserDto.selectUserRes updateUserByAdmin(Long userId, UserDto.updateUserByAdminReq dto){
-        return UserDto.selectUserRes.builder().build();
+    public UserDto.SelectUserRes updateUserByAdmin(Long userId, UserDto.UpdateUserByAdminReq dto){
+        return UserDto.SelectUserRes.builder().build();
     }
 
     //회원삭제
-    public boolean deleteUser(Long userId){
-        return true;
+    public UserDto.DeleteUserCheckRes deleteUser(Long userId){
+        return UserDto.DeleteUserCheckRes.builder().build();
     }
 
 }
