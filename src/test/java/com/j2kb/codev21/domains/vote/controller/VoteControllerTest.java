@@ -48,10 +48,7 @@ import com.j2kb.codev21.domains.vote.dto.BoardVoteDto.Res;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
 import com.j2kb.codev21.domains.vote.service.VoteService;
 
-//@WebMvcTest(VoteController.class)
-@SpringBootTest(properties = "spring.config.location=" +
-	"classpath:/application-dev.properties" +
-	",classpath:/application-secret.properties")
+@SpringBootTest
 @ExtendWith({ MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class })
 class VoteControllerTest {
 	

@@ -1,22 +1,32 @@
 package com.j2kb.codev21.domains.board.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestPartFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,18 +35,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.headers.HeaderDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.restdocs.request.RequestDocumentation;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.MultiValueMap;
@@ -46,18 +64,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j2kb.codev21.domains.board.dto.BoardDto;
 import com.j2kb.codev21.domains.board.dto.BoardDto.Req;
 import com.j2kb.codev21.domains.board.dto.BoardDto.Res;
+import com.j2kb.codev21.domains.board.dto.BoardDto.TeamInfo;
+import com.j2kb.codev21.domains.board.dto.BoardDto.VoteInfo;
+import com.j2kb.codev21.domains.board.dto.BoardDto.Writer;
 import com.j2kb.codev21.domains.board.service.BoardService;
+import com.j2kb.codev21.global.jwt.JwtAccessDeniedHandler;
+import com.j2kb.codev21.global.jwt.JwtAuthenticationEntryPoint;
+import com.j2kb.codev21.global.jwt.JwtTokenProvider;
 import com.j2kb.codev21.util.MultiValueMapConverter;
 
-//@WebMvcTest(BoardController.class)
-@SpringBootTest(properties = "spring.config.location=" +
-	"classpath:/application-dev.properties" +
-	",classpath:/application-secret.properties")
+@SpringBootTest
 @ExtendWith({ MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class })
 public class BoardControllerTest {
 
 	private MockMvc mockMvc;
-
+	
 	@MockBean BoardService boardService;
 
     @Autowired private ObjectMapper objectMapper;
@@ -78,13 +99,27 @@ public class BoardControllerTest {
 	@Test
 	void find_all_boardList_ByGisu() throws Exception {
 		//given
-
 		List<Res> resList = Stream.iterate(BoardDto.Res.builder()
 							.id(0)
 							.content("content0")
 							.title("title0")
 							.gisu("1")
 							.summary("summary0")
+							.writerInfo(Writer.builder()
+												.userId(0l)
+												.userName("username0")
+												.build())
+							.teamInfo(TeamInfo.builder()
+												.teamName("teamname0")
+												.teamMembers(List.of("username0", "member0", "member1", "member2"))
+												.build())
+							.image("someImageUrl")
+							.voteInfo(VoteInfo.builder()
+												.voting(false)
+												.boardVoteId(null)
+												.build())
+							.created_At(LocalDateTime.now())
+							.updated_At(LocalDateTime.now())
 							.build()
 							, res -> {
 								long curId = res.getId() + 1;
@@ -95,24 +130,60 @@ public class BoardControllerTest {
 										.title("title" + curId)
 										.gisu(String.valueOf(1 + (curId % 2)))
 										.summary("summary" + curId)
+										.writerInfo(Writer.builder()
+												.userId(curId)
+												.userName("username" + curId)
+												.build())
+										.teamInfo(TeamInfo.builder()
+												.teamName("teamname" + curId)
+												.teamMembers(List.of("username" + curId, "member0", "member1", "member2"))
+												.build())
+										.image("someImageUrl")
+										.voteInfo(VoteInfo.builder()
+												.voting(false)
+												.boardVoteId(null)
+												.build())
+										.created_At(LocalDateTime.now())
+										.updated_At(LocalDateTime.now())
 										.build();
-							}).limit(5)
+							}).limit(3)
 				.collect(Collectors.toList());
 
 		when(boardService.getBoardList(anyString()))
 			.thenReturn(resList);
 
 		//when
+        ResultActions result = this.mockMvc
+        								.perform(RestDocumentationRequestBuilders.get("/api/v1/boards")
+        										.param("gisu" , "value")
+        										.accept(MediaType.APPLICATION_JSON));
 		//then
-        this.mockMvc
-        		.perform(RestDocumentationRequestBuilders.get("/api/v1/boards")
-        				.param("gisu" , "value")
-        				.accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(document("BoardController/getBoardList",
+        result
+        	.andExpect(status().isOk())
+        	.andDo(document("BoardController/getBoardList",
                 		preprocessRequest(prettyPrint()),
                 		preprocessResponse(prettyPrint()),
-                		requestParameters(parameterWithName("gisu").description("검색 조건에 사용할 기수 정보"))));
+                		requestParameters(parameterWithName("gisu").description("검색 조건에 사용할 기수 정보")),
+                		responseFields(fieldWithPath("code").description("code(200,400...)"),
+            					fieldWithPath("message").description("message(success...)"),
+            					subsectionWithPath("data[]").description("Response 데이터"),
+        						fieldWithPath("data[].id").description("게시글 id"),
+        						fieldWithPath("data[].gisu").description("기수 카테고리 정보"),
+        						fieldWithPath("data[].title").description("제목"),
+        						fieldWithPath("data[].content").description("내용"),
+        						fieldWithPath("data[].summary").description("내용 요약"),
+        						fieldWithPath("data[].writerInfo").description("작성자 정보"),
+        						fieldWithPath("data[].writerInfo.userId").description("작성자 id"),
+        						fieldWithPath("data[].writerInfo.userName").description("작성자 이름"),
+        						fieldWithPath("data[].teamInfo").description("게시글에 대한 팀 정보"),
+        						fieldWithPath("data[].teamInfo.teamName").description("팀 이름"),
+        						fieldWithPath("data[].teamInfo.teamMembers").description("팀 멤버들의 이름"),
+        						fieldWithPath("data[].image").description("게시글의 이미지 URL"),
+        						fieldWithPath("data[].voteInfo").description("게시글의 투표 정보"),
+        						fieldWithPath("data[].voteInfo.voting").description("투표가 진행중인지를 나타냄"),
+        						fieldWithPath("data[].voteInfo.boardVoteId").description("게시글의 게시글_투표 id"),
+        						fieldWithPath("data[].created_At").description("투표가 생성된 날짜"),
+        						fieldWithPath("data[].updated_At").description("투표가 수정된 날짜"))));
 
 	}
 
@@ -122,24 +193,60 @@ public class BoardControllerTest {
 		//given
 		when(boardService.getBoard(anyLong()))
 			.thenReturn(BoardDto.Res.builder()
-					.id(1L)
-					.content("content")
-					.title("title")
-					.gisu("1")
-					.summary("summary")
-					.build());
+						.id(1L)
+						.content("content")
+						.title("title")
+						.gisu("1")
+						.summary("summary")
+						.writerInfo(Writer.builder()
+							.userId(0l)
+							.userName("username0")
+							.build())
+						.teamInfo(TeamInfo.builder()
+							.teamName("teamname0")
+							.teamMembers(List.of("username0", "member0", "member1", "member2"))
+							.build())
+						.image("someImageUrl")
+						.voteInfo(VoteInfo.builder()
+							.voting(false)
+							.boardVoteId(null)
+							.build())
+						.created_At(LocalDateTime.now())
+						.updated_At(LocalDateTime.now())
+						.build());
 
 
 		//when
+		ResultActions result = this.mockMvc
+				  					.perform(RestDocumentationRequestBuilders.get("/api/v1/boards/{boardId}", 0l)
+				  							.accept(MediaType.APPLICATION_JSON));
 		//then
-        this.mockMvc
-        		.perform(RestDocumentationRequestBuilders.get("/api/v1/boards/{id}", 1l)
-        				.accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(document("BoardController/getBoard",
+        result
+        	.andExpect(status().isOk())
+        	.andDo(document("BoardController/getBoard",
                 		preprocessRequest(prettyPrint()),
                 		preprocessResponse(prettyPrint()),
-                		pathParameters(parameterWithName("id").description("조회할 프로젝트 게시글 번호"))));
+                		pathParameters(parameterWithName("boardId").description("조회할 프로젝트 게시글 번호")),
+                		responseFields(fieldWithPath("code").description("code(200,400...)"),
+            					fieldWithPath("message").description("message(success...)"),
+            					subsectionWithPath("data").description("Response 데이터"),
+        						fieldWithPath("data.id").description("게시글 id"),
+        						fieldWithPath("data.gisu").description("기수 카테고리 정보"),
+        						fieldWithPath("data.title").description("제목"),
+        						fieldWithPath("data.content").description("내용"),
+        						fieldWithPath("data.summary").description("내용 요약"),
+        						fieldWithPath("data.writerInfo").description("작성자 정보"),
+        						fieldWithPath("data.writerInfo.userId").description("작성자 id"),
+        						fieldWithPath("data.writerInfo.userName").description("작성자 이름"),
+        						fieldWithPath("data.teamInfo").description("게시글에 대한 팀 정보"),
+        						fieldWithPath("data.teamInfo.teamName").description("팀 이름"),
+        						fieldWithPath("data.teamInfo.teamMembers").description("팀 멤버들의 이름"),
+        						fieldWithPath("data.image").description("게시글의 이미지 URL"),
+        						fieldWithPath("data.voteInfo").description("게시글의 투표 정보"),
+        						fieldWithPath("data.voteInfo.voting").description("투표가 진행중인지를 나타냄"),
+        						fieldWithPath("data.voteInfo.boardVoteId").description("게시글의 게시글_투표 id"),
+        						fieldWithPath("data.created_At").description("투표가 생성된 날짜"),
+        						fieldWithPath("data.updated_At").description("투표가 수정된 날짜"))));
 
 	}
 
@@ -147,26 +254,71 @@ public class BoardControllerTest {
     @Test
     void insert_Board() throws Exception {
     	//given
-    	MockMultipartFile image = new MockMultipartFile("image", "filename-1.jpeg", "image/jpeg", "<<jpeg data>>".getBytes());
-    	MultiValueMap<String, String> params = MultiValueMapConverter.convert(objectMapper, getMockBoardReq());
-    	 params.remove("image");
-
-    	 String content = objectMapper.writeValueAsString(getMockBoardReq());
-
-    	 MockMultipartFile json = new MockMultipartFile("meta-data", "meta-data", "application/json", content.getBytes(StandardCharsets.UTF_8));
+    	MockMultipartFile image = new MockMultipartFile("image-file", "filename-1.jpeg", "image/jpeg", "<<jpeg data>>".getBytes());
+    	Req mockBoardReq = getMockBoardReq();
+    	String content = objectMapper.writeValueAsString(mockBoardReq);
+    	MockMultipartFile json = new MockMultipartFile("json-data", "json-data", "application/json", content.getBytes(StandardCharsets.UTF_8));
+        
+    	when(boardService.insertBoard(any(BoardDto.Req.class)))
+    	.thenReturn(BoardDto.Res.builder()
+    					.id(0l)
+    					.gisu(mockBoardReq.getContent())
+    					.title(mockBoardReq.getTitle())
+    					.content(mockBoardReq.getContent())
+    					.summary(mockBoardReq.getSummary())
+    					.writerInfo(new Writer(0l, "username"))
+    					.teamInfo(new TeamInfo("teamname", List.of("username", "member0", "member1", "member2")))
+    					.voteInfo(new VoteInfo(false, null))
+    					.created_At(LocalDateTime.now())
+    					.updated_At(LocalDateTime.now())
+    					.build());
+    	
     	//when
+        ResultActions result = this.mockMvc.perform(RestDocumentationRequestBuilders.fileUpload("/api/v1/boards")
+             											.file(json)
+             											.file(image)
+             											.contentType(MediaType.MULTIPART_MIXED)
+             											.accept(MediaType.APPLICATION_JSON)
+             											.characterEncoding("UTF-8")
+             											.header("Authorization", "Bear {token값}"));
+        
+
+        
         //then
-        this.mockMvc.perform(multipart("/api/v1/boards")
-        	.file(image)
-        	.params(params)
-            .contentType(MediaType.MULTIPART_MIXED)
-            .accept(MediaType.APPLICATION_JSON)
-            .characterEncoding("UTF-8"))
+        result
             .andExpect(status().isOk())
             .andDo(document("BoardController/insertBoard",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
-					requestParts(partWithName("image").description("등록할 이미지"))));
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+					requestParts(partWithName("json-data").description("등록할 게시글 데이터"), 
+							partWithName("image-file").description("등록할 이미지 파일")),
+					requestPartFields("json-data",
+							fieldWithPath("gisu").description("기수 정보"),
+							fieldWithPath("title").description("게시글 제목"),
+							fieldWithPath("content").description("게시글 내용"),
+							fieldWithPath("summary").description("게시글 요약"),
+							fieldWithPath("teamId").description("팀 id")),
+            		responseFields(fieldWithPath("code").description("code(200,400...)"),
+        					fieldWithPath("message").description("message(success...)"),
+        					subsectionWithPath("data").description("Response 데이터"),
+    						fieldWithPath("data.id").description("게시글 id"),
+    						fieldWithPath("data.gisu").description("기수 카테고리 정보"),
+    						fieldWithPath("data.title").description("제목"),
+    						fieldWithPath("data.content").description("내용"),
+    						fieldWithPath("data.summary").description("내용 요약"),
+    						fieldWithPath("data.writerInfo").description("작성자 정보"),
+    						fieldWithPath("data.writerInfo.userId").description("작성자 id"),
+    						fieldWithPath("data.writerInfo.userName").description("작성자 이름"),
+    						fieldWithPath("data.teamInfo").description("게시글에 대한 팀 정보"),
+    						fieldWithPath("data.teamInfo.teamName").description("팀 이름"),
+    						fieldWithPath("data.teamInfo.teamMembers").description("팀 멤버들의 이름"),
+    						fieldWithPath("data.image").description("게시글의 이미지 URL"),
+    						fieldWithPath("data.voteInfo").description("게시글의 투표 정보"),
+    						fieldWithPath("data.voteInfo.voting").description("투표가 진행중인지를 나타냄"),
+    						fieldWithPath("data.voteInfo.boardVoteId").description("게시글의 게시글_투표 id"),
+    						fieldWithPath("data.created_At").description("투표가 생성된 날짜"),
+    						fieldWithPath("data.updated_At").description("투표가 수정된 날짜"))));
     }
 
 
@@ -174,32 +326,78 @@ public class BoardControllerTest {
     @Test
     void update_Board() throws Exception {
     	//given
-    	MockMultipartFile image = new MockMultipartFile("image", "filename-1.jpeg", "image/jpeg", "<<jpeg data>>".getBytes());
-    	MultiValueMap<String, String> params = MultiValueMapConverter.convert(objectMapper, getMockBoardReq());
-        params.remove("image");
+    	MockMultipartFile image = new MockMultipartFile("image-file", "filename-1.jpeg", "image/jpeg", "<<jpeg data>>".getBytes());
+    	
+    	Req mockBoardReq = getMockBoardReq();
+    	String content = objectMapper.writeValueAsString(mockBoardReq);
+   	 	MockMultipartFile json = new MockMultipartFile("json-data", "json-data", "application/json", content.getBytes(StandardCharsets.UTF_8));
+        
+   	 	when(boardService.updateBoard(anyLong() , any(BoardDto.Req.class)))
+    	.thenReturn(BoardDto.Res.builder()
+    					.id(0l)
+    					.gisu(mockBoardReq.getContent())
+    					.title(mockBoardReq.getTitle())
+    					.content(mockBoardReq.getContent())
+    					.summary(mockBoardReq.getSummary())
+    					.writerInfo(new Writer(0l, "username"))
+    					.teamInfo(new TeamInfo("teamname", List.of("username", "member0", "member1", "member2")))
+    					.voteInfo(new VoteInfo(false, null))
+    					.created_At(LocalDateTime.now().minusDays(3l))
+    					.updated_At(LocalDateTime.now())
+    					.build());
 
         //when
-        //then
-
         // multipart() 혹은 fileUpload()의 HTTP 메소드는 POST로 하드코딩 되어 있음, 하여 with()을 통해 PUT으로 메소드를 수정해준다.
-        MockMultipartHttpServletRequestBuilder fileUpload = RestDocumentationRequestBuilders.fileUpload("/api/v1/boards/{id}", 1l);
+        MockMultipartHttpServletRequestBuilder fileUpload = RestDocumentationRequestBuilders.fileUpload("/api/v1/boards/{boardId}", 0l);
         fileUpload.with(request -> {
-        	request.setMethod("PUT");
+        	request.setMethod("PATCH");
         	return request;
-        });
-
-        this.mockMvc.perform(fileUpload
-        	.file(image)
-        	.params(params)
-            .contentType(MediaType.MULTIPART_MIXED)
-            .accept(MediaType.APPLICATION_JSON)
-            .characterEncoding("UTF-8"))
-            .andExpect(status().isOk())
+        });      
+        
+        ResultActions result = this.mockMvc.perform(fileUpload
+            										.file(json)
+            										.file(image)
+            										.contentType(MediaType.MULTIPART_MIXED)
+            										.accept(MediaType.APPLICATION_JSON)
+            										.characterEncoding("UTF-8")
+            										.header("Authorization", "Bear {token값}"));
+                	
+        //then
+        result
+        	.andExpect(status().isOk())
             .andDo(document("BoardController/updateBoard",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
-            		pathParameters(parameterWithName("id").description("수정할 프로젝트 게시글 번호")),
-					requestParts(partWithName("image").description("수정할 이미지"))));
+            		pathParameters(parameterWithName("boardId").description("수정할 프로젝트 게시글 번호")),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+					requestParts(partWithName("json-data").description("수정할 게시글 데이터"), 
+							partWithName("image-file").description("수정할 이미지 파일")),
+					requestPartFields("json-data",
+							fieldWithPath("gisu").description("기수 정보"),
+							fieldWithPath("title").description("게시글 제목"),
+							fieldWithPath("content").description("게시글 내용"),
+							fieldWithPath("summary").description("게시글 요약"),
+							fieldWithPath("teamId").description("팀 id")),
+            		responseFields(fieldWithPath("code").description("code(200,400...)"),
+        					fieldWithPath("message").description("message(success...)"),
+        					subsectionWithPath("data").description("Response 데이터"),
+    						fieldWithPath("data.id").description("게시글 id"),
+    						fieldWithPath("data.gisu").description("기수 카테고리 정보"),
+    						fieldWithPath("data.title").description("제목"),
+    						fieldWithPath("data.content").description("내용"),
+    						fieldWithPath("data.summary").description("내용 요약"),
+    						fieldWithPath("data.writerInfo").description("작성자 정보"),
+    						fieldWithPath("data.writerInfo.userId").description("작성자 id"),
+    						fieldWithPath("data.writerInfo.userName").description("작성자 이름"),
+    						fieldWithPath("data.teamInfo").description("게시글에 대한 팀 정보"),
+    						fieldWithPath("data.teamInfo.teamName").description("팀 이름"),
+    						fieldWithPath("data.teamInfo.teamMembers").description("팀 멤버들의 이름"),
+    						fieldWithPath("data.image").description("게시글의 이미지 URL"),
+    						fieldWithPath("data.voteInfo").description("게시글의 투표 정보"),
+    						fieldWithPath("data.voteInfo.voting").description("투표가 진행중인지를 나타냄"),
+    						fieldWithPath("data.voteInfo.boardVoteId").description("게시글의 게시글_투표 id"),
+    						fieldWithPath("data.created_At").description("투표가 생성된 날짜"),
+    						fieldWithPath("data.updated_At").description("투표가 수정된 날짜"))));
     }
 
     @DisplayName("프로젝트 삭제")
@@ -210,14 +408,20 @@ public class BoardControllerTest {
     			.thenReturn(true);
 
         //when
+        ResultActions result = this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/boards/{boardId}", 0l)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"));
         //then
-        this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/boards/{id}", 1l)
-            .accept(MediaType.APPLICATION_JSON))
+        result
             .andExpect(status().isOk())
             .andDo(document("BoardController/deleteBoard",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
-            		pathParameters(parameterWithName("id").description("삭제할 프로젝트 게시글 번호"))));
+            		pathParameters(parameterWithName("boardId").description("삭제할 프로젝트 게시글 번호")),
+            		responseFields(fieldWithPath("code").description("code(200,400...)"),
+        					fieldWithPath("message").description("message(success...)"),
+        					subsectionWithPath("data").description("Response 데이터"),
+    						fieldWithPath("data.result").description("삭제 성공 여부"))));
     }
 
 
@@ -227,7 +431,7 @@ public class BoardControllerTest {
 			.title("someTitle")
 			.content("someContent")
 			.summary("someSummary")
-			.teamId(1l)
+			.teamId(0l)
 			.build();
 	}
 }

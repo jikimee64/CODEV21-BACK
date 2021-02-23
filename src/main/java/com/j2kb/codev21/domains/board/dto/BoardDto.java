@@ -32,9 +32,6 @@ public class BoardDto {
 		private String summary;
 
 		private long teamId;
-
-		private MultipartFile image;
-
 	}
 	
     @Data
@@ -87,7 +84,7 @@ public class BoardDto {
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
     public static class Writer {
 
-    	private String userId;
+    	private long userId;
     	
     	private String userName;
     }
