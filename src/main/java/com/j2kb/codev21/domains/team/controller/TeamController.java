@@ -3,10 +3,9 @@ package com.j2kb.codev21.domains.team.controller;
 
 import com.j2kb.codev21.domains.team.dto.TeamDto;
 import com.j2kb.codev21.domains.team.dto.TeamDto.SelectTeamRes;
-import com.j2kb.codev21.domains.team.dto.TeamDto.teamIdRes;
+import com.j2kb.codev21.domains.team.dto.TeamDto.TeamIdRes;
 import com.j2kb.codev21.domains.team.service.TeamService;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.UserService;
 import com.j2kb.codev21.global.common.CommonResponse;
 import java.util.HashMap;
@@ -55,10 +54,10 @@ public class TeamController {
 
     //팀 등록
     @PostMapping("/teams")
-    public CommonResponse<teamIdRes> joinTeam(
-        @RequestBody @Valid TeamDto.JoinTeam dto) {
+    public CommonResponse<SelectTeamRes> joinTeam(
+        @RequestBody @Valid TeamDto.Req dto) {
 
-        return CommonResponse.<teamIdRes>builder()
+        return CommonResponse.<SelectTeamRes>builder()
             .code("200")
             .message("ok")
             .data(teamService.joinTeam(dto)).build();
@@ -69,7 +68,7 @@ public class TeamController {
     @PatchMapping(value = "/admin/teams/{teamId}")
     public CommonResponse<SelectTeamRes> updateTeamByAdmin(
         @PathVariable("teamId") final Long teamId,
-        @RequestBody @Valid TeamDto.updateTeamByAdminReq dto) {
+        @RequestBody @Valid TeamDto.Req dto) {
 
         return CommonResponse.<SelectTeamRes>builder()
             .code("200")
@@ -79,17 +78,14 @@ public class TeamController {
 
     //팀 삭제
     //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
-    @DeleteMapping(value = { "/admin/teams/{teamId}"})
-    public CommonResponse<Map> deleteTeam(
+    @DeleteMapping(value = {"/admin/teams/{teamId}"})
+    public CommonResponse<TeamDto.DeleteTeamCheckRes> deleteTeam(
         @PathVariable("teamId") final Long teamId) {
 
-        Map<String, Boolean> map = new HashMap<String, Boolean>();
-        map.put("result", teamService.deleteTeam(teamId));
-
-        return CommonResponse.<Map>builder()
+        return CommonResponse.<TeamDto.DeleteTeamCheckRes>builder()
             .code("200")
             .message("ok")
-            .data(map)
+            .data(teamService.deleteTeam(teamId))
             .build();
     }
 

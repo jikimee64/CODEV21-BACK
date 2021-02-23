@@ -2,7 +2,6 @@ package com.j2kb.codev21.domains.user.controller;
 
 import com.j2kb.codev21.domains.user.domain.SocialLoginType;
 import com.j2kb.codev21.domains.user.dto.AuthDto.GithubCheckRes;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.OauthService;
 import com.j2kb.codev21.global.common.CommonResponse;
 import java.util.List;

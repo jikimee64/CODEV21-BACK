@@ -16,7 +16,7 @@ public interface UserMapper{
         @Mapping(target = "status", constant = "ACTIVE"),
         @Mapping(target = "field", constant = "NONE")
     })
-    User userDtoToEntity(UserDto.joinReq dto);
+    User userDtoToEntity(UserDto.JoinReq dto);
 
 //    @Mapping(target = "img", expression = "java(order.getProduct() + \".jpg\")") // 4
 //    UserDto.joinReq userToJoinReq(User order);

@@ -38,7 +38,7 @@ class UserServiceTest {
     @DisplayName("DTO에서 Entity로 변환하는 테스트")
     void test_dto_to_event() {
         /* given */
-        UserDto.joinReq dto = UserDto.joinReq.builder()
+        UserDto.JoinReq dto = UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("password")
             .name("이름")
@@ -63,7 +63,7 @@ class UserServiceTest {
     @DisplayName("회원가입")
     void shouldSortedInOrderOfGrade() {
         /* given */
-        UserDto.joinReq dto = UserDto.joinReq.builder()
+        UserDto.JoinReq dto = UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("password")
             .name("이름")

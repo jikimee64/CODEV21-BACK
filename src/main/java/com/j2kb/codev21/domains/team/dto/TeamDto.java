@@ -21,7 +21,6 @@ public class TeamDto {
         private Long id;
         private String gisu;
         private String teamName;
-        private String isLeader;
         private List<TeamMemberList> teamMemberLists;
     }
 
@@ -29,19 +28,15 @@ public class TeamDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class JoinTeam{
+    public static class Req{
 
         @NotBlank(message = "기수는 필수 입력 값입니다.")
         @Size(max = 12, message = "기수는 12자 이하로 입력해주세요.")
         private String gisu;
 
         @NotBlank(message = "팀이름은 필수 입력 값입니다.")
-        @Size(max = 30, message = "아이디는 30자 이하로 입력해주세요.")
+        @Size(max = 30, message = "팀이름은 30자 이하로 입력해주세요.")
         private String teamName;
-
-        @NotBlank(message = "리더 필수 입력 값입니다.")
-        @Size(max = 15, message = "비밀번호는 15자 이하로 입력해주세요.")
-        private String isLeader;
 
         private List<TeamMemberList> teamMemberLists = new ArrayList<>();
     }
@@ -53,36 +48,26 @@ public class TeamDto {
     public static class TeamMemberList{
         @NotBlank(message = "멤버명은 필수 입력 값입니다.")
         @Size(max = 12, message = "멤버명은 12자 이하로 입력해주세요.")
-        private String name;
+        private Long userId;
+
+        @NotBlank(message = "리더 여부는 필수 입력 값입니다.(true, false)")
+        private Boolean isLeader;
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class updateTeamByAdminReq {
-
-        @NotBlank(message = "기수는 필수 입력 값입니다.")
-        @Size(max = 12, message = "기수는 12자 이하로 입력해주세요.")
-        private String gisu;
-
-        @NotBlank(message = "팀이름은 필수 입력 값입니다.")
-        @Size(max = 30, message = "아이디는 30자 이하로 입력해주세요.")
-        private String teamName;
-
-        @NotBlank(message = "리더 필수 입력 값입니다.")
-        @Size(max = 15, message = "비밀번호는 15자 이하로 입력해주세요.")
-        private String isLeader;
-
-        private List<TeamMemberList> teamMemberLists = new ArrayList<>();
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class teamIdRes {
+    public static class TeamIdRes {
         private Long id;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class DeleteTeamCheckRes {
+        private Boolean checkFlag;
     }
 
 

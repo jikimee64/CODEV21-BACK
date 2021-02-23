@@ -22,7 +22,7 @@ public class LoginDto {
         public String email;
 
         @NotBlank(message = "패스워드는 필수 입력 값입니다.")
-        @Size(min = 3, max = 50)
+        @Size(min = 3, max = 50, message = "세글자 이상 50자 이하로 입력해주세요.")
         public String password;
     }
 

@@ -1,8 +1,9 @@
 package com.j2kb.codev21.domains.user.controller;
 
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
-import com.j2kb.codev21.domains.user.dto.UserDto.userIdRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.DeleteUserCheckRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.UserIdRes;
 import com.j2kb.codev21.domains.user.service.UserService;
 import com.j2kb.codev21.global.common.CommonResponse;
 import java.util.HashMap;
@@ -31,8 +32,8 @@ public class UserController {
     //회원 전체 조회
     //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
     @GetMapping("/admin/users")
-    public CommonResponse<List<selectUserRes>> selectAllUser() {
-        return CommonResponse.<List<selectUserRes>>builder()
+    public CommonResponse<List<SelectUserRes>> selectAllUser() {
+        return CommonResponse.<List<SelectUserRes>>builder()
             .code("200")
             .message("ok")
             .data(userService.getUserList()).build();
@@ -40,10 +41,10 @@ public class UserController {
 
     //회원가입
     @PostMapping("/users")
-    public CommonResponse<userIdRes> joinUser(
-        @RequestBody @Valid UserDto.joinReq dto) {
+    public CommonResponse<UserIdRes> joinUser(
+        @RequestBody @Valid UserDto.JoinReq dto) {
 
-        return CommonResponse.<userIdRes>builder()
+        return CommonResponse.<UserIdRes>builder()
             .code("200")
             .message("ok")
             .data(userService.joinUser(dto)).build();
@@ -51,10 +52,10 @@ public class UserController {
 
     //회원 단건 조회
     @GetMapping(value = {"/users/{userId}", "/admin/users/{userId}"})
-    public CommonResponse<selectUserRes> selectUser(
+    public CommonResponse<SelectUserRes> selectUser(
         @PathVariable("userId") Long userId) {
 
-        return CommonResponse.<selectUserRes>builder()
+        return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
             .data(userService.getUser(userId)).build();
@@ -62,11 +63,11 @@ public class UserController {
 
     //회원수정(유저 권한)
     @PatchMapping(value = "/users/{userId}")
-    public CommonResponse<selectUserRes> updateUser(
+    public CommonResponse<SelectUserRes> updateUser(
         @PathVariable("userId") Long userId,
-        @RequestBody @Valid UserDto.updateUserReq dto) {
+        @RequestBody @Valid UserDto.UpdateUserReq dto) {
 
-        return CommonResponse.<selectUserRes>builder()
+        return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
             .data(userService.updateUser(userId, dto)).build();
@@ -75,11 +76,11 @@ public class UserController {
     //회원수정(관리자 권한)
     //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
     @PatchMapping(value = "/admin/users/{userId}")
-    public CommonResponse<selectUserRes> updateUserByAdmin(
+    public CommonResponse<SelectUserRes> updateUserByAdmin(
         @PathVariable("userId") final Long userId,
-        @RequestBody @Valid UserDto.updateUserByAdminReq dto) {
+        @RequestBody @Valid UserDto.UpdateUserByAdminReq dto) {
 
-        return CommonResponse.<selectUserRes>builder()
+        return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
             .data(userService.updateUserByAdmin(userId, dto)).build();
@@ -87,16 +88,14 @@ public class UserController {
 
     //회원삭제
     @DeleteMapping(value = {"/users/{userId}", "/admin/users/{userId}"})
-    public CommonResponse<Map> deleteUser(
+    public CommonResponse<UserDto.DeleteUserCheckRes> deleteUser(
         @PathVariable("userId") final Long userId) {
 
-        Map<String, Boolean> map = new HashMap<String, Boolean>();
-        map.put("result", userService.deleteUser(userId));
 
-        return CommonResponse.<Map>builder()
+        return CommonResponse.<UserDto.DeleteUserCheckRes>builder()
             .code("200")
             .message("ok")
-            .data(map)
+            .data(userService.deleteUser(userId))
             .build();
     }
 

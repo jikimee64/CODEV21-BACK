@@ -17,7 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j2kb.codev21.domains.user.domain.SocialLoginType;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
 import com.j2kb.codev21.domains.user.service.OauthService;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;

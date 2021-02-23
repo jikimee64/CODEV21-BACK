@@ -17,13 +17,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j2kb.codev21.domains.team.dto.TeamDto;
-import com.j2kb.codev21.domains.team.dto.TeamDto.JoinTeam;
 import com.j2kb.codev21.domains.team.dto.TeamDto.SelectTeamRes;
 import com.j2kb.codev21.domains.team.dto.TeamDto.TeamMemberList;
 import com.j2kb.codev21.domains.team.service.TeamService;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
-import com.j2kb.codev21.domains.user.dto.UserDto.updateUserReq;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +82,6 @@ class TeamControllerTest {
                 .id(1L)
                 .gisu("1기")
                 .teamName("팀이름")
-                .isLeader("김우철")
                 .teamMemberLists(getStubMemberList())
                 .build()
         );
@@ -93,7 +89,7 @@ class TeamControllerTest {
         when(teamService.getTeamList())
             .thenReturn(teamList);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/teams/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/teams")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andDo(document("TeamController/selectAllTeam",
@@ -105,8 +101,8 @@ class TeamControllerTest {
                     fieldWithPath("data[0].id").description("팀 고유번호"),
                     fieldWithPath("data[0].gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data[0].teamName").description("팀이름"),
-                    fieldWithPath("data[0].isLeader").description("The leader's name"),
-                    fieldWithPath("data[0].teamMemberLists[0].name").description("팀 멤버")
+                    fieldWithPath("data[0].teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("data[0].teamMemberLists[0].isLeader").description("리더 여부(true, false)")
                 )
             ));
     }
@@ -122,7 +118,6 @@ class TeamControllerTest {
                 .id(1L)
                 .gisu("1기")
                 .teamName("팀이름")
-                .isLeader("김우철")
                 .teamMemberLists(getStubMemberList())
                 .build();
 
@@ -143,8 +138,8 @@ class TeamControllerTest {
                     fieldWithPath("data.id").description("팀 고유번호"),
                     fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
-                    fieldWithPath("data.isLeader").description("The leader's name"),
-                    fieldWithPath("data.teamMemberLists[0].name").description("팀 멤버")
+                    fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("data.teamMemberLists[0].isLeader").description("리더 여부(true, false)")
                 ),
                 pathParameters(parameterWithName("teamId").description("조회할 팀번호"))));
     }
@@ -154,11 +149,10 @@ class TeamControllerTest {
     @Test
     void join() throws Exception {
 
-        TeamDto.JoinTeam team =
-            TeamDto.JoinTeam.builder()
+        TeamDto.Req team =
+            TeamDto.Req.builder()
                 .gisu("1기")
                 .teamName("팀이름")
-                .isLeader("김우철")
                 .teamMemberLists(getStubMemberList())
                 .build();
 
@@ -167,11 +161,14 @@ class TeamControllerTest {
         );
 
         when(teamService.joinTeam(team)).thenReturn(
-            TeamDto.teamIdRes.builder()
+            TeamDto.SelectTeamRes.builder()
                 .id(1L)
+                .gisu("2기")
+                .teamName("J2KB")
+                .teamMemberLists(getStubMemberList())
                 .build());
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/teams/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/teams")
             .content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
@@ -182,7 +179,11 @@ class TeamControllerTest {
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
-                    fieldWithPath("data.id").description("The team's id(고유번호)")
+                    fieldWithPath("data.id").description("팀고유번호"),
+                    fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
+                    fieldWithPath("data.teamName").description("팀이름"),
+                    fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("data.teamMemberLists[0].isLeader").description("리더 여부(true, false)")
                 )
             ));
     }
@@ -191,10 +192,9 @@ class TeamControllerTest {
     @Test
     void updateUserByAdmin() throws Exception {
 
-        TeamDto.updateTeamByAdminReq dto = TeamDto.updateTeamByAdminReq.builder()
+        TeamDto.Req dto = TeamDto.Req.builder()
             .gisu("2기(수정)")
             .teamName("팀이름(수정)")
-            .isLeader("유경호(수정)")
             .teamMemberLists(getStubMemberList())
             .build();
 
@@ -207,7 +207,6 @@ class TeamControllerTest {
                 .id(1L)
                 .gisu("2기(수정)")
                 .teamName("팀이름(수정)")
-                .isLeader("유경호(수정)")
                 .teamMemberLists(getStubMemberList())
                 .build());
 
@@ -226,23 +225,28 @@ class TeamControllerTest {
                     fieldWithPath("data.id").description("팀 고유번호"),
                     fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
-                    fieldWithPath("data.isLeader").description("The leader's name"),
-                    fieldWithPath("data.teamMemberLists[0].name").description("팀 멤버")
+                    fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("data.teamMemberLists[0].isLeader").description("리더 여부(true, false)")
                 ),
                 pathParameters(parameterWithName("teamId").description("수정할 팀번호"))));
     }
 
-    @DisplayName("회원 삭제")
+    @DisplayName("팀 삭제")
     @Test
     void deleteUser() throws Exception {
         //given
         when(teamService.deleteTeam(anyLong()))
-            .thenReturn(true);
+            .thenReturn(
+                TeamDto.DeleteTeamCheckRes.builder()
+                    .checkFlag(true)
+                    .build()
+            );
 
         //when
         //then
-        this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/admin/teams/{teamId}", 1L)
-            .accept(MediaType.APPLICATION_JSON))
+        this.mockMvc
+            .perform(RestDocumentationRequestBuilders.delete("/api/v1/admin/teams/{teamId}", 1L)
+                .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andDo(document("TeamController/deleteTeam",
                 preprocessRequest(prettyPrint()),
@@ -250,7 +254,7 @@ class TeamControllerTest {
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
-                    fieldWithPath("data.result").description("삭제유무(true, false)")
+                    fieldWithPath("data.checkFlag").description("삭제유무(true, false)")
                 ),
                 pathParameters(parameterWithName("teamId").description("삭제할 팀 번호"))));
     }
@@ -259,17 +263,20 @@ class TeamControllerTest {
         List<TeamMemberList> memberList = new ArrayList<>();
         memberList.add(
             TeamMemberList.builder()
-                .name("김우철")
+                .userId(1L)
+                .isLeader(true)
                 .build()
         );
         memberList.add(
             TeamMemberList.builder()
-                .name("고재영")
+                .userId(2L)
+                .isLeader(false)
                 .build()
         );
         memberList.add(
             TeamMemberList.builder()
-                .name("유경호")
+                .userId(3L)
+                .isLeader(false)
                 .build()
         );
         return memberList;

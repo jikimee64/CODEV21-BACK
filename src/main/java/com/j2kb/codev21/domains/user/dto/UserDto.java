@@ -14,7 +14,7 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class joinReq{
+    public static class JoinReq{
         @NotBlank(message = "아이디는 필수 입력 값입니다.")
         @Email(message = "아이디 형식에 맞지 않습니다.")
         @Size(max = 30, message = "아이디는 30자 이하로 입력해주세요.")
@@ -43,11 +43,7 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class LoginReq {
-
-        @NotBlank(message = "아이디는 필수 입력 값입니다.")
-        @Email
-        private String email;
+    public static class UpdateUserReq {
 
         @NotBlank(message = "패스워드는 필수 입력 값입니다.")
         @Size(min = 3, max = 50)
@@ -58,18 +54,7 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class updateUserReq {
-
-        @NotBlank(message = "패스워드는 필수 입력 값입니다.")
-        @Size(min = 3, max = 50)
-        private String password;
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class updateUserByAdminReq {
+    public static class UpdateUserByAdminReq {
         @NotBlank(message = "유저상태는 필수 입력 값입니다.")
         private String status;
         @NotBlank(message = "필드는 필수 입력 값입니다.")
@@ -82,7 +67,7 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class selectUserRes {
+    public static class SelectUserRes {
         private Long id;
         private String email;
         private String name;
@@ -96,8 +81,16 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class userIdRes {
+    public static class UserIdRes {
         private Long id;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class DeleteUserCheckRes {
+        private Boolean checkFlag;
     }
 
 }

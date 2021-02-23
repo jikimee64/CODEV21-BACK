@@ -28,9 +28,8 @@ import com.j2kb.codev21.domains.board.controller.BoardController;
 import com.j2kb.codev21.domains.board.dto.BoardDto;
 import com.j2kb.codev21.domains.board.service.BoardService;
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.joinReq;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
-import com.j2kb.codev21.domains.user.dto.UserDto.updateUserReq;
+import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.UpdateUserReq;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;
@@ -92,9 +91,9 @@ class UserControllerTest {
     void find_all_userList() throws Exception {
 
         //given
-        List<selectUserRes> list = new ArrayList<>();
+        List<SelectUserRes> list = new ArrayList<>();
         list.add(
-            UserDto.selectUserRes.builder()
+            UserDto.SelectUserRes.builder()
                 .id(1L)
                 .email("jikimee64@gmail.com")
                 .name("김우철")
@@ -108,7 +107,7 @@ class UserControllerTest {
         when(userService.getUserList())
             .thenReturn(list);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/users/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/users")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andDo(document("UserController/selectAllUser",
@@ -139,11 +138,11 @@ class UserControllerTest {
         );
 
         when(userService.joinUser(getStubUser())).thenReturn(
-            UserDto.userIdRes.builder()
+            UserDto.UserIdRes.builder()
                 .id(1L)
                 .build());
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users/")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users")
             .content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
@@ -164,7 +163,7 @@ class UserControllerTest {
     void selectUser() throws Exception {
 
         when(userService.getUser(anyLong()))
-            .thenReturn(UserDto.selectUserRes.builder()
+            .thenReturn(UserDto.SelectUserRes.builder()
                 .id(1L)
                 .email("jikimee64@gmail.com")
                 .name("김우철")
@@ -200,7 +199,7 @@ class UserControllerTest {
     @Test
     void updateUser() throws Exception {
 
-        updateUserReq dto = updateUserReq.builder()
+        UpdateUserReq dto = UpdateUserReq.builder()
             .password("update password")
             .build();
 
@@ -209,7 +208,7 @@ class UserControllerTest {
         );
 
         when(userService.updateUser(anyLong(), eq(dto)))
-            .thenReturn(UserDto.selectUserRes.builder()
+            .thenReturn(UserDto.SelectUserRes.builder()
                 .id(1L)
                 .email("jikimee64@gmail.com")
                 .name("김우철")
@@ -248,7 +247,7 @@ class UserControllerTest {
     @Test
     void updateUserByAdmin() throws Exception {
 
-        UserDto.updateUserByAdminReq dto = UserDto.updateUserByAdminReq.builder()
+        UserDto.UpdateUserByAdminReq dto = UserDto.UpdateUserByAdminReq.builder()
             .status("update password")
             .field("백엔드")
             .joinGisu("2기")
@@ -259,7 +258,7 @@ class UserControllerTest {
         );
 
         when(userService.updateUserByAdmin(anyLong(), eq(dto)))
-            .thenReturn(UserDto.selectUserRes.builder()
+            .thenReturn(UserDto.SelectUserRes.builder()
                 .id(1L)
                 .email("jikimee64@gmail.com")
                 .name("김우철")
@@ -298,7 +297,11 @@ class UserControllerTest {
     void deleteUser() throws Exception {
         //given
         when(userService.deleteUser(anyLong()))
-            .thenReturn(true);
+            .thenReturn(
+                UserDto.DeleteUserCheckRes.builder()
+                    .checkFlag(true)
+                    .build()
+            );
 
         //when
         //then
@@ -311,13 +314,13 @@ class UserControllerTest {
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
-                    fieldWithPath("data.result").description("삭제유무(true, false)")
+                    fieldWithPath("data.checkFlag").description("삭제유무(true, false)")
                 ),
                 pathParameters(parameterWithName("userId").description("삭제할 회원 번호"))));
     }
 
-    UserDto.joinReq getStubUser() {
-        return UserDto.joinReq.builder()
+    UserDto.JoinReq getStubUser() {
+        return UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("password")
             .name("김우철")
