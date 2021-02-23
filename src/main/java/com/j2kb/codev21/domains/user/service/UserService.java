@@ -26,14 +26,14 @@ public class UserService {
     }
 
     //회원가입
-    public UserDto.selectUserOnlyIdRes joinUser(UserDto.joinReq dto){
+    public UserDto.userIdRes joinUser(UserDto.joinReq dto){
 
         User user = UserMapper.INSTANCE.userDtoToEntity(dto);
         user.changePassword((passwordEncoder.encode(dto.getPassword())));
 
         User save = userRepository.save(user);
 
-        return UserDto.selectUserOnlyIdRes.builder()
+        return UserDto.userIdRes.builder()
                 .id(save.getId())
                 .build();
     }

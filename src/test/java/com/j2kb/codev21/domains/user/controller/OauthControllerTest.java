@@ -41,9 +41,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-@SpringBootTest(properties = "spring.config.location=" +
-    "classpath:/application-dev.properties" +
-    ",classpath:/application-secret.properties")
+@SpringBootTest
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class OauthControllerTest {
 

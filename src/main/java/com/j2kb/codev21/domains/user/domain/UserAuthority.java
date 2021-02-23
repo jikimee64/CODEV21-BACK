@@ -18,21 +18,21 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "user_authority")
+@Table(name = "USER_AUTHORITY")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserAuthority extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "authority_id")
+    @JoinColumn(name = "AUTHORITY_ID")
     private Authority authority;
 
     @Builder

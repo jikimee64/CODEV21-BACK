@@ -43,10 +43,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-//@WebMvcTest
-@SpringBootTest(properties = "spring.config.location=" +
-    "classpath:/application-dev.properties" +
-    ",classpath:/application-secret.properties")
+@SpringBootTest
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class LoginControllerTest {
 
@@ -87,7 +84,7 @@ class LoginControllerTest {
         );
 
         when(userService.joinUser(getStubUser())).thenReturn(
-            UserDto.selectUserOnlyIdRes.builder()
+            UserDto.userIdRes.builder()
                 .id(1L)
                 .build());
 

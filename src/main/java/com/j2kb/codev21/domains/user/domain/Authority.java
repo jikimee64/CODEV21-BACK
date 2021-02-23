@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "Authority")
+@Table(name = "AUTHORITY")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Authority extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name ="ID")
     private Long id;
 
-    @Column(name = "authority_name", length = 50, nullable = false)
+    @Column(name = "AUTHORITY_NAME", length = 50, nullable = false)
     private String authorityName;
 
     @Builder

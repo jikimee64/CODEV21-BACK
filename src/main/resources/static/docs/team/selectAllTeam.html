@@ -441,13 +441,8 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/login' -i -X POST \
-    -H 'Content-Type: application/json' \
-    -H 'Accept: application/json' \
-    -d '{
-  "email" : "j2kb@j2kb.com",
-  "password" : "j2kb"
-}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/admin/teams/' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -455,16 +450,9 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/login HTTP/1.1
-Content-Type: application/json
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/admin/teams/ HTTP/1.1
 Accept: application/json
-Content-Length: 57
-Host: localhost.com:8080
-
-{
-  "email" : "j2kb@j2kb.com",
-  "password" : "j2kb"
-}</code></pre>
+Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -476,38 +464,28 @@ Host: localhost.com:8080
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ
 Content-Type: application/json
-Content-Length: 281
+Content-Length: 308
 
 {
   "code" : "200",
   "message" : "ok",
-  "data" : {
-    "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ",
-    "userId" : 1
-  }
+  "data" : [ {
+    "id" : 1,
+    "gisu" : "1기",
+    "teamName" : "팀이름",
+    "isLeader" : "김우철",
+    "teamMemberLists" : [ {
+      "name" : "김우철"
+    }, {
+      "name" : "고재영"
+    }, {
+      "name" : "유경호"
+    } ]
+  } ]
 }</code></pre>
 </div>
 </div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰값</p></td>
-</tr>
-</tbody>
-</table>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -533,14 +511,29 @@ Content-Length: 281
 <td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.accessToken</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 고유번호</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.userId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id(고유번호)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수명(1기, 2기..)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].isLeader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The leader&#8217;s name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].teamMemberLists[0].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 멤버</p></td>
 </tr>
 </tbody>
 </table>
@@ -549,7 +542,7 @@ Content-Length: 281
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 15:51:43 +09:00
+Last updated 2021-02-23 18:20:44 +09:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

@@ -59,14 +59,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-//@WebMvcTest(value = UserController.class)
-//@SpringBootTest(classes = {
-//    ObjectMapper.class,UserController.class,UserService.class}
-//    ,properties = {"test.property=dev-property"})
-//@ActiveProfiles("secret,dev")
-@SpringBootTest(properties = "spring.config.location=" +
-    "classpath:/application-dev.properties" +
-    ",classpath:/application-secret.properties")
+@SpringBootTest
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class UserControllerTest {
 
@@ -146,7 +139,7 @@ class UserControllerTest {
         );
 
         when(userService.joinUser(getStubUser())).thenReturn(
-            UserDto.selectUserOnlyIdRes.builder()
+            UserDto.userIdRes.builder()
                 .id(1L)
                 .build());
 
@@ -282,7 +275,7 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andDo(document("UserController/updateUser",
+            .andDo(document("UserController/updateUserByAdmin",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 responseFields(

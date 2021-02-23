@@ -96,7 +96,7 @@ public class UserDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class selectUserOnlyIdRes {
+    public static class userIdRes {
         private Long id;
     }
 

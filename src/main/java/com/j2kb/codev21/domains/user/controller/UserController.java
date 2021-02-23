@@ -1,8 +1,8 @@
 package com.j2kb.codev21.domains.user.controller;
 
 import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.dto.UserDto.selectUserOnlyIdRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.selectUserRes;
+import com.j2kb.codev21.domains.user.dto.UserDto.userIdRes;
 import com.j2kb.codev21.domains.user.service.UserService;
 import com.j2kb.codev21.global.common.CommonResponse;
 import java.util.HashMap;
@@ -29,7 +29,6 @@ public class UserController {
     private final UserService userService;
 
     //회원 전체 조회
-
     //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
     @GetMapping("/admin/users")
     public CommonResponse<List<selectUserRes>> selectAllUser() {
@@ -41,10 +40,10 @@ public class UserController {
 
     //회원가입
     @PostMapping("/users")
-    public CommonResponse<selectUserOnlyIdRes> joinUser(
+    public CommonResponse<userIdRes> joinUser(
         @RequestBody @Valid UserDto.joinReq dto) {
 
-        return CommonResponse.<selectUserOnlyIdRes>builder()
+        return CommonResponse.<userIdRes>builder()
             .code("200")
             .message("ok")
             .data(userService.joinUser(dto)).build();
