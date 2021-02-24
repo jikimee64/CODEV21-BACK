@@ -473,36 +473,122 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_에러_코드">에러 코드</a></li>
 </ul>
 </li>
-<li><a href="#_게시글_api">게시글 API</a>
+<li><a href="#_유저_api">유저 API</a>
 <ul class="sectlevel2">
-<li><a href="#getBoardList">게시글 다건 조회</a>
+<li><a href="#joinUser">회원 가입</a>
 <ul class="sectlevel3">
 <li><a href="#_request">Request</a></li>
 <li><a href="#_response">Response</a></li>
 </ul>
 </li>
-<li><a href="#getBoard">게시글 단건 조회</a>
+<li><a href="#socialConfirm">GitHub 소셜 인증</a>
 <ul class="sectlevel3">
 <li><a href="#_request_2">Request</a></li>
 <li><a href="#_response_2">Response</a></li>
 </ul>
 </li>
-<li><a href="#insertBoard">게시글 등록</a>
+<li><a href="#login">로그인</a>
 <ul class="sectlevel3">
 <li><a href="#_request_3">Request</a></li>
 <li><a href="#_response_3">Response</a></li>
 </ul>
 </li>
-<li><a href="#updateBoard">게시글 수정</a>
+<li><a href="#selectUser">유저 단건 조회</a>
 <ul class="sectlevel3">
 <li><a href="#_request_4">Request</a></li>
 <li><a href="#_response_4">Response</a></li>
 </ul>
 </li>
-<li><a href="#deleteBoard">게시글 삭제</a>
+<li><a href="#updateUser">유저 수정</a>
 <ul class="sectlevel3">
 <li><a href="#_request_5">Request</a></li>
 <li><a href="#_response_5">Response</a></li>
+</ul>
+</li>
+<li><a href="#deleteUser">유저 삭제</a>
+<ul class="sectlevel3">
+<li><a href="#_request_6">Request</a></li>
+<li><a href="#_response_6">Response</a></li>
+</ul>
+</li>
+<li><a href="#selectAllUser">관리자 유저 다건 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_request_7">Request</a></li>
+<li><a href="#_response_7">Response</a></li>
+</ul>
+</li>
+<li><a href="#updateUserByAdmin">관리자 유저 수정</a>
+<ul class="sectlevel3">
+<li><a href="#_request_8">Request</a></li>
+<li><a href="#_response_8">Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_팀_api">팀 API</a>
+<ul class="sectlevel2">
+<li><a href="#joinTeam">팀 등록</a>
+<ul class="sectlevel3">
+<li><a href="#_request_9">Request</a></li>
+<li><a href="#_response_9">Response</a></li>
+</ul>
+</li>
+<li><a href="#selectAllTeam">팀 다건 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_request_10">Request</a></li>
+<li><a href="#_response_10">Response</a></li>
+</ul>
+</li>
+<li><a href="#selectTeam">팀 단건 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_request_11">Request</a></li>
+<li><a href="#_response_11">Response</a></li>
+</ul>
+</li>
+<li><a href="#updateTeamByAdmin">팀 수정</a>
+<ul class="sectlevel3">
+<li><a href="#_request_12">Request</a></li>
+<li><a href="#_response_12">Response</a></li>
+</ul>
+</li>
+<li><a href="#deleteTeam">팀 삭제</a>
+<ul class="sectlevel3">
+<li><a href="#_request_13">Request</a></li>
+<li><a href="#_response_13">Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_게시글_api">게시글 API</a>
+<ul class="sectlevel2">
+<li><a href="#getBoardList">게시글 다건 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_request_14">Request</a></li>
+<li><a href="#_response_14">Response</a></li>
+</ul>
+</li>
+<li><a href="#getBoard">게시글 단건 조회</a>
+<ul class="sectlevel3">
+<li><a href="#_request_15">Request</a></li>
+<li><a href="#_response_15">Response</a></li>
+</ul>
+</li>
+<li><a href="#insertBoard">게시글 등록</a>
+<ul class="sectlevel3">
+<li><a href="#_request_16">Request</a></li>
+<li><a href="#_response_16">Response</a></li>
+</ul>
+</li>
+<li><a href="#updateBoard">게시글 수정</a>
+<ul class="sectlevel3">
+<li><a href="#_request_17">Request</a></li>
+<li><a href="#_response_17">Response</a></li>
+</ul>
+</li>
+<li><a href="#deleteBoard">게시글 삭제</a>
+<ul class="sectlevel3">
+<li><a href="#_request_18">Request</a></li>
+<li><a href="#_response_18">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -511,44 +597,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#insertVoteOfUser">유저 투표 요청</a>
 <ul class="sectlevel3">
-<li><a href="#_request_6">Request</a></li>
-<li><a href="#_response_6">Response</a></li>
+<li><a href="#_request_19">Request</a></li>
+<li><a href="#_response_19">Response</a></li>
 </ul>
 </li>
 <li><a href="#deleteVoteOfUser">유저 투표 취소 요청</a>
 <ul class="sectlevel3">
-<li><a href="#_request_7">Request</a></li>
-<li><a href="#_response_7">Response</a></li>
+<li><a href="#_request_20">Request</a></li>
+<li><a href="#_response_20">Response</a></li>
 </ul>
 </li>
 <li><a href="#getVote">투표 다건 조회</a>
 <ul class="sectlevel3">
-<li><a href="#_request_8">Request</a></li>
-<li><a href="#_response_8">Response</a></li>
+<li><a href="#_request_21">Request</a></li>
+<li><a href="#_response_21">Response</a></li>
 </ul>
 </li>
 <li><a href="#getVote">투표 단건 조회</a>
 <ul class="sectlevel3">
-<li><a href="#_request_9">Request</a></li>
-<li><a href="#_response_9">Response</a></li>
+<li><a href="#_request_22">Request</a></li>
+<li><a href="#_response_22">Response</a></li>
 </ul>
 </li>
 <li><a href="#insertVote">투표 등록</a>
 <ul class="sectlevel3">
-<li><a href="#_request_10">Request</a></li>
-<li><a href="#_response_10">Response</a></li>
+<li><a href="#_request_23">Request</a></li>
+<li><a href="#_response_23">Response</a></li>
 </ul>
 </li>
 <li><a href="#updateVote">투표 수정</a>
 <ul class="sectlevel3">
-<li><a href="#_request_11">Request</a></li>
-<li><a href="#_response_11">Response</a></li>
+<li><a href="#_request_24">Request</a></li>
+<li><a href="#_response_24">Response</a></li>
 </ul>
 </li>
 <li><a href="#deleteVote">투표 삭제</a>
 <ul class="sectlevel3">
-<li><a href="#_request_12">Request</a></li>
-<li><a href="#_response_12">Response</a></li>
+<li><a href="#_request_25">Request</a></li>
+<li><a href="#_response_25">Response</a></li>
 </ul>
 </li>
 </ul>
@@ -632,12 +718,1524 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
+<h2 id="_유저_api"><a class="link" href="#_유저_api">유저 API</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="joinUser"><a class="link" href="#joinUser">회원 가입</a></h3>
+<div class="sect3">
+<h4 id="_request"><a class="link" href="#_request">Request</a></h4>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example"><a class="link" href="#_request_http_example">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/users HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 176
+Host: localhost.com:8080
+
+{
+  "email" : "jikimee64@gmail.com",
+  "password" : "password",
+  "name" : "김우철",
+  "joinGisu" : "2기",
+  "githubId" : "jikimee64@gmail.com",
+  "isOauth" : true
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response"><a class="link" href="#_response">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s id(고유번호)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example"><a class="link" href="#_response_http_example">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 77
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="socialConfirm"><a class="link" href="#socialConfirm">GitHub 소셜 인증</a></h3>
+<div class="sect3">
+<h4 id="_request_2"><a class="link" href="#_request_2">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. /api/v1/auth/{socialLoginType}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>socialLoginType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">소셜 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_request_http_example_2"><a class="link" href="#_request_http_example_2">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/auth/GITHUB HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_2"><a class="link" href="#_response_2">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.isOauth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J2KB 조직 가입유무 boolean값</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_2"><a class="link" href="#_response_http_example_2">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 302 Found
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: https://github.com/login/oauth/authorize?redirect_uri=http://localhost:8080/api/v1/auth/github/callback&amp;client_id=e20fb896827f52a8bb22
+Content-Type: application/json
+Content-Length: 85
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "isOauth" : true
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="login"><a class="link" href="#login">로그인</a></h3>
+<div class="sect3">
+<h4 id="_request_3"><a class="link" href="#_request_3">Request</a></h4>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example_3"><a class="link" href="#_request_http_example_3">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/login HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 57
+Host: localhost.com:8080
+
+{
+  "email" : "j2kb@j2kb.com",
+  "password" : "j2kb"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_3"><a class="link" href="#_response_3">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id(고유번호)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_headers"><a class="link" href="#_response_headers">response headers</a></h5>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰값</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_response_http_example_3"><a class="link" href="#_response_http_example_3">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ
+Content-Type: application/json
+Content-Length: 281
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "accessToken" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ",
+    "userId" : 1
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selectUser"><a class="link" href="#selectUser">유저 단건 조회</a></h3>
+<div class="sect3">
+<h4 id="_request_4"><a class="link" href="#_request_4">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. /api/v1/users/{userId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회할 회원번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_request_http_example_4"><a class="link" href="#_request_http_example_4">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/users/1 HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_4"><a class="link" href="#_response_4">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s id(고유번호)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s email(아이디)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.joinGisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s joinGisu(가입기수)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s status(활동중(ACTIVE),활동중지)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s field(backend,frontend&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.githubId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s githubId</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_4"><a class="link" href="#_response_http_example_4">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 262
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1,
+    "email" : "jikimee64@gmail.com",
+    "name" : "김우철",
+    "joinGisu" : "2기",
+    "status" : "ACTIVE",
+    "field" : "BACK_END",
+    "githubId" : "jikimee64@gmail.com"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updateUser"><a class="link" href="#updateUser">유저 수정</a></h3>
+<div class="sect3">
+<h4 id="_request_5"><a class="link" href="#_request_5">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. /api/v1/users/{userId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 회원번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_request_http_example_5"><a class="link" href="#_request_http_example_5">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">PATCH /api/v1/users/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 38
+Host: localhost.com:8080
+
+{
+  "password" : "update password"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_5"><a class="link" href="#_response_5">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s id(고유번호)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s email(아이디)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.joinGisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s joinGisu(가입기수)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s status(활동중(ACTIVE),활동중지)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s field(backend,frontend&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.githubId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s githubId</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_5"><a class="link" href="#_response_http_example_5">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 262
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1,
+    "email" : "jikimee64@gmail.com",
+    "name" : "김우철",
+    "joinGisu" : "2기",
+    "status" : "ACTIVE",
+    "field" : "BACK_END",
+    "githubId" : "jikimee64@gmail.com"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleteUser"><a class="link" href="#deleteUser">유저 삭제</a></h3>
+<div class="sect3">
+<h4 id="_request_6"><a class="link" href="#_request_6">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. /api/v1/users/{userId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제할 회원 번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_request_http_example_6"><a class="link" href="#_request_http_example_6">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/users/1 HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_6"><a class="link" href="#_response_6">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.checkFlag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제유무(true, false)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_6"><a class="link" href="#_response_http_example_6">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 87
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "checkFlag" : true
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selectAllUser"><a class="link" href="#selectAllUser">관리자 유저 다건 조회</a></h3>
+<div class="sect3">
+<h4 id="_request_7"><a class="link" href="#_request_7">Request</a></h4>
+<div class="sect4">
+<h5 id="_request_http_example_7"><a class="link" href="#_request_http_example_7">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/admin/users HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_7"><a class="link" href="#_response_7">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s id(고유번호)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s email(아이디)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].joinGisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s joinGisu(가입기수)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s status(활동중(ACTIVE),활동중지)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s field(backend,frontend&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].githubId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s githubId</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_7"><a class="link" href="#_response_http_example_7">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 266
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : [ {
+    "id" : 1,
+    "email" : "jikimee64@gmail.com",
+    "name" : "김우철",
+    "joinGisu" : "2기",
+    "status" : "ACTIVE",
+    "field" : "BACK_END",
+    "githubId" : "jikimee64@gmail.com"
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updateUserByAdmin"><a class="link" href="#updateUserByAdmin">관리자 유저 수정</a></h3>
+<div class="sect3">
+<h4 id="_request_8"><a class="link" href="#_request_8">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 5. /api/v1/admin/users/{userId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 회원번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_request_http_example_8"><a class="link" href="#_request_http_example_8">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">PATCH /api/v1/admin/users/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 86
+Host: localhost.com:8080
+
+{
+  "status" : "update password",
+  "field" : "백엔드",
+  "joinGisu" : "2기"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_8"><a class="link" href="#_response_8">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s id(고유번호)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s email(아이디)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.joinGisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s joinGisu(가입기수)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s status(활동중(ACTIVE),활동중지)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s field(backend,frontend&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.githubId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s githubId</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_8"><a class="link" href="#_response_http_example_8">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 262
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1,
+    "email" : "jikimee64@gmail.com",
+    "name" : "김우철",
+    "joinGisu" : "2기",
+    "status" : "ACTIVE",
+    "field" : "BACK_END",
+    "githubId" : "jikimee64@gmail.com"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_팀_api"><a class="link" href="#_팀_api">팀 API</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="joinTeam"><a class="link" href="#joinTeam">팀 등록</a></h3>
+<div class="sect3">
+<h4 id="_request_9"><a class="link" href="#_request_9">Request</a></h4>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example_9"><a class="link" href="#_request_http_example_9">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/teams HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 231
+Host: localhost.com:8080
+
+{
+  "gisu" : "1기",
+  "teamName" : "팀이름",
+  "teamMemberLists" : [ {
+    "userId" : 1,
+    "isLeader" : true
+  }, {
+    "userId" : 2,
+    "isLeader" : false
+  }, {
+    "userId" : 3,
+    "isLeader" : false
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_9"><a class="link" href="#_response_9">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수명(1기, 2기..)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].isLeader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리더 여부(true, false)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_9"><a class="link" href="#_response_http_example_9">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 324
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1,
+    "gisu" : "2기",
+    "teamName" : "J2KB",
+    "teamMemberLists" : [ {
+      "userId" : 1,
+      "isLeader" : true
+    }, {
+      "userId" : 2,
+      "isLeader" : false
+    }, {
+      "userId" : 3,
+      "isLeader" : false
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selectAllTeam"><a class="link" href="#selectAllTeam">팀 다건 조회</a></h3>
+<div class="sect3">
+<h4 id="_request_10"><a class="link" href="#_request_10">Request</a></h4>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example_10"><a class="link" href="#_request_http_example_10">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/admin/teams HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_10"><a class="link" href="#_response_10">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수명(1기, 2기..)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].teamMemberLists[0].userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].teamMemberLists[0].isLeader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리더 여부(true, false)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_10"><a class="link" href="#_response_http_example_10">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 333
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : [ {
+    "id" : 1,
+    "gisu" : "1기",
+    "teamName" : "팀이름",
+    "teamMemberLists" : [ {
+      "userId" : 1,
+      "isLeader" : true
+    }, {
+      "userId" : 2,
+      "isLeader" : false
+    }, {
+      "userId" : 3,
+      "isLeader" : false
+    } ]
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selectTeam"><a class="link" href="#selectTeam">팀 단건 조회</a></h3>
+<div class="sect3">
+<h4 id="_request_11"><a class="link" href="#_request_11">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 6. /api/v1/teams/{teamId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회할 팀번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example_11"><a class="link" href="#_request_http_example_11">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/teams/1 HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_11"><a class="link" href="#_response_11">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수명(1기, 2기..)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].isLeader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리더 여부(true, false)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_11"><a class="link" href="#_response_http_example_11">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 329
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1,
+    "gisu" : "1기",
+    "teamName" : "팀이름",
+    "teamMemberLists" : [ {
+      "userId" : 1,
+      "isLeader" : true
+    }, {
+      "userId" : 2,
+      "isLeader" : false
+    }, {
+      "userId" : 3,
+      "isLeader" : false
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updateTeamByAdmin"><a class="link" href="#updateTeamByAdmin">팀 수정</a></h3>
+<div class="sect3">
+<h4 id="_request_12"><a class="link" href="#_request_12">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 7. /api/v1/admin/teams/{teamId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 팀번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example_12"><a class="link" href="#_request_http_example_12">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">PATCH /api/v1/admin/teams/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Content-Length: 247
+Host: localhost.com:8080
+
+{
+  "gisu" : "2기(수정)",
+  "teamName" : "팀이름(수정)",
+  "teamMemberLists" : [ {
+    "userId" : 1,
+    "isLeader" : true
+  }, {
+    "userId" : 2,
+    "isLeader" : false
+  }, {
+    "userId" : 3,
+    "isLeader" : false
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_12"><a class="link" href="#_response_12">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수명(1기, 2기..)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 고유번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].isLeader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리더 여부(true, false)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_12"><a class="link" href="#_response_http_example_12">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 345
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "id" : 1,
+    "gisu" : "2기(수정)",
+    "teamName" : "팀이름(수정)",
+    "teamMemberLists" : [ {
+      "userId" : 1,
+      "isLeader" : true
+    }, {
+      "userId" : 2,
+      "isLeader" : false
+    }, {
+      "userId" : 3,
+      "isLeader" : false
+    } ]
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleteTeam"><a class="link" href="#deleteTeam">팀 삭제</a></h3>
+<div class="sect3">
+<h4 id="_request_13"><a class="link" href="#_request_13">Request</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 8. /api/v1/admin/teams/{teamId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제할 팀 번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Request Fileds, Headers 추가 예정</p>
+</div>
+<div class="sect4">
+<h5 id="_request_http_example_13"><a class="link" href="#_request_http_example_13">Request HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/admin/teams/1 HTTP/1.1
+Accept: application/json
+Host: localhost.com:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_response_13"><a class="link" href="#_response_13">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.checkFlag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제유무(true, false)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="_response_http_example_13"><a class="link" href="#_response_http_example_13">Response HTTP Example</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+Content-Length: 87
+
+{
+  "code" : "200",
+  "message" : "ok",
+  "data" : {
+    "checkFlag" : true
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_게시글_api"><a class="link" href="#_게시글_api">게시글 API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="getBoardList"><a class="link" href="#getBoardList">게시글 다건 조회</a></h3>
 <div class="sect3">
-<h4 id="_request"><a class="link" href="#_request">Request</a></h4>
+<h4 id="_request_14"><a class="link" href="#_request_14">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -657,7 +2255,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example"><a class="link" href="#_request_http_example">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_14"><a class="link" href="#_request_http_example_14">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards?gisu=value HTTP/1.1
@@ -668,12 +2266,125 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response"><a class="link" href="#_response">Response</a></h4>
-<div class="paragraph">
-<p>Response Fields 추가 예정</p>
-</div>
+<h4 id="_response_14"><a class="link" href="#_response_14">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수 카테고리 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용 요약</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].writerInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].writerInfo.userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].writerInfo.userName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].teamInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글에 대한 팀 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].teamInfo.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].teamInfo.teamMembers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 멤버들의 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 이미지 URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].voteInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 투표 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].voteInfo.voting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 진행중인지를 나타냄</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].voteInfo.boardVoteId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 게시글_투표 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].created_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 생성된 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].updated_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 수정된 날짜</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
-<h5 id="_response_http_example"><a class="link" href="#_response_http_example">Response HTTP Example</a></h5>
+<h5 id="_response_http_example_14"><a class="link" href="#_response_http_example_14">Response HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -681,7 +2392,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 1414
+Content-Length: 1721
 
 {
   "code" : "200",
@@ -692,60 +2403,63 @@ Content-Length: 1414
     "title" : "title0",
     "content" : "content0",
     "summary" : "summary0",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
+    "writerInfo" : {
+      "userId" : 0,
+      "userName" : "username0"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname0",
+      "teamMembers" : [ "username0", "member0", "member1", "member2" ]
+    },
+    "image" : "someImageUrl",
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-24T18:14:40.9107191",
+    "updated_At" : "2021-02-24T18:14:40.9107191"
   }, {
     "id" : 1,
     "gisu" : "2",
     "title" : "title1",
     "content" : "content1",
     "summary" : "summary1",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
+    "writerInfo" : {
+      "userId" : 1,
+      "userName" : "username1"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname1",
+      "teamMembers" : [ "username1", "member0", "member1", "member2" ]
+    },
+    "image" : "someImageUrl",
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-24T18:14:40.9167207",
+    "updated_At" : "2021-02-24T18:14:40.9167207"
   }, {
     "id" : 2,
     "gisu" : "1",
     "title" : "title2",
     "content" : "content2",
     "summary" : "summary2",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
-  }, {
-    "id" : 3,
-    "gisu" : "2",
-    "title" : "title3",
-    "content" : "content3",
-    "summary" : "summary3",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
-  }, {
-    "id" : 4,
-    "gisu" : "1",
-    "title" : "title4",
-    "content" : "content4",
-    "summary" : "summary4",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
+    "writerInfo" : {
+      "userId" : 2,
+      "userName" : "username2"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname2",
+      "teamMembers" : [ "username2", "member0", "member1", "member2" ]
+    },
+    "image" : "someImageUrl",
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-24T18:14:40.9167207",
+    "updated_At" : "2021-02-24T18:14:40.9167207"
   } ]
 }</code></pre>
 </div>
@@ -759,9 +2473,9 @@ Content-Length: 1414
 <div class="sect2">
 <h3 id="getBoard"><a class="link" href="#getBoard">게시글 단건 조회</a></h3>
 <div class="sect3">
-<h4 id="_request_2"><a class="link" href="#_request_2">Request</a></h4>
+<h4 id="_request_15"><a class="link" href="#_request_15">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 1. /api/v1/boards/{id}</caption>
+<caption class="title">Table 9. /api/v1/boards/{boardId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -774,16 +2488,16 @@ Content-Length: 1414
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>boardId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">조회할 프로젝트 게시글 번호</p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_2"><a class="link" href="#_request_http_example_2">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_15"><a class="link" href="#_request_http_example_15">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards/0 HTTP/1.1
 Accept: application/json
 Host: localhost.com:8080</code></pre>
 </div>
@@ -791,12 +2505,125 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_2"><a class="link" href="#_response_2">Response</a></h4>
-<div class="paragraph">
-<p>Response Fields 추가 예정</p>
-</div>
+<h4 id="_response_15"><a class="link" href="#_response_15">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수 카테고리 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용 요약</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo.userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo.userName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글에 대한 팀 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo.teamMembers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 멤버들의 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 이미지 URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 투표 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo.voting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 진행중인지를 나타냄</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo.boardVoteId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 게시글_투표 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.created_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 생성된 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.updated_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 수정된 날짜</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
-<h5 id="_response_http_example_2"><a class="link" href="#_response_http_example_2">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_15"><a class="link" href="#_response_http_example_15">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -804,7 +2631,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 323
+Content-Length: 606
 
 {
   "code" : "200",
@@ -815,12 +2642,21 @@ Content-Length: 323
     "title" : "title",
     "content" : "content",
     "summary" : "summary",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
+    "writerInfo" : {
+      "userId" : 0,
+      "userName" : "username0"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname0",
+      "teamMembers" : [ "username0", "member0", "member1", "member2" ]
+    },
+    "image" : "someImageUrl",
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-24T18:14:40.2807202",
+    "updated_At" : "2021-02-24T18:14:40.2807202"
   }
 }</code></pre>
 </div>
@@ -834,7 +2670,7 @@ Content-Length: 323
 <div class="sect2">
 <h3 id="insertBoard"><a class="link" href="#insertBoard">게시글 등록</a></h3>
 <div class="sect3">
-<h4 id="_request_3"><a class="link" href="#_request_3">Request</a></h4>
+<h4 id="_request_16"><a class="link" href="#_request_16">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -848,42 +2684,73 @@ Content-Length: 323
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">등록할 이미지</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">등록할 게시글 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image-file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">등록할 이미지 파일</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 요약</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 id</p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_3"><a class="link" href="#_request_http_example_3">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_16"><a class="link" href="#_request_http_example_16">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/boards HTTP/1.1
 Content-Type: multipart/mixed;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Accept: application/json
+Authorization: Bear {token값}
 Host: localhost.com:8080
 
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=gisu
+Content-Disposition: form-data; name=json-data; filename=json-data
+Content-Type: application/json
 
-someGisu
+{"gisu":"someGisu","title":"someTitle","content":"someContent","summary":"someSummary","teamId":0}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=title
-
-someTitle
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=content
-
-someContent
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=summary
-
-someSummary
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=teamId
-
-1
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=image; filename=filename-1.jpeg
+Content-Disposition: form-data; name=image-file; filename=filename-1.jpeg
 Content-Type: image/jpeg
 
 &lt;&lt;jpeg data&gt;&gt;
@@ -893,12 +2760,125 @@ Content-Type: image/jpeg
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_3"><a class="link" href="#_response_3">Response</a></h4>
-<div class="paragraph">
-<p>Response Fields 추가 예정</p>
-</div>
+<h4 id="_response_16"><a class="link" href="#_response_16">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수 카테고리 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용 요약</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo.userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo.userName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글에 대한 팀 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo.teamMembers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 멤버들의 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 이미지 URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 투표 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo.voting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 진행중인지를 나타냄</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo.boardVoteId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 게시글_투표 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.created_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 생성된 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.updated_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 수정된 날짜</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
-<h5 id="_response_http_example_3"><a class="link" href="#_response_http_example_3">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_16"><a class="link" href="#_response_http_example_16">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -906,12 +2886,33 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 61
+Content-Length: 615
 
 {
   "code" : "200",
   "message" : "ok",
-  "data" : null
+  "data" : {
+    "id" : 0,
+    "gisu" : "someContent",
+    "title" : "someTitle",
+    "content" : "someContent",
+    "summary" : "someSummary",
+    "writerInfo" : {
+      "userId" : 0,
+      "userName" : "username"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname",
+      "teamMembers" : [ "username", "member0", "member1", "member2" ]
+    },
+    "image" : null,
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-24T18:14:41.3597167",
+    "updated_At" : "2021-02-24T18:14:41.3597167"
+  }
 }</code></pre>
 </div>
 </div>
@@ -924,9 +2925,9 @@ Content-Length: 61
 <div class="sect2">
 <h3 id="updateBoard"><a class="link" href="#updateBoard">게시글 수정</a></h3>
 <div class="sect3">
-<h4 id="_request_4"><a class="link" href="#_request_4">Request</a></h4>
+<h4 id="_request_17"><a class="link" href="#_request_17">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 2. /api/v1/boards/{id}</caption>
+<caption class="title">Table 10. /api/v1/boards/{boardId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -939,60 +2940,207 @@ Content-Length: 61
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>boardId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">수정할 프로젝트 게시글 번호</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>Request Fields 추가 예정</p>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Part</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 게시글 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image-file</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정할 이미지 파일</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 요약</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>teamId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 id</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
-<h5 id="_request_http_example_4"><a class="link" href="#_request_http_example_4">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_17"><a class="link" href="#_request_http_example_17">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">PUT /api/v1/boards/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">PATCH /api/v1/boards/0 HTTP/1.1
 Content-Type: multipart/mixed;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Accept: application/json
-Host: localhost.com:8080
-
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=gisu
-
-someGisu
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=title
-
-someTitle
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=content
-
-someContent
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=summary
-
-someSummary
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=teamId
-
-1
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=image; filename=filename-1.jpeg
-Content-Type: image/jpeg
-
-&lt;&lt;jpeg data&gt;&gt;
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
+Authorization: Bear {token값}
+Host: localhost.com:8080</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_4"><a class="link" href="#_response_4">Response</a></h4>
-<div class="paragraph">
-<p>Response Fields 추가 예정</p>
-</div>
+<h4 id="_response_17"><a class="link" href="#_response_17">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.gisu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">기수 카테고리 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">내용 요약</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo.userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.writerInfo.userName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글에 대한 팀 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo.teamName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamInfo.teamMembers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">팀 멤버들의 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.image</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 이미지 URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 투표 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo.voting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 진행중인지를 나타냄</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.voteInfo.boardVoteId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글의 게시글_투표 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.created_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 생성된 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.updated_At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">투표가 수정된 날짜</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
-<h5 id="_response_http_example_4"><a class="link" href="#_response_http_example_4">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_17"><a class="link" href="#_response_http_example_17">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1000,12 +3148,33 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 61
+Content-Length: 615
 
 {
   "code" : "200",
   "message" : "ok",
-  "data" : null
+  "data" : {
+    "id" : 0,
+    "gisu" : "someContent",
+    "title" : "someTitle",
+    "content" : "someContent",
+    "summary" : "someSummary",
+    "writerInfo" : {
+      "userId" : 0,
+      "userName" : "username"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname",
+      "teamMembers" : [ "username", "member0", "member1", "member2" ]
+    },
+    "image" : null,
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-21T18:14:41.0457177",
+    "updated_At" : "2021-02-24T18:14:41.0457177"
+  }
 }</code></pre>
 </div>
 </div>
@@ -1018,9 +3187,9 @@ Content-Length: 61
 <div class="sect2">
 <h3 id="deleteBoard"><a class="link" href="#deleteBoard">게시글 삭제</a></h3>
 <div class="sect3">
-<h4 id="_request_5"><a class="link" href="#_request_5">Request</a></h4>
+<h4 id="_request_18"><a class="link" href="#_request_18">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 3. /api/v1/boards/{id}</caption>
+<caption class="title">Table 11. /api/v1/boards/{boardId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1033,29 +3202,63 @@ Content-Length: 61
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>boardId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">삭제할 프로젝트 게시글 번호</p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_5"><a class="link" href="#_request_http_example_5">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_18"><a class="link" href="#_request_http_example_18">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/boards/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/boards/0 HTTP/1.1
 Accept: application/json
+Authorization: Bear {token값}
 Host: localhost.com:8080</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_5"><a class="link" href="#_response_5">Response</a></h4>
-<div class="paragraph">
-<p>Response Fields 추가 예정</p>
-</div>
+<h4 id="_response_18"><a class="link" href="#_response_18">Response</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code(200,400&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">삭제 성공 여부</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
-<h5 id="_response_http_example_5"><a class="link" href="#_response_http_example_5">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_18"><a class="link" href="#_response_http_example_18">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1088,9 +3291,9 @@ Content-Length: 84
 <div class="sect2">
 <h3 id="insertVoteOfUser"><a class="link" href="#insertVoteOfUser">유저 투표 요청</a></h3>
 <div class="sect3">
-<h4 id="_request_6"><a class="link" href="#_request_6">Request</a></h4>
+<h4 id="_request_19"><a class="link" href="#_request_19">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 4. /api/v1/votes/boards/{boardVoteId}/members</caption>
+<caption class="title">Table 12. /api/v1/votes/boards/{boardVoteId}/members</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1109,7 +3312,7 @@ Content-Length: 84
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_6"><a class="link" href="#_request_http_example_6">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_19"><a class="link" href="#_request_http_example_19">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/votes/boards/0/members HTTP/1.1
@@ -1120,7 +3323,7 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_6"><a class="link" href="#_response_6">Response</a></h4>
+<h4 id="_response_19"><a class="link" href="#_response_19">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1158,7 +3361,7 @@ Host: localhost.com:8080</code></pre>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_6"><a class="link" href="#_response_http_example_6">Response HTTP Example</a></h5>
+<h5 id="_response_http_example_19"><a class="link" href="#_response_http_example_19">Response HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1186,9 +3389,9 @@ Content-Length: 84
 <div class="sect2">
 <h3 id="deleteVoteOfUser"><a class="link" href="#deleteVoteOfUser">유저 투표 취소 요청</a></h3>
 <div class="sect3">
-<h4 id="_request_7"><a class="link" href="#_request_7">Request</a></h4>
+<h4 id="_request_20"><a class="link" href="#_request_20">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 5. /api/v1/votes/boards/{boardVoteId}/members</caption>
+<caption class="title">Table 13. /api/v1/votes/boards/{boardVoteId}/members</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1207,7 +3410,7 @@ Content-Length: 84
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_7"><a class="link" href="#_request_http_example_7">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_20"><a class="link" href="#_request_http_example_20">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/votes/boards/0/members HTTP/1.1
@@ -1218,7 +3421,7 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_7"><a class="link" href="#_response_7">Response</a></h4>
+<h4 id="_response_20"><a class="link" href="#_response_20">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1256,7 +3459,7 @@ Host: localhost.com:8080</code></pre>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_7"><a class="link" href="#_response_http_example_7">Response HTTP Example</a></h5>
+<h5 id="_response_http_example_20"><a class="link" href="#_response_http_example_20">Response HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1284,9 +3487,9 @@ Content-Length: 84
 <div class="sect2">
 <h3 id="getVote"><a class="link" href="#getVote">투표 다건 조회</a></h3>
 <div class="sect3">
-<h4 id="_request_8"><a class="link" href="#_request_8">Request</a></h4>
+<h4 id="_request_21"><a class="link" href="#_request_21">Request</a></h4>
 <div class="sect4">
-<h5 id="_request_http_example_8"><a class="link" href="#_request_http_example_8">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_21"><a class="link" href="#_request_http_example_21">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/admin/votes HTTP/1.1
@@ -1297,7 +3500,7 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_8"><a class="link" href="#_response_8">Response</a></h4>
+<h4 id="_response_21"><a class="link" href="#_response_21">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1375,7 +3578,7 @@ Host: localhost.com:8080</code></pre>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_8"><a class="link" href="#_response_http_example_8">Response HTTP Example</a></h5>
+<h5 id="_response_http_example_21"><a class="link" href="#_response_http_example_21">Response HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1439,9 +3642,9 @@ Content-Length: 1015
 <div class="sect2">
 <h3 id="getVote"><a class="link" href="#getVote">투표 단건 조회</a></h3>
 <div class="sect3">
-<h4 id="_request_9"><a class="link" href="#_request_9">Request</a></h4>
+<h4 id="_request_22"><a class="link" href="#_request_22">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 6. /api/v1/admin/votes/{id}</caption>
+<caption class="title">Table 14. /api/v1/admin/votes/{id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1460,7 +3663,7 @@ Content-Length: 1015
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_9"><a class="link" href="#_request_http_example_9">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_22"><a class="link" href="#_request_http_example_22">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/admin/votes/0 HTTP/1.1
@@ -1471,7 +3674,7 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_9"><a class="link" href="#_response_9">Response</a></h4>
+<h4 id="_response_22"><a class="link" href="#_response_22">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1549,7 +3752,7 @@ Host: localhost.com:8080</code></pre>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_9"><a class="link" href="#_response_http_example_9">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_22"><a class="link" href="#_response_http_example_22">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1594,7 +3797,7 @@ Content-Length: 533
 <div class="sect2">
 <h3 id="insertVote"><a class="link" href="#insertVote">투표 등록</a></h3>
 <div class="sect3">
-<h4 id="_request_10"><a class="link" href="#_request_10">Request</a></h4>
+<h4 id="_request_23"><a class="link" href="#_request_23">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1627,7 +3830,7 @@ Content-Length: 533
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_10"><a class="link" href="#_request_http_example_10">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_23"><a class="link" href="#_request_http_example_23">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/admin/votes HTTP/1.1
@@ -1646,7 +3849,7 @@ Host: localhost.com:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_10"><a class="link" href="#_response_10">Response</a></h4>
+<h4 id="_response_23"><a class="link" href="#_response_23">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1724,7 +3927,7 @@ Host: localhost.com:8080
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_10"><a class="link" href="#_response_http_example_10">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_23"><a class="link" href="#_response_http_example_23">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1769,9 +3972,9 @@ Content-Length: 533
 <div class="sect2">
 <h3 id="updateVote"><a class="link" href="#updateVote">투표 수정</a></h3>
 <div class="sect3">
-<h4 id="_request_11"><a class="link" href="#_request_11">Request</a></h4>
+<h4 id="_request_24"><a class="link" href="#_request_24">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 7. /api/v1/admin/votes/{id}</caption>
+<caption class="title">Table 15. /api/v1/admin/votes/{id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1816,7 +4019,7 @@ Content-Length: 533
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_11"><a class="link" href="#_request_http_example_11">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_24"><a class="link" href="#_request_http_example_24">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">PATCH /api/v1/admin/votes/0 HTTP/1.1
@@ -1834,7 +4037,7 @@ Host: localhost.com:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_11"><a class="link" href="#_response_11">Response</a></h4>
+<h4 id="_response_24"><a class="link" href="#_response_24">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -1912,7 +4115,7 @@ Host: localhost.com:8080
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_11"><a class="link" href="#_response_http_example_11">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_24"><a class="link" href="#_response_http_example_24">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -1957,9 +4160,9 @@ Content-Length: 533
 <div class="sect2">
 <h3 id="deleteVote"><a class="link" href="#deleteVote">투표 삭제</a></h3>
 <div class="sect3">
-<h4 id="_request_12"><a class="link" href="#_request_12">Request</a></h4>
+<h4 id="_request_25"><a class="link" href="#_request_25">Request</a></h4>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 8. /api/v1/admin/votes/{id}</caption>
+<caption class="title">Table 16. /api/v1/admin/votes/{id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1978,7 +4181,7 @@ Content-Length: 533
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_request_http_example_12"><a class="link" href="#_request_http_example_12">Request HTTP Example</a></h5>
+<h5 id="_request_http_example_25"><a class="link" href="#_request_http_example_25">Request HTTP Example</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/v1/admin/votes/0 HTTP/1.1
@@ -1989,7 +4192,7 @@ Host: localhost.com:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_12"><a class="link" href="#_response_12">Response</a></h4>
+<h4 id="_response_25"><a class="link" href="#_response_25">Response</a></h4>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33%;">
@@ -2027,7 +4230,7 @@ Host: localhost.com:8080</code></pre>
 </tbody>
 </table>
 <div class="sect4">
-<h5 id="_response_http_example_12"><a class="link" href="#_response_http_example_12">Response HTTP Example:</a></h5>
+<h5 id="_response_http_example_25"><a class="link" href="#_response_http_example_25">Response HTTP Example:</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -2057,7 +4260,7 @@ Content-Length: 84
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-22 15:51:43 +09:00
+Last updated 2021-02-24 18:12:33 +09:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
