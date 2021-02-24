@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -90,11 +93,13 @@ class TeamControllerTest {
             .thenReturn(teamList);
 
         this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/teams")
-            .accept(MediaType.APPLICATION_JSON))
+            .accept(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("TeamController/selectAllTeam",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -102,15 +107,15 @@ class TeamControllerTest {
                     fieldWithPath("data[0].gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data[0].teamName").description("팀이름"),
                     fieldWithPath("data[0].teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("data[0].teamMemberLists[0].isLeader").description("리더 여부(true, false)")
+                    fieldWithPath("data[0].teamMemberLists[0].isLeader")
+                        .description("리더 여부(true, false)")
                 )
             ));
     }
 
-
     @DisplayName("팀 단건 조회")
     @Test
-    void selectUser() throws Exception {
+    void selectTeam() throws Exception {
 
         //given
         SelectTeamRes team =
@@ -127,11 +132,13 @@ class TeamControllerTest {
 
         this.mockMvc
             .perform(RestDocumentationRequestBuilders.get("/api/v1/teams/{teamId}", 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("TeamController/selectTeam",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -139,7 +146,8 @@ class TeamControllerTest {
                     fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
                     fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("data.teamMemberLists[0].isLeader").description("리더 여부(true, false)")
+                    fieldWithPath("data.teamMemberLists[0].isLeader")
+                        .description("리더 여부(true, false)")
                 ),
                 pathParameters(parameterWithName("teamId").description("조회할 팀번호"))));
     }
@@ -160,37 +168,50 @@ class TeamControllerTest {
             team
         );
 
-        when(teamService.joinTeam(team)).thenReturn(
+        SelectTeamRes selectTeam =
             TeamDto.SelectTeamRes.builder()
                 .id(1L)
-                .gisu("2기")
-                .teamName("J2KB")
+                .gisu("1기")
+                .teamName("팀이름")
                 .teamMemberLists(getStubMemberList())
-                .build());
+                .build();
+
+        when(teamService.joinTeam(team)).thenReturn(
+            selectTeam);
 
         this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/teams")
             .content(content)
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
+            .accept(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("TeamController/joinTeam",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+                requestFields(
+                    fieldWithPath("gisu").description("기수명"),
+                    fieldWithPath("teamName").description("팀명"),
+                    fieldWithPath("teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("teamMemberLists[0].isLeader")
+                        .description("리더 여부(true, false)")
+                ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
-                    fieldWithPath("data.id").description("팀고유번호"),
+                    fieldWithPath("data.id").description("팀 고유번호"),
                     fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
                     fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("data.teamMemberLists[0].isLeader").description("리더 여부(true, false)")
+                    fieldWithPath("data.teamMemberLists[0].isLeader")
+                        .description("리더 여부(true, false)")
                 )
             ));
     }
 
-    @DisplayName("회원 수정(관리자 권한)")
+    @DisplayName("팀 수정(관리자 권한)")
     @Test
-    void updateUserByAdmin() throws Exception {
+    void updateTeamrByAdmin() throws Exception {
 
         TeamDto.Req dto = TeamDto.Req.builder()
             .gisu("2기(수정)")
@@ -214,11 +235,20 @@ class TeamControllerTest {
             .perform(RestDocumentationRequestBuilders.patch("/api/v1/admin/teams/{teamId}", 1L)
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("TeamController/updateTeamByAdmin",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+                requestFields(
+                    fieldWithPath("gisu").description("기수명"),
+                    fieldWithPath("teamName").description("팀명"),
+                    fieldWithPath("teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("teamMemberLists[0].isLeader")
+                        .description("리더 여부(true, false)")
+                ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -226,14 +256,15 @@ class TeamControllerTest {
                     fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
                     fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("data.teamMemberLists[0].isLeader").description("리더 여부(true, false)")
+                    fieldWithPath("data.teamMemberLists[0].isLeader")
+                        .description("리더 여부(true, false)")
                 ),
                 pathParameters(parameterWithName("teamId").description("수정할 팀번호"))));
     }
 
     @DisplayName("팀 삭제")
     @Test
-    void deleteUser() throws Exception {
+    void deleteTeam() throws Exception {
         //given
         when(teamService.deleteTeam(anyLong()))
             .thenReturn(
@@ -246,11 +277,13 @@ class TeamControllerTest {
         //then
         this.mockMvc
             .perform(RestDocumentationRequestBuilders.delete("/api/v1/admin/teams/{teamId}", 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("TeamController/deleteTeam",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),

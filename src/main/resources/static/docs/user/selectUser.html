@@ -442,7 +442,8 @@ documentation snippets.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/users/1' -i -X GET \
-    -H 'Accept: application/json'</code></pre>
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bear {token값}'</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -471,6 +472,7 @@ documentation snippets.</p>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/users/1 HTTP/1.1
 Accept: application/json
+Authorization: Bear {token값}
 Host: localhost.com:8080</code></pre>
 </div>
 </div>

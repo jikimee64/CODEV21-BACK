@@ -15,6 +15,7 @@ include::{snippets}/UserController/joinUser/curl-request.adoc[]
 
 One showing the HTTP request:
 
+
 include::{snippets}/UserController/joinUser/http-request.adoc[]
 
 And one showing the HTTP response:
