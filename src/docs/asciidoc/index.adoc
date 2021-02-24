@@ -60,6 +60,291 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 
 &#160;
 
+== 유저 API
+
+[[joinUser]]
+=== 회원 가입
+
+==== Request
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/UserController/joinUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/UserController/joinUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/UserController/joinUser/http-response.adoc[]
+
+&#160;
+
+[[socialConfirm]]
+=== GitHub 소셜 인증
+
+==== Request
+
+include::{snippets}/OauthController/socialConfirm/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/OauthController/socialConfirm/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/OauthController/socialConfirm/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/OauthController/socialConfirm/http-response.adoc[]
+
+&#160;
+
+[[login]]
+=== 로그인
+
+==== Request
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/LoginController/login/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/LoginController/login/response-fields.adoc[]
+
+===== response headers
+
+include::{snippets}/LoginController/login/response-headers.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/LoginController/login/http-response.adoc[]
+
+&#160;
+
+[[selectUser]]
+=== 유저 단건 조회
+
+==== Request
+
+include::{snippets}/UserController/selectUser/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/UserController/selectUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/UserController/selectUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/UserController/selectUser/http-response.adoc[]
+
+&#160;
+
+[[updateUser]]
+=== 유저 수정
+
+==== Request
+
+include::{snippets}/UserController/updateUser/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/UserController/updateUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/UserController/updateUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/UserController/updateUser/http-response.adoc[]
+
+&#160;
+
+[[deleteUser]]
+=== 유저 삭제
+
+==== Request
+
+include::{snippets}/UserController/deleteUser/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/UserController/deleteUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/UserController/deleteUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/UserController/deleteUser/http-response.adoc[]
+
+&#160;
+
+[[selectAllUser]]
+=== 관리자 유저 다건 조회
+
+==== Request
+
+===== Request HTTP Example
+
+include::{snippets}/UserController/selectAllUser/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/UserController/selectAllUser/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/UserController/selectAllUser/http-response.adoc[]
+
+&#160;
+
+[[updateUserByAdmin]]
+=== 관리자 유저 수정
+
+==== Request
+
+include::{snippets}/UserController/updateUserByAdmin/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/UserController/updateUserByAdmin/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/UserController/updateUserByAdmin/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/UserController/updateUserByAdmin/http-response.adoc[]
+
+&#160;
+
+== 팀 API
+
+[[joinTeam]]
+=== 팀 등록
+
+==== Request
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/TeamController/joinTeam/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/TeamController/joinTeam/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/TeamController/joinTeam/http-response.adoc[]
+
+&#160;
+
+[[selectAllTeam]]
+=== 팀 다건 조회
+
+==== Request
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/TeamController/selectAllTeam/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/TeamController/selectAllTeam/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/TeamController/selectAllTeam/http-response.adoc[]
+
+&#160;
+
+[[selectTeam]]
+=== 팀 단건 조회
+
+==== Request
+
+include::{snippets}/TeamController/selectTeam/path-parameters.adoc[]
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/TeamController/selectTeam/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/TeamController/selectTeam/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/TeamController/selectTeam/http-response.adoc[]
+
+&#160;
+
+[[updateTeamByAdmin]]
+=== 팀 수정
+
+==== Request
+
+include::{snippets}/TeamController/updateTeamByAdmin/path-parameters.adoc[]
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/TeamController/updateTeamByAdmin/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/TeamController/updateTeamByAdmin/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/TeamController/updateTeamByAdmin/http-response.adoc[]
+
+&#160;
+
+[[deleteTeam]]
+=== 팀 삭제
+
+==== Request
+
+include::{snippets}/TeamController/deleteTeam/path-parameters.adoc[]
+
+Request Fileds, Headers 추가 예정
+
+===== Request HTTP Example
+
+include::{snippets}/TeamController/deleteTeam/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/TeamController/deleteTeam/response-fields.adoc[]
+
+===== Response HTTP Example
+
+include::{snippets}/TeamController/deleteTeam/http-response.adoc[]
+
+&#160;
+
 == 게시글 API
 
 [[getBoardList]]
@@ -75,7 +360,7 @@ include::{snippets}/BoardController/getBoardList/http-request.adoc[]
 
 ==== Response
 
-Response Fields 추가 예정
+include::{snippets}/BoardController/getBoardList/response-fields.adoc[]
 
 ===== Response HTTP Example
 
@@ -96,7 +381,7 @@ include::{snippets}/BoardController/getBoard/http-request.adoc[]
 
 ==== Response
 
-Response Fields 추가 예정
+include::{snippets}/BoardController/getBoard/response-fields.adoc[]
 
 ===== Response HTTP Example:
 
@@ -111,13 +396,15 @@ include::{snippets}/BoardController/getBoard/http-response.adoc[]
 
 include::{snippets}/BoardController/insertBoard/request-parts.adoc[]
 
+include::{snippets}/BoardController/insertBoard/request-part-json-data-fields.adoc[]
+
 ===== Request HTTP Example
 
 include::{snippets}/BoardController/insertBoard/http-request.adoc[]
 
 ==== Response
 
-Response Fields 추가 예정
+include::{snippets}/BoardController/insertBoard/response-fields.adoc[]
 
 ===== Response HTTP Example:
 
@@ -132,7 +419,9 @@ include::{snippets}/BoardController/insertBoard/http-response.adoc[]
 
 include::{snippets}/BoardController/updateBoard/path-parameters.adoc[]
 
-Request Fields 추가 예정
+include::{snippets}/BoardController/updateBoard/request-parts.adoc[]
+
+include::{snippets}/BoardController/updateBoard/request-part-json-data-fields.adoc[]
 
 ===== Request HTTP Example
 
@@ -140,7 +429,7 @@ include::{snippets}/BoardController/updateBoard/http-request.adoc[]
 
 ==== Response
 
-Response Fields 추가 예정
+include::{snippets}/BoardController/updateBoard/response-fields.adoc[]
 
 ===== Response HTTP Example:
 
@@ -161,7 +450,7 @@ include::{snippets}/BoardController/deleteBoard/http-request.adoc[]
 
 ==== Response
 
-Response Fields 추가 예정
+include::{snippets}/BoardController/deleteBoard/response-fields.adoc[]
 
 ===== Response HTTP Example:
 
