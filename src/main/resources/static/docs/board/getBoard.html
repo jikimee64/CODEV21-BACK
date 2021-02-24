@@ -441,7 +441,7 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards/1' -i -X GET \
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards/0' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
@@ -450,7 +450,7 @@ documentation snippets.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/boards/0 HTTP/1.1
 Accept: application/json
 Host: localhost.com:8080</code></pre>
 </div>
@@ -465,7 +465,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 323
+Content-Length: 606
 
 {
   "code" : "200",
@@ -476,12 +476,21 @@ Content-Length: 323
     "title" : "title",
     "content" : "content",
     "summary" : "summary",
-    "writerInfo" : null,
-    "teamInfo" : null,
-    "image" : null,
-    "voteInfo" : null,
-    "created_At" : null,
-    "updated_At" : null
+    "writerInfo" : {
+      "userId" : 0,
+      "userName" : "username0"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname0",
+      "teamMembers" : [ "username0", "member0", "member1", "member2" ]
+    },
+    "image" : "someImageUrl",
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-25T00:16:43.2938812",
+    "updated_At" : "2021-02-25T00:16:43.2938812"
   }
 }</code></pre>
 </div>

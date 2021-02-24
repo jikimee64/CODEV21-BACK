@@ -12,6 +12,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -115,6 +116,10 @@ class LoginControllerTest {
             .andDo(document("LoginController/login",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestFields(
+                    fieldWithPath("email").description("아이디"),
+                    fieldWithPath("password").description("패스워드")
+                ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -132,7 +137,6 @@ class LoginControllerTest {
             .name("김우철")
             .joinGisu("2기")
             .githubId("jikimee64@gmail.com")
-            .isOauth(true)
             .build();
     }
 

@@ -67,7 +67,7 @@ API에 관계없이 아래 사항을 지켜주셔야 합니다.
 
 ==== Request
 
-Request Fileds, Headers 추가 예정
+include::{snippets}/UserController/joinUser/request-fields.adoc[]
 
 ===== Request HTTP Example
 
@@ -109,7 +109,7 @@ include::{snippets}/OauthController/socialConfirm/http-response.adoc[]
 
 ==== Request
 
-Request Fileds, Headers 추가 예정
+include::{snippets}/LoginController/login/request-fields.adoc[]
 
 ===== Request HTTP Example
 
@@ -156,6 +156,8 @@ include::{snippets}/UserController/selectUser/http-response.adoc[]
 ==== Request
 
 include::{snippets}/UserController/updateUser/path-parameters.adoc[]
+
+include::{snippets}/UserController/updateUser/request-fields.adoc[]
 
 ===== Request HTTP Example
 
@@ -218,6 +220,8 @@ include::{snippets}/UserController/selectAllUser/http-response.adoc[]
 
 include::{snippets}/UserController/updateUserByAdmin/path-parameters.adoc[]
 
+include::{snippets}/UserController/updateUserByAdmin/request-fields.adoc[]
+
 ===== Request HTTP Example
 
 include::{snippets}/UserController/updateUserByAdmin/http-request.adoc[]
@@ -239,7 +243,7 @@ include::{snippets}/UserController/updateUserByAdmin/http-response.adoc[]
 
 ==== Request
 
-Request Fileds, Headers 추가 예정
+include::{snippets}/TeamController/joinTeam/request-fields.adoc[]
 
 ===== Request HTTP Example
 
@@ -259,8 +263,6 @@ include::{snippets}/TeamController/joinTeam/http-response.adoc[]
 === 팀 다건 조회
 
 ==== Request
-
-Request Fileds, Headers 추가 예정
 
 ===== Request HTTP Example
 
@@ -283,8 +285,6 @@ include::{snippets}/TeamController/selectAllTeam/http-response.adoc[]
 
 include::{snippets}/TeamController/selectTeam/path-parameters.adoc[]
 
-Request Fileds, Headers 추가 예정
-
 ===== Request HTTP Example
 
 include::{snippets}/TeamController/selectTeam/http-request.adoc[]
@@ -306,7 +306,7 @@ include::{snippets}/TeamController/selectTeam/http-response.adoc[]
 
 include::{snippets}/TeamController/updateTeamByAdmin/path-parameters.adoc[]
 
-Request Fileds, Headers 추가 예정
+include::{snippets}/TeamController/updateTeamByAdmin/request-fields.adoc[]
 
 ===== Request HTTP Example
 
@@ -328,8 +328,6 @@ include::{snippets}/TeamController/updateTeamByAdmin/http-response.adoc[]
 ==== Request
 
 include::{snippets}/TeamController/deleteTeam/path-parameters.adoc[]
-
-Request Fileds, Headers 추가 예정
 
 ===== Request HTTP Example
 

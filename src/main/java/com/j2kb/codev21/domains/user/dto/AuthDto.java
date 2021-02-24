@@ -37,8 +37,8 @@ public class AuthDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class GithubCheckRes{
-        private Boolean isOauth;
+    public static class GithubIdRes{
+        private String githubId;
     }
 
 }
