@@ -442,7 +442,8 @@ documentation snippets.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/teams/1' -i -X GET \
-    -H 'Accept: application/json'</code></pre>
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bear {token값}'</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -471,6 +472,7 @@ documentation snippets.</p>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/teams/1 HTTP/1.1
 Accept: application/json
+Authorization: Bear {token값}
 Host: localhost.com:8080</code></pre>
 </div>
 </div>
@@ -484,7 +486,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 304
+Content-Length: 329
 
 {
   "code" : "200",
@@ -493,13 +495,15 @@ Content-Length: 304
     "id" : 1,
     "gisu" : "1기",
     "teamName" : "팀이름",
-    "isLeader" : "김우철",
     "teamMemberLists" : [ {
-      "name" : "김우철"
+      "userId" : 1,
+      "isLeader" : true
     }, {
-      "name" : "고재영"
+      "userId" : 2,
+      "isLeader" : false
     }, {
-      "name" : "유경호"
+      "userId" : 3,
+      "isLeader" : false
     } ]
   }
 }</code></pre>
@@ -545,14 +549,14 @@ Content-Length: 304
 <td class="tableblock halign-left valign-top"><p class="tableblock">팀이름</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.isLeader</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The leader&#8217;s name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 고유번호</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">팀 멤버</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.teamMemberLists[0].isLeader</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">리더 여부(true, false)</p></td>
 </tr>
 </tbody>
 </table>
@@ -561,7 +565,7 @@ Content-Length: 304
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-23 18:21:17 +09:00
+Last updated 2021-02-23 20:37:29 +09:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

@@ -8,12 +8,15 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -108,11 +111,13 @@ class UserControllerTest {
             .thenReturn(list);
 
         this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/users")
-            .accept(MediaType.APPLICATION_JSON))
+            .accept(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("UserController/selectAllUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -150,6 +155,13 @@ class UserControllerTest {
             .andDo(document("UserController/joinUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestFields(
+                    fieldWithPath("email").description("이메일"),
+                    fieldWithPath("password").description("패스워드"),
+                    fieldWithPath("name").description("이름"),
+                    fieldWithPath("joinGisu").description("가입기수"),
+                    fieldWithPath("githubId").description("J2KB 조직 체크버튼 요청 후 건네받는 깃허브ID")
+                ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -175,11 +187,13 @@ class UserControllerTest {
 
         this.mockMvc
             .perform(RestDocumentationRequestBuilders.get("/api/v1/users/{userId}", 1L)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("UserController/selectUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -222,11 +236,16 @@ class UserControllerTest {
             .perform(RestDocumentationRequestBuilders.patch("/api/v1/users/{userId}", 1L)
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("UserController/updateUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+                requestFields(
+                    fieldWithPath("password").description("수정할 패스워드")
+                ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -248,7 +267,7 @@ class UserControllerTest {
     void updateUserByAdmin() throws Exception {
 
         UserDto.UpdateUserByAdminReq dto = UserDto.UpdateUserByAdminReq.builder()
-            .status("update password")
+            .status("ACTIVE(활동중), INACTIVE(비활동중)")
             .field("백엔드")
             .joinGisu("2기")
             .build();
@@ -272,11 +291,18 @@ class UserControllerTest {
             .perform(RestDocumentationRequestBuilders.patch("/api/v1/admin/users/{userId}", 1L)
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("UserController/updateUserByAdmin",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+                requestFields(
+                    fieldWithPath("status").description("회원활동 상태"),
+                    fieldWithPath("field").description("백엔드, 프론트엔드 등 소속 분야"),
+                    fieldWithPath("joinGisu").description("가입기수")
+                ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -306,11 +332,13 @@ class UserControllerTest {
         //when
         //then
         this.mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/v1/users/{userId}", 1L)
-            .accept(MediaType.APPLICATION_JSON))
+            .accept(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("UserController/deleteUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
+                requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
@@ -326,7 +354,6 @@ class UserControllerTest {
             .name("김우철")
             .joinGisu("2기")
             .githubId("jikimee64@gmail.com")
-            .isOauth(true)
             .build();
     }
 

@@ -44,7 +44,6 @@ class UserServiceTest {
             .name("이름")
             .joinGisu("1기")
             .githubId("jikimee64@gmail.com")
-            .isOauth(true)
             .build();
         /* when */
         final User user = UserMapper.INSTANCE.userDtoToEntity(dto);
@@ -69,7 +68,6 @@ class UserServiceTest {
             .name("이름")
             .joinGisu("1기")
             .githubId("jikimee64@gmail.com")
-            .isOauth(true)
             .build();
 
         /* when */

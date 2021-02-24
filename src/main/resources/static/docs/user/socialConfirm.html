@@ -485,13 +485,13 @@ Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Location: https://github.com/login/oauth/authorize?redirect_uri=http://localhost:8080/api/v1/auth/github/callback&amp;client_id=e20fb896827f52a8bb22
 Content-Type: application/json
-Content-Length: 85
+Content-Length: 92
 
 {
   "code" : "200",
   "message" : "ok",
   "data" : {
-    "isOauth" : true
+    "githubId" : "githubId"
   }
 }</code></pre>
 </div>
@@ -521,9 +521,9 @@ Content-Length: 85
 <td class="tableblock halign-left valign-top"><p class="tableblock">message(success&#8230;&#8203;)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.isOauth</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">J2KB 조직 가입유무 boolean값</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.githubId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J2KB 조직에 가입한 githubId</p></td>
 </tr>
 </tbody>
 </table>
@@ -532,7 +532,7 @@ Content-Length: 85
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-21 17:03:22 +09:00
+Last updated 2021-02-24 21:47:36 +09:00
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

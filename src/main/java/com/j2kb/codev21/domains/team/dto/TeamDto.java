@@ -38,7 +38,7 @@ public class TeamDto {
         @Size(max = 30, message = "팀이름은 30자 이하로 입력해주세요.")
         private String teamName;
 
-        private List<TeamMemberList> teamMemberLists = new ArrayList<>();
+        private List<TeamMemberList> teamMemberLists;
     }
 
     @Data

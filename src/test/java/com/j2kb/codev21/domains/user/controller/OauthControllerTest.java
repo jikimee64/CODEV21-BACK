@@ -76,7 +76,7 @@ class OauthControllerTest {
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
-                    fieldWithPath("data.isOauth").description("J2KB 조직 가입유무 boolean값")
+                    fieldWithPath("data.githubId").description("J2KB 조직에 가입한 githubId")
                 ),
                 pathParameters(parameterWithName("socialLoginType").description("소셜 정보"))));
     }

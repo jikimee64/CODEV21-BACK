@@ -444,12 +444,9 @@ documentation snippets.</p>
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost.com:8080/api/v1/boards' -i -X POST \
     -H 'Content-Type: multipart/mixed;charset=UTF-8' \
     -H 'Accept: application/json' \
-    -F 'image=@filename-1.jpeg;type=image/jpeg' \
-    -F 'gisu=someGisu' \
-    -F 'title=someTitle' \
-    -F 'content=someContent' \
-    -F 'summary=someSummary' \
-    -F 'teamId=1'</code></pre>
+    -H 'Authorization: Bear {token값}' \
+    -F 'json-data=@json-data;type=application/json' \
+    -F 'image-file=@filename-1.jpeg;type=image/jpeg'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -460,30 +457,16 @@ documentation snippets.</p>
 <pre class="highlightjs highlight nowrap"><code class="language-http" data-lang="http">POST /api/v1/boards HTTP/1.1
 Content-Type: multipart/mixed;charset=UTF-8; boundary=6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Accept: application/json
+Authorization: Bear {token값}
 Host: localhost.com:8080
 
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=gisu
+Content-Disposition: form-data; name=json-data; filename=json-data
+Content-Type: application/json
 
-someGisu
+{"gisu":"someGisu","title":"someTitle","content":"someContent","summary":"someSummary","teamId":0}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=title
-
-someTitle
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=content
-
-someContent
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=summary
-
-someSummary
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=teamId
-
-1
---6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
-Content-Disposition: form-data; name=image; filename=filename-1.jpeg
+Content-Disposition: form-data; name=image-file; filename=filename-1.jpeg
 Content-Type: image/jpeg
 
 &lt;&lt;jpeg data&gt;&gt;
@@ -500,12 +483,33 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 61
+Content-Length: 615
 
 {
   "code" : "200",
   "message" : "ok",
-  "data" : null
+  "data" : {
+    "id" : 0,
+    "gisu" : "someContent",
+    "title" : "someTitle",
+    "content" : "someContent",
+    "summary" : "someSummary",
+    "writerInfo" : {
+      "userId" : 0,
+      "userName" : "username"
+    },
+    "teamInfo" : {
+      "teamName" : "teamname",
+      "teamMembers" : [ "username", "member0", "member1", "member2" ]
+    },
+    "image" : null,
+    "voteInfo" : {
+      "voting" : false,
+      "boardVoteId" : null
+    },
+    "created_At" : "2021-02-25T00:16:43.5598811",
+    "updated_At" : "2021-02-25T00:16:43.5598811"
+  }
 }</code></pre>
 </div>
 </div>
