@@ -3,6 +3,7 @@ package com.j2kb.codev21.domains.vote.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,6 +44,23 @@ public class BoardVote extends BaseTimeEntity{
 	@JoinColumn(name = "BOARD_ID")
 	private Board board;
 	
-	@OneToMany(mappedBy = "boardVote")
+	@OneToMany(mappedBy = "boardVote", cascade = CascadeType.ALL)
 	private List<UserBoardVote> userBoardVotes = new ArrayList<>();
+
+	public BoardVote(int count, Vote vote, Board board) {
+		super();
+		this.count = count;
+		this.vote = vote;
+		this.board = board;
+	}
+	
+	public void increaseCount() {
+		this.count += 1;
+	}
+	
+	public void decreaseCount() {
+		this.count = count > 0 ? count - 1 : 0;
+	}
+	
+	
 }

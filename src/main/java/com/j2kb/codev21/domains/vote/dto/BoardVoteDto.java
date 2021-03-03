@@ -2,6 +2,8 @@ package com.j2kb.codev21.domains.vote.dto;
 
 import java.util.List;
 
+import com.j2kb.codev21.domains.vote.domain.BoardVote;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,11 +26,21 @@ public class BoardVoteDto {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
 	public static class Res{
-    	
 		private long boardId;
 		
+    	private long boardVoteId;
+    	
 		private String title;
     	
 		private int count;
+
+		public Res(BoardVote boardVote) {
+			this.boardId = boardVote.getBoard().getId();
+			this.boardVoteId = boardVote.getId();
+			this.title = boardVote.getBoard().getTitle();
+			this.count = boardVote.getCount();
+		}
+		
+		
 	}
 }
