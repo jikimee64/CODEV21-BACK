@@ -39,6 +39,12 @@ public class UserBoardVote extends BaseTimeEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BOARD_VOTE_ID")
 	private BoardVote boardVote;
+
+	public UserBoardVote(User user, Vote vote, BoardVote boardVote) {
+		this.user = user;
+		this.vote = vote;
+		this.boardVote = boardVote;
+	}
 	
 	
 }

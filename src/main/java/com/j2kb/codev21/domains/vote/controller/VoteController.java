@@ -59,7 +59,7 @@ public class VoteController {
 	}
 	
 	@DeleteMapping("/votes/boards/{boardVoteId}/members")
-	public CommonResponse<HashMap<String, Boolean>> deleteVoteOfUser(@PathVariable("boardVoteId") long boardVoteId) {
+	public CommonResponse<HashMap<String, Boolean>> cancleVoteOfUser(@PathVariable("boardVoteId") long boardVoteId) {
 		HashMap<String, Boolean> result = new HashMap<String, Boolean>();
 		result.put("result", true);
 		
@@ -72,10 +72,11 @@ public class VoteController {
 	
 	@PostMapping("/admin/votes")
 	public CommonResponse<VoteDto.Res> insertVote(VoteDto.Req req) {
+		Long insertedVoteId = voteService.insertVote(req);
 		return CommonResponse.<VoteDto.Res>builder()
 				.code("200")
 				.message("ok")
-				.data(voteService.insertVote(req))
+				.data(voteService.getVote(insertedVoteId))
 				.build();
 	}
 	

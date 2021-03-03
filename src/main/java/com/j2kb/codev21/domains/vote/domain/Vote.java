@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.j2kb.codev21.domains.vote.dto.VoteDto;
 import com.j2kb.codev21.global.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
@@ -35,9 +37,21 @@ public class Vote extends BaseTimeEntity {
 	@Column(name = "END_DATE")
 	private LocalDateTime endDate;
 	
-	@OneToMany(mappedBy = "vote")
+	@OneToMany(mappedBy = "vote", cascade = CascadeType.ALL)
 	private List<BoardVote> boardVotes = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "vote")
 	private List<UserBoardVote> userBoardVotes = new ArrayList<>();
+
+	public Vote(LocalDateTime startDate, LocalDateTime endDate) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	public Vote updateVote(VoteDto.Req req) {
+		this.startDate = req.getStartDate();
+		this.endDate = req.getEndDate();
+		
+		return this;
+	}
 }

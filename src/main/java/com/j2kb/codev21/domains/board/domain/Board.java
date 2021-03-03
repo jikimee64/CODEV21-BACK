@@ -63,4 +63,19 @@ public class Board extends BaseTimeEntity {
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "GISU_CATEGORY_ID")
 //	private GisuCategory gisuCategory;
+	
+	public Board(Long id) {
+		this.id = id;
+	}
+
+	public Board(String title, String content, String summary, String writer, String image, User user) {
+		this.title = title;
+		this.content = content;
+		this.summary = summary;
+		this.writer = writer;
+		this.image = image;
+		this.user = user;
+	}
+	
+	
 }

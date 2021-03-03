@@ -1,13 +1,9 @@
 package com.j2kb.codev21.domains.vote.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.j2kb.codev21.domains.board.domain.Board;
-import com.j2kb.codev21.domains.board.dto.BoardDto;
-import com.j2kb.codev21.domains.vote.domain.BoardVote;
 import com.j2kb.codev21.domains.vote.domain.Vote;
 
 import lombok.AccessLevel;
@@ -18,8 +14,9 @@ import lombok.NoArgsConstructor;
 
 public class VoteDto {
 	
-    @Data
-    @Builder
+
+	@Data
+	@Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
 	public static class Req {
@@ -32,8 +29,8 @@ public class VoteDto {
 
 	}
 	
-    @Data
-    @Builder
+	@Data
+	@Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
 	public static class Res{
@@ -56,6 +53,9 @@ public class VoteDto {
 			this.endDate = vote.getEndDate();
 			this.created_at = vote.getCreatedAt();
 			this.updated_at = vote.getUpdatedAt();
+			this.boardVotes = vote.getBoardVotes().stream()
+							.map(boardVote -> new BoardVoteDto.Res(boardVote))
+							.collect(Collectors.toList());
 		}
 	}
 }

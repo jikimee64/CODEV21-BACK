@@ -70,7 +70,6 @@ class VoteControllerTest {
 				.build();
 	}
 	
-	// TODO: 투표 조회
 	@Test
 	@DisplayName("투표 조회")
 	void find_VoteList() throws Exception {
@@ -141,7 +140,6 @@ class VoteControllerTest {
 	}
 	
 	
-	// TODO: 투표 단건 조회
 	@Test
 	@DisplayName("투표 단건 조회")
 	void find_VoteOne() throws Exception {
@@ -183,7 +181,7 @@ class VoteControllerTest {
         						fieldWithPath("data.updated_at").description("투표가 수정된 날짜"))));
 
 	}
-	// TODO: 유저 투표 요청
+
 	@DisplayName("유저 투표 요청")
     @Test
     void insertVoteOfUser() throws Exception {
@@ -204,7 +202,6 @@ class VoteControllerTest {
     						fieldWithPath("data.result").description("유저 투표 반영 결과"))));
     }
 	
-	// TODO: 유저 투표 취소 요청
 	@DisplayName("유저 투표 취소 요청")
     @Test
     void deleteVoteOfUser() throws Exception {
@@ -225,7 +222,6 @@ class VoteControllerTest {
     						fieldWithPath("data.result").description("유저 투표 취소 반영 결과"))));
     }
 	
-	// TODO: 투표 등록
     @DisplayName("투표 등록")
     @Test
     void insertVote() throws Exception {
@@ -236,7 +232,7 @@ class VoteControllerTest {
     			 												.boardIds(List.of(0l, 1l, 2l))
     			 												.build());
     	 
-    	 when(voteService.insertVote(any(VoteDto.Req.class)))
+    	 when(voteService.getVote(anyLong()))
  	 		.thenReturn(VoteDto.Res.builder()	
 					.id(0l)
 					.startDate(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
@@ -272,7 +268,7 @@ class VoteControllerTest {
     						fieldWithPath("data.created_at").description("등록된 투표가 생성된 날짜"),
     						fieldWithPath("data.updated_at").description("등록된 투표가 수정된 날짜"))));
     }	
-	// TODO: 투표 수정
+
     @DisplayName("투표 수정")
     @Test
     void updateVote() throws Exception {
@@ -320,7 +316,7 @@ class VoteControllerTest {
     						fieldWithPath("data.created_at").description("수정된 투표가 생성된 날짜"),
     						fieldWithPath("data.updated_at").description("수정된 투표가 수정된 날짜"))));
     }	
-	// TODO: 투표 삭제
+    
 	@DisplayName("투표 삭제")
     @Test
     void deleteVote() throws Exception {
@@ -341,7 +337,6 @@ class VoteControllerTest {
     						fieldWithPath("data.result").description("삭제 반영 결과"))));
     }
     
-	// TODO: 투표 게시글 추가(등록)
 	@DisplayName("투표 게시글 추가(등록)")
     @Test
     void includeBoardListIntoVote() throws Exception {
@@ -373,7 +368,6 @@ class VoteControllerTest {
     						fieldWithPath("data[].count").description("게시글을 등록한 투표에 속한 게시글의 득표수"))));
     }
 	
-	// TODO: 투표 게시글 단건 추가(등록)
 	@DisplayName("투표 게시글 단건 추가(등록)")
     @Test
     void includeBoardIntoVote() throws Exception {
@@ -400,7 +394,7 @@ class VoteControllerTest {
     						fieldWithPath("data[].title").description("게시글을 등록한 속한 게시글의 제목"),
     						fieldWithPath("data[].count").description("게시글을 등록한 속한 게시글의 득표수"))));
     }
-	// TODO: 투표 게시글 제외(삭제)
+
 	@DisplayName("투표 게시글 제외(삭제)")
     @Test
     void excludeBoardListInVote() throws Exception {
@@ -427,7 +421,6 @@ class VoteControllerTest {
     						fieldWithPath("data.result").description("투표 게시글 제외(삭제) 반영 결과"))));
     }
 	
-	// TODO: 투표 게시글 단건 제외(삭제)
 	@DisplayName("투표 게시글 단건 제외(삭제)")
     @Test
     void excludeBoardInVote() throws Exception {
