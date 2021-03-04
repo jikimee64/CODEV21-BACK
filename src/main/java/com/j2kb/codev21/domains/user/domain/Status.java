@@ -4,8 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    ACTIVE("활동 상태"),
-    INACTIVE("정지 상태");
+    ACTIVE("활동"),
+    INACTIVE("정지"),
+    ARMY("군복무");
 
     private String status;
 

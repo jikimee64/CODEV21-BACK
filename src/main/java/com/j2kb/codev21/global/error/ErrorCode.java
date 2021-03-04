@@ -8,11 +8,12 @@ public enum ErrorCode {
     // Member
     EMAIL_DUPLICATION(400, "M001", "중복된 아이디입니다."),
     MEMBER_IN_ACTIVE(400, "M002", "회원이 정지된 상태입니다."),
-    MEMBER_NOT_FOUND(400, "M003", "회원을 찾을 수 없습니다."),
+    MEMBER_NOT_FOUND(404, "M003", "회원을 찾을 수 없습니다."),
 
     // Common
-    BAD_REQUEST(400, "ERROR_001", "입력값이 잘못되었습니다."),
-    MEMBER_DUPLICATION(400, "ERROR_001", "중복된 회원입니다."),
+    BAD_REQUEST(400, "COMMON_001", "입력값이 잘못되었습니다."),
+    MEMBER_DUPLICATION(400, "COMMON_001", "중복된 회원입니다."),
+    VALIDATION(400, "COMMON_003", ""),
 
     // Auth
     AUTHENTICATION_FAILED(401, "AUTH_001", "인증에 실패하였습니다."),

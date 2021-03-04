@@ -30,11 +30,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j2kb.codev21.domains.board.controller.BoardController;
 import com.j2kb.codev21.domains.board.dto.BoardDto;
 import com.j2kb.codev21.domains.board.service.BoardService;
+import com.j2kb.codev21.domains.user.domain.Field;
+import com.j2kb.codev21.domains.user.domain.Status;
 import com.j2kb.codev21.domains.user.dto.UserDto;
 import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.UpdateUserReq;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
 import com.j2kb.codev21.domains.user.service.UserService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +80,8 @@ class UserControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
         RestDocumentationContextProvider restDocumentation) {
@@ -101,9 +107,13 @@ class UserControllerTest {
                 .email("jikimee64@gmail.com")
                 .name("김우철")
                 .joinGisu("2기")
-                .status("ACTIVE")
-                .field("BACK_END")
+                .status(Status.ACTIVE.getStatus())
+                .field(Field.NONE.getField())
                 .githubId("jikimee64@gmail.com")
+                .createdAt(
+                    LocalDateTime.parse(LocalDateTime.now().format(formatter),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                )
                 .build()
         );
 
@@ -129,7 +139,8 @@ class UserControllerTest {
                         .description("The user's status(활동중(ACTIVE),활동중지)"),
                     fieldWithPath("data[0].field")
                         .description("The user's field(backend,frontend...)"),
-                    fieldWithPath("data[0].githubId").description("The user's githubId")
+                    fieldWithPath("data[0].githubId").description("The user's githubId"),
+                    fieldWithPath("data[0].createdAt").description("The user's 가입일자")
                 )
             ));
     }
@@ -180,9 +191,13 @@ class UserControllerTest {
                 .email("jikimee64@gmail.com")
                 .name("김우철")
                 .joinGisu("2기")
-                .status("ACTIVE")
-                .field("BACK_END")
+                .status(Status.ACTIVE.getStatus())
+                .field(Field.NONE.getField())
                 .githubId("jikimee64@gmail.com")
+                .createdAt(
+                    LocalDateTime.parse(LocalDateTime.now().format(formatter),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                )
                 .build());
 
         this.mockMvc
@@ -204,7 +219,8 @@ class UserControllerTest {
                     fieldWithPath("data.status").description("The user's status(활동중(ACTIVE),활동중지)"),
                     fieldWithPath("data.field")
                         .description("The user's field(backend,frontend...)"),
-                    fieldWithPath("data.githubId").description("The user's githubId")
+                    fieldWithPath("data.githubId").description("The user's githubId"),
+                    fieldWithPath("data.createdAt").description("The user's 가입일자")
                 ),
                 pathParameters(parameterWithName("userId").description("조회할 회원번호"))));
     }
@@ -227,9 +243,13 @@ class UserControllerTest {
                 .email("jikimee64@gmail.com")
                 .name("김우철")
                 .joinGisu("2기")
-                .status("ACTIVE")
-                .field("BACK_END")
+                .status(Status.ACTIVE.getStatus())
+                .field(Field.NONE.getField())
                 .githubId("jikimee64@gmail.com")
+                .createdAt(
+                    LocalDateTime.parse(LocalDateTime.now().format(formatter),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                )
                 .build());
 
         this.mockMvc
@@ -256,7 +276,8 @@ class UserControllerTest {
                     fieldWithPath("data.status").description("The user's status(활동중(ACTIVE),활동중지)"),
                     fieldWithPath("data.field")
                         .description("The user's field(backend,frontend...)"),
-                    fieldWithPath("data.githubId").description("The user's githubId")
+                    fieldWithPath("data.githubId").description("The user's githubId"),
+                    fieldWithPath("data.createdAt").description("The user's 가입일자")
                 ),
                 pathParameters(parameterWithName("userId").description("수정할 회원번호"))));
     }
@@ -267,8 +288,8 @@ class UserControllerTest {
     void updateUserByAdmin() throws Exception {
 
         UserDto.UpdateUserByAdminReq dto = UserDto.UpdateUserByAdminReq.builder()
-            .status("ACTIVE(활동중), INACTIVE(비활동중)")
-            .field("백엔드")
+            .status("INACTIVE")
+            .field("BACK_END")
             .joinGisu("2기")
             .build();
 
@@ -282,9 +303,13 @@ class UserControllerTest {
                 .email("jikimee64@gmail.com")
                 .name("김우철")
                 .joinGisu("2기")
-                .status("ACTIVE")
-                .field("BACK_END")
+                .status(Status.ACTIVE.getStatus())
+                .field(Field.NONE.getField())
                 .githubId("jikimee64@gmail.com")
+                .createdAt(
+                    LocalDateTime.parse(LocalDateTime.now().format(formatter),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                )
                 .build());
 
         this.mockMvc
@@ -299,8 +324,8 @@ class UserControllerTest {
                 preprocessResponse(prettyPrint()),
                 requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 requestFields(
-                    fieldWithPath("status").description("회원활동 상태"),
-                    fieldWithPath("field").description("백엔드, 프론트엔드 등 소속 분야"),
+                    fieldWithPath("status").description("회원활동 상태(값 : ACTIVE, INACTIVE, ARMY)"),
+                    fieldWithPath("field").description("소속 분야(값 : APP, FRONT_END, BACK_END, DATA_SCIENCE, NONE)"),
                     fieldWithPath("joinGisu").description("가입기수")
                 ),
                 responseFields(
@@ -313,9 +338,11 @@ class UserControllerTest {
                     fieldWithPath("data.status").description("The user's status(활동중(ACTIVE),활동중지)"),
                     fieldWithPath("data.field")
                         .description("The user's field(backend,frontend...)"),
-                    fieldWithPath("data.githubId").description("The user's githubId")
+                    fieldWithPath("data.githubId").description("The user's githubId"),
+                    fieldWithPath("data.createdAt").description("The user's 가입일자")
                 ),
-                pathParameters(parameterWithName("userId").description("수정할 회원번호"))));
+                pathParameters(parameterWithName("userId").description("수정할 회원번호"))))
+                .andDo(print());;
     }
 
     @DisplayName("회원 삭제")
@@ -350,7 +377,7 @@ class UserControllerTest {
     UserDto.JoinReq getStubUser() {
         return UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
-            .password("password")
+            .password("1q2w3e4r1!")
             .name("김우철")
             .joinGisu("2기")
             .githubId("jikimee64@gmail.com")
