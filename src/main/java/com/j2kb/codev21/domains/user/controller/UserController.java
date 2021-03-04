@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,7 +31,7 @@ public class UserController {
     private final UserService userService;
 
     //회원 전체 조회
-    //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
+    //@PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
     @GetMapping("/admin/users")
     public CommonResponse<List<SelectUserRes>> selectAllUser() {
         return CommonResponse.<List<SelectUserRes>>builder()
@@ -43,7 +44,6 @@ public class UserController {
     @PostMapping("/users")
     public CommonResponse<UserIdRes> joinUser(
         @RequestBody @Valid UserDto.JoinReq dto) {
-
         return CommonResponse.<UserIdRes>builder()
             .code("200")
             .message("ok")
@@ -54,7 +54,6 @@ public class UserController {
     @GetMapping(value = {"/users/{userId}", "/admin/users/{userId}"})
     public CommonResponse<SelectUserRes> selectUser(
         @PathVariable("userId") Long userId) {
-
         return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
@@ -63,10 +62,12 @@ public class UserController {
 
     //회원수정(유저 권한)
     @PatchMapping(value = "/users/{userId}")
+    //로그인 구현하고 테스트 ★★★★★★★★★★★★★★★★★
+    //@PreAuthorize("isAuthenticated() and (( #dto.getEmail() == principal.username ) and hasRole('ROLE_USER'))")
+    //@PreAuthorize("(( #dto.email == principal.username ) and hasRole('ROLE_USER'))")
     public CommonResponse<SelectUserRes> updateUser(
         @PathVariable("userId") Long userId,
         @RequestBody @Valid UserDto.UpdateUserReq dto) {
-
         return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
@@ -74,12 +75,12 @@ public class UserController {
     }
 
     //회원수정(관리자 권한)
-    //@PreAuthorize("isAuthenticated() and ( hasRole('ROLE_ADMIN'))" )
     @PatchMapping(value = "/admin/users/{userId}")
+    //로그인 구현하고 테스트 ★★★★★★★★★★★★★★★★★
+    //@PreAuthorize("isAuthenticated() and (( #dto.getEmail() == principal.username ) and hasRole('ROLE_ADMIN'))")
     public CommonResponse<SelectUserRes> updateUserByAdmin(
         @PathVariable("userId") final Long userId,
         @RequestBody @Valid UserDto.UpdateUserByAdminReq dto) {
-
         return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
@@ -88,10 +89,10 @@ public class UserController {
 
     //회원삭제
     @DeleteMapping(value = {"/users/{userId}", "/admin/users/{userId}"})
+    //로그인 구현하고 테스트 ★★★★★★★★★★★★★★★★★
+    //@PreAuthorize("isAuthenticated() and (( #dto.getEmail() == principal.username ))")
     public CommonResponse<UserDto.DeleteUserCheckRes> deleteUser(
         @PathVariable("userId") final Long userId) {
-
-
         return CommonResponse.<UserDto.DeleteUserCheckRes>builder()
             .code("200")
             .message("ok")

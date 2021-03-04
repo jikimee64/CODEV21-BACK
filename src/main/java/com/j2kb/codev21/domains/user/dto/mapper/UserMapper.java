@@ -2,10 +2,12 @@ package com.j2kb.codev21.domains.user.dto.mapper;
 
 import com.j2kb.codev21.domains.user.domain.User;
 import com.j2kb.codev21.domains.user.dto.UserDto;
+import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper{
@@ -18,7 +20,6 @@ public interface UserMapper{
     })
     User userDtoToEntity(UserDto.JoinReq dto);
 
-//    @Mapping(target = "img", expression = "java(order.getProduct() + \".jpg\")") // 4
-//    UserDto.joinReq userToJoinReq(User order);
+    SelectUserRes userToDto(User user);
 
 }

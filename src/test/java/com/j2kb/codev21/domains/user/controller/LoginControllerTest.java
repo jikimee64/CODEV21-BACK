@@ -133,7 +133,7 @@ class LoginControllerTest {
     UserDto.JoinReq getStubUser() {
         return UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
-            .password("password")
+            .password("1q2w3e4r1!")
             .name("김우철")
             .joinGisu("2기")
             .githubId("jikimee64@gmail.com")

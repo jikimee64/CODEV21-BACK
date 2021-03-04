@@ -467,7 +467,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json
-Content-Length: 266
+Content-Length: 309
 
 {
   "code" : "200",
@@ -477,9 +477,10 @@ Content-Length: 266
     "email" : "jikimee64@gmail.com",
     "name" : "김우철",
     "joinGisu" : "2기",
-    "status" : "ACTIVE",
-    "field" : "BACK_END",
-    "githubId" : "jikimee64@gmail.com"
+    "status" : "활동",
+    "field" : "미소속",
+    "githubId" : "jikimee64@gmail.com",
+    "createdAt" : "2021-03-04T20:49:11"
   } ]
 }</code></pre>
 </div>
@@ -542,6 +543,11 @@ Content-Length: 266
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].githubId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s githubId</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[0].createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user&#8217;s 가입일자</p></td>
 </tr>
 </tbody>
 </table>
