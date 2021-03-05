@@ -165,7 +165,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("회원수정(관리자 권한)")
-    void sss2s() {
+    void member_update_by_admin() {
         /* given */
         UserIdRes userIdRes = userService.joinUser(dto);
         UserDto.UpdateUserByAdminReq dto = UserDto.UpdateUserByAdminReq.builder()
@@ -192,7 +192,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("회원삭제")
-    void ssss2s() {
+    void member_delete() {
         /* given */
         UserIdRes userIdRes = userService.joinUser(dto);
 

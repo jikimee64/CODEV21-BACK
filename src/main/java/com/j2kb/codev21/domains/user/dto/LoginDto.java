@@ -33,8 +33,42 @@ public class LoginDto {
     public static class LoginRes{
         private String accessToken;
         private Long userId;
-
     }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class LogoutReq{
+        private String accessToken;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class RefreshReq{
+        private String accessToken;
+        private String refreshToken;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class RefreshRes{
+        private String accessToken;
+    }
+
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class LogoutCheck{
+        private Boolean resultLogout;
+    }
+
 
 }
 
