@@ -3,7 +3,7 @@ package com.j2kb.codev21.domains.vote.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
+import com.j2kb.codev21.domains.vote.dto.VoteSearchCondition;
 import com.j2kb.codev21.domains.vote.dto.VoteDto.Req;
 import com.j2kb.codev21.domains.vote.dto.VoteDto.Res;
 
@@ -36,8 +37,8 @@ class VoteServiceTest {
 	void 투표_등록() {
 		// given
 		Req param = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l, 4l)).build();
 
 		// when
@@ -52,8 +53,8 @@ class VoteServiceTest {
 	void 투표_조회() {
 		// given
 		Req param = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l, 4l))
 				.build();
 
@@ -64,8 +65,8 @@ class VoteServiceTest {
 
 		// then
 		log.info("result = " + result);
-		assertThat(result.getStartDate()).isEqualToIgnoringNanos(param.getStartDate());
-		assertThat(result.getEndDate()).isEqualToIgnoringNanos(param.getEndDate());
+		assertThat(result.getStartDate()).isEqualTo(param.getStartDate());
+		assertThat(result.getEndDate()).isEqualTo(param.getEndDate());
 		assertThat(result.getBoardVotes().stream()
 						.map(boardVote -> boardVote.getBoardId())
 						.collect(Collectors.toList()))
@@ -76,13 +77,13 @@ class VoteServiceTest {
 	void 전체_투표_조회() {
 		// given
 		Req param = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l, 4l))
 				.build();
 		Req param2 = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now().plusDays(3))
-				.endDate(LocalDateTime.now().plusDays(10))
+				.startDate(LocalDate.now().plusDays(3))
+				.endDate(LocalDate.now().plusDays(10))
 				.boardIds(List.of(5l, 6l, 7l, 8l))
 				.build();
 
@@ -90,7 +91,7 @@ class VoteServiceTest {
 		Long insertedVoteId2 = voteService.insertVote(param2);
 
 		// when
-		 List<Res> result = voteService.getVoteList();
+		 List<Res> result = voteService.getVoteList(new VoteSearchCondition());
 
 		// then
 		assertThat(result.stream()
@@ -103,14 +104,14 @@ class VoteServiceTest {
 	void 투표_수정() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l, 4l))
 				.build();
 		
 		Req updateParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now().plusDays(7))
-				.endDate(LocalDateTime.now().plusDays(14))
+				.startDate(LocalDate.now().plusDays(7))
+				.endDate(LocalDate.now().plusDays(14))
 				.build();
 
 
@@ -120,16 +121,16 @@ class VoteServiceTest {
 		Res result = voteService.updateVote(insertedVoteId, updateParam);
 
 		// then
-		assertThat(result.getStartDate()).isEqualToIgnoringNanos(updateParam.getStartDate());
-		assertThat(result.getEndDate()).isEqualToIgnoringNanos(updateParam.getEndDate());
+		assertThat(result.getStartDate()).isEqualTo(updateParam.getStartDate());
+		assertThat(result.getEndDate()).isEqualTo(updateParam.getEndDate());
 	}
 	
 	@Test
 	void 투표_삭제() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l, 4l))
 				.build();
 
@@ -150,8 +151,8 @@ class VoteServiceTest {
 	void 투표_게시글_단건_등록() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l))
 				.build();
 
@@ -173,16 +174,18 @@ class VoteServiceTest {
 	void 투표_게시글_다건_등록() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
-				.boardIds(List.of(1l, 2l, 3l))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
+				.boardIds(List.of(1l, 2l))
 				.build();
 
 
 		Long insertedVoteId = voteService.insertVote(insertParam);
-
+		BoardVoteDto.Req includeParam = BoardVoteDto.Req.builder()
+				.boardIds(List.of(3l, 4l))
+				.build();
 		// when
-		List<BoardVoteDto.Res> result = voteService.includeBoardIntoVote(insertedVoteId, 4l);
+		List<BoardVoteDto.Res> result = voteService.includeBoardListIntoVote(insertedVoteId, includeParam);
 		
 		// then
 		assertThat(result.stream()
@@ -196,8 +199,8 @@ class VoteServiceTest {
 	void 투표_게시글_단건_제외() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l))
 				.build();
 
@@ -223,18 +226,18 @@ class VoteServiceTest {
 	void 투표_게시글_다건_제외() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l))
 				.build();
 
 
 		Long insertedVoteId = voteService.insertVote(insertParam);
-
-		// when
 		BoardVoteDto.Req excludeParam = BoardVoteDto.Req.builder()
-										.boardIds(List.of(1l, 2l))
-										.build();
+				.boardIds(List.of(1l, 2l))
+				.build();
+		
+		// when
 		List<BoardVoteDto.Res> result = voteService.excludeBoardListInVote(insertedVoteId, excludeParam);
 		
 		
@@ -253,8 +256,8 @@ class VoteServiceTest {
 	void 사용자_투표_요청() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l))
 				.build();
 
@@ -273,14 +276,18 @@ class VoteServiceTest {
 		// then
 		assertThat(result).isTrue();
 		assertThat(boardVote.getCount()).isEqualTo(1);
+		// 사용자 투표 중복 시 발생하는 IllegalArgumentException으로 데이터가 들어갔는 지 검증
+		assertThrows(IllegalArgumentException.class, 
+				() -> voteService.insertVoteOfUser(1l,
+						beforeVote.getBoardVotes().get(0).getBoardVoteId()));
 	}
 	
 	@Test
 	void 사용자_투표_취소_요청() {
 		// given
 		Req insertParam = VoteDto.Req.builder()
-				.startDate(LocalDateTime.now())
-				.endDate(LocalDateTime.now().plusDays(7))
+				.startDate(LocalDate.now())
+				.endDate(LocalDate.now().plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l))
 				.build();
 
@@ -302,7 +309,9 @@ class VoteServiceTest {
 		// then
 		assertThat(result).isTrue();
 		assertThat(boardVote.getCount()).isEqualTo(1);
-
+		// 존재하지 않는 투표를 취소하고자할 때 발생하는 IllegalArgumentException으로 삭제가 되었는지 검증
+		assertThrows(IllegalArgumentException.class, 
+				() -> voteService.cancleVoteOfUser(1l, beforeVote.getBoardVotes().get(0).getBoardVoteId()));
 
 	}
 }

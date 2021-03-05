@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.modifyParameters;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
@@ -14,8 +15,10 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.HashMap;
@@ -37,6 +40,9 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.operation.preprocess.Preprocessors;
+import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -46,6 +52,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto;
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto.Res;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
+import com.j2kb.codev21.domains.vote.dto.VoteSearchCondition;
 import com.j2kb.codev21.domains.vote.service.VoteService;
 
 @SpringBootTest
@@ -77,8 +84,8 @@ class VoteControllerTest {
 		
 		List<VoteDto.Res> resList = Stream.iterate(VoteDto.Res.builder()	
 												.id(0l)
-												.startDate(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-												.endDate(LocalDateTime.of(2021, Month.MARCH, 22, 0, 0))
+												.startDate(LocalDate.of(2021, Month.MARCH, 15))
+												.endDate(LocalDate.of(2021, Month.MARCH, 22))
 												.boardVotes(getDumyBoardVoteDtoList(0l, 3))
 												.created_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 												.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
@@ -89,24 +96,29 @@ class VoteControllerTest {
 										.startDate(res.getStartDate().plusMonths(1))
 										.endDate(res.getEndDate().plusMonths(1))
 										.boardVotes(getDumyBoardVoteDtoList(res.getId() + 1l, 3))
-										.created_at(res.getStartDate().plusMonths(1))
-										.updated_at(res.getStartDate().plusMonths(1))
+										.created_at(res.getCreated_at().plusMonths(1))
+										.updated_at(res.getUpdated_at().plusMonths(1))
 										.build();
 							}).limit(2)
 				.collect(Collectors.toList());
 		
-		when(voteService.getVoteList())
+		when(voteService.getVoteList(any(VoteSearchCondition.class)))
 			.thenReturn(resList);
 
 		//when
 		//then
         this.mockMvc
-        		.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/votes")
+        		.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/votes?processing=true&startDateGoe=2021-03-05&startDateLoe=2021-03-05&endDateGoe=2021-03-05&endDateLoe=2021-03-05")
         				.accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(document("VoteController/getVoteList",
                 		preprocessRequest(prettyPrint()),
                 		preprocessResponse(prettyPrint()),
+                		requestParameters(parameterWithName("processing").description("진행중 유무"),
+                					parameterWithName("startDateGoe").description("투표 시작 날짜 <="),
+                					parameterWithName("startDateLoe").description("투표 시작 날짜 >="),
+                					parameterWithName("endDateGoe").description("투표 종료 날짜 <="),
+                					parameterWithName("endDateLoe").description("투표 종료 날짜 >=")),
                 		responseFields(fieldWithPath("code").description("code(200,400...)"),
                 					fieldWithPath("message").description("message(success...)"),
                 					subsectionWithPath("data[]").description("Response 데이터"),
@@ -147,8 +159,8 @@ class VoteControllerTest {
 		
 		VoteDto.Res res = VoteDto.Res.builder()	
 					.id(0l)
-					.startDate(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-					.endDate(LocalDateTime.of(2021, Month.MARCH, 22, 0, 0))
+					.startDate(LocalDate.of(2021, Month.MARCH, 15))
+					.endDate(LocalDate.of(2021, Month.MARCH, 22))
 					.boardVotes(getDumyBoardVoteDtoList(0l, 3))
 					.created_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 					.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
@@ -227,16 +239,16 @@ class VoteControllerTest {
     void insertVote() throws Exception {
     	//given
     	 String content = objectMapper.writeValueAsString(VoteDto.Req.builder()
-    			 												.startDate(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-    			 												.endDate(LocalDateTime.of(2021, Month.MARCH, 22, 0, 0))
+    			 												.startDate(LocalDate.of(2021, Month.MARCH, 15))
+    			 												.endDate(LocalDate.of(2021, Month.MARCH, 22))
     			 												.boardIds(List.of(0l, 1l, 2l))
     			 												.build());
     	 
     	 when(voteService.getVote(anyLong()))
  	 		.thenReturn(VoteDto.Res.builder()	
 					.id(0l)
-					.startDate(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-					.endDate(LocalDateTime.of(2021, Month.MARCH, 22, 0, 0))
+					.startDate(LocalDate.of(2021, Month.MARCH, 15))
+					.endDate(LocalDate.of(2021, Month.MARCH, 22))
 					.boardVotes(getDumyBoardVoteDtoList(0l, 3))
 					.created_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 					.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
@@ -282,8 +294,8 @@ class VoteControllerTest {
     	 when(voteService.updateVote(anyLong(), any(VoteDto.Req.class)))
     	 	.thenReturn(VoteDto.Res.builder()	
 					.id(0l)
-					.startDate(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-					.endDate(LocalDateTime.of(2021, Month.MARCH, 22, 0, 0))
+					.startDate(LocalDate.of(2021, Month.MARCH, 15))
+					.endDate(LocalDate.of(2021, Month.MARCH, 22))
 					.boardVotes(getDumyBoardVoteDtoList(0l, 3))
 					.created_at(LocalDateTime.of(2021, Month.MARCH, 10, 0, 0))
 					.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))

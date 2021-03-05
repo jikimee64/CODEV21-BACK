@@ -19,6 +19,7 @@ import com.j2kb.codev21.global.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,6 +48,7 @@ public class BoardVote extends BaseTimeEntity{
 	@OneToMany(mappedBy = "boardVote", cascade = CascadeType.ALL)
 	private List<UserBoardVote> userBoardVotes = new ArrayList<>();
 
+	@Builder
 	public BoardVote(int count, Vote vote, Board board) {
 		super();
 		this.count = count;
@@ -60,6 +62,20 @@ public class BoardVote extends BaseTimeEntity{
 	
 	public void decreaseCount() {
 		this.count = count > 0 ? count - 1 : 0;
+	}
+	
+	public void setVote(Vote vote) {
+		this.vote = vote;
+	}
+	
+	public void addUserBoardVote(UserBoardVote userBoardVote) {
+		this.userBoardVotes.add(userBoardVote);
+		userBoardVote.setBoardVote(this);
+	}
+	
+	public void removeUserBoardVote(UserBoardVote userBoardVote) {
+		this.userBoardVotes.remove(userBoardVote);
+		userBoardVote.setBoardVote(null);
 	}
 	
 	

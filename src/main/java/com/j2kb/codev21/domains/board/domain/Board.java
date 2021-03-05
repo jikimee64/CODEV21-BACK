@@ -3,6 +3,7 @@ package com.j2kb.codev21.domains.board.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import com.j2kb.codev21.global.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -52,7 +54,7 @@ public class Board extends BaseTimeEntity {
 	@JoinColumn(name = "USER_ID")
 	private User user;
 	
-	@OneToMany(mappedBy = "board")
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	private List<BoardVote> boardVotes = new ArrayList<>();
 	
 //	@ManyToOne(fetch = FetchType.LAZY)
@@ -64,10 +66,7 @@ public class Board extends BaseTimeEntity {
 //	@JoinColumn(name = "GISU_CATEGORY_ID")
 //	private GisuCategory gisuCategory;
 	
-	public Board(Long id) {
-		this.id = id;
-	}
-
+	@Builder
 	public Board(String title, String content, String summary, String writer, String image, User user) {
 		this.title = title;
 		this.content = content;

@@ -14,6 +14,7 @@ import com.j2kb.codev21.global.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -40,9 +41,14 @@ public class UserBoardVote extends BaseTimeEntity{
 	@JoinColumn(name = "BOARD_VOTE_ID")
 	private BoardVote boardVote;
 
+	@Builder
 	public UserBoardVote(User user, Vote vote, BoardVote boardVote) {
 		this.user = user;
 		this.vote = vote;
+		this.boardVote = boardVote;
+	}
+	
+	public void setBoardVote(BoardVote boardVote) {
 		this.boardVote = boardVote;
 	}
 	

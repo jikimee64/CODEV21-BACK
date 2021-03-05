@@ -29,6 +29,18 @@ public class GlobalExceptionController {
                 .status(000).build(),
             HttpStatus.BAD_REQUEST);
     }
+    
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<?> illegalArgumentException(IllegalArgumentException ex) {
+        log.info("IllegalArgumentException");
+        ex.printStackTrace();
+        return new ResponseEntity<>(
+        		ErrorResponse.builder()
+                .code("IllegalArgumentException")
+                .message("잘못된 요청 파라미터입니다. \n" + "상세 메시지: " + ex.getMessage())
+                .status(000).build(),
+            HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
+import com.j2kb.codev21.domains.vote.dto.VoteSearchCondition;
 import com.j2kb.codev21.domains.vote.service.VoteService;
 import com.j2kb.codev21.global.common.CommonResponse;
 
@@ -29,11 +30,11 @@ public class VoteController {
 	private final VoteService voteService;
 	
 	@GetMapping("/admin/votes")
-	public CommonResponse<List<VoteDto.Res>> getVoteList() {
+	public CommonResponse<List<VoteDto.Res>> getVoteList(VoteSearchCondition condition) {
 		return CommonResponse.<List<VoteDto.Res>>builder()
 					.code("200")
 					.message("ok")
-					.data(voteService.getVoteList())
+					.data(voteService.getVoteList(condition))
 					.build();
 	}
 	

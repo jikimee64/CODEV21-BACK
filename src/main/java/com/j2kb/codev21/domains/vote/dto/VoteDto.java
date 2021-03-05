@@ -1,5 +1,6 @@
 package com.j2kb.codev21.domains.vote.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +22,9 @@ public class VoteDto {
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
 	public static class Req {
     	
-    	private LocalDateTime startDate;
+    	private LocalDate startDate;
     	
-    	private LocalDateTime endDate;
+    	private LocalDate endDate;
 
 		private List<Long> boardIds;
 
@@ -37,9 +38,9 @@ public class VoteDto {
 		
 		private long id;
 
-    	private LocalDateTime startDate;
+    	private LocalDate startDate;
     	
-    	private LocalDateTime endDate;
+    	private LocalDate endDate;
 
 		private List<BoardVoteDto.Res> boardVotes;
 

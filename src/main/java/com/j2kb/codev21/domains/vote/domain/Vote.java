@@ -1,5 +1,6 @@
 package com.j2kb.codev21.domains.vote.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.j2kb.codev21.global.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,10 +34,10 @@ public class Vote extends BaseTimeEntity {
 	private Long id;
 	
 	@Column(name = "START_DATE")
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	
 	@Column(name = "END_DATE")
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 	
 	@OneToMany(mappedBy = "vote", cascade = CascadeType.ALL)
 	private List<BoardVote> boardVotes = new ArrayList<>();
@@ -43,15 +45,19 @@ public class Vote extends BaseTimeEntity {
 	@OneToMany(mappedBy = "vote")
 	private List<UserBoardVote> userBoardVotes = new ArrayList<>();
 
-	public Vote(LocalDateTime startDate, LocalDateTime endDate) {
+	@Builder
+	public Vote(LocalDate startDate, LocalDate endDate) {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
 	
-	public Vote updateVote(VoteDto.Req req) {
-		this.startDate = req.getStartDate();
-		this.endDate = req.getEndDate();
-		
-		return this;
+	public void updateVote(VoteDto.Req req) {
+		this.startDate = req.getStartDate() != null ? req.getStartDate() : this.startDate;
+		this.endDate = req.getEndDate() != null ? req.getEndDate() : this.endDate;
+	}
+	
+	public void addBoardVote(BoardVote boardVote) {
+		boardVotes.add(boardVote);
+		boardVote.setVote(this);
 	}
 }
