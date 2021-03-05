@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum Status {
     ACTIVE("활동"),
     INACTIVE("정지"),
-    ARMY("군복무");
+    MILITARY("군복무");
 
     private String status;
 

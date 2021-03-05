@@ -17,12 +17,19 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.j2kb.codev21.domains.user.domain.Token;
 import com.j2kb.codev21.domains.user.dto.LoginDto;
+import com.j2kb.codev21.domains.user.dto.LoginDto.LoginReq;
+import com.j2kb.codev21.domains.user.dto.LoginDto.LogoutReq;
+import com.j2kb.codev21.domains.user.dto.LoginDto.RefreshReq;
+import com.j2kb.codev21.domains.user.dto.LoginDto.RefreshRes;
 import com.j2kb.codev21.domains.user.dto.UserDto;
 import com.j2kb.codev21.domains.user.service.LoginService;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -73,40 +80,25 @@ class LoginControllerTest {
             .build();
     }
 
-    @DisplayName("회원 가입")
-    @Order(1)
-    @Test
-    void join() throws Exception {
-
-        String content = objectMapper.writeValueAsString(
-            getStubUser()
-        );
-
-        when(userService.joinUser(getStubUser())).thenReturn(
-            UserDto.UserIdRes.builder()
-                .id(1L)
-                .build());
-
-        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users")
-            .content(content)
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
-    }
-
     @DisplayName("로그인")
-    @Order(2)
     @Test
     void login() throws Exception {
+
+        LoginReq logitDto = LoginDto.LoginReq.builder()
+            .email("j2kb@j2kb.com")
+            .password("j2kb")
+            .build();
+
         String content = objectMapper.writeValueAsString(
-            getStubLogin()
+            logitDto
         );
 
-        when(loginService.login(eq(getStubLogin())))
-            .thenReturn(LoginDto.LoginRes.builder()
-                .userId(1L)
-                .accessToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ")
-                .build());
+        Map<String, Object> map = new HashMap<>();
+        map.put(Token.ACCESS_TOKEN.getName(), "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ");
+        map.put(Token.REFRESH_TOKEN.getName(), "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3NlbGxAbm9zZWxsLmNvbSIsImV4cCI6MTYxNTUyNzU3Nn0.cj4lnaldqwrenfJtMdm7jjhOzto6ZuiOKKiIQPy5p4yg5k3HC1QNd47SfZcDpscSqq_Tcy2tK5rHtx0QtigE-A");
+
+        when(loginService.login(eq(logitDto)))
+            .thenReturn(map);
 
         this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/login")
             .content(content)
@@ -126,27 +118,78 @@ class LoginControllerTest {
                     fieldWithPath("data.accessToken").description("액세스 토큰"),
                     fieldWithPath("data.userId").description("유저 id(고유번호)")
                 ),
-                responseHeaders(headerWithName("Authorization").description("액세스 토큰값"))
+                responseHeaders(headerWithName("Set-Cookie").description("httpOnly 적용한 상태로 쿠키에 담아서 refreshToken 전송"))
             ));
     }
 
-    UserDto.JoinReq getStubUser() {
-        return UserDto.JoinReq.builder()
-            .email("jikimee64@gmail.com")
-            .password("1q2w3e4r1!")
-            .name("김우철")
-            .joinGisu("2기")
-            .githubId("jikimee64@gmail.com")
+    @DisplayName("로그아웃")
+    @Test
+    void logout() throws Exception {
+
+        LogoutReq logoutReq = LogoutReq.builder()
+            .accessToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ")
             .build();
+
+        String content = objectMapper.writeValueAsString(
+            logoutReq
+        );
+
+        when(loginService.logout(eq(logoutReq)))
+            .thenReturn("username(email)");
+
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/logout")
+            .content(content)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andDo(document("LoginController/logout",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestFields(
+                    fieldWithPath("accessToken").description("액세스 토큰")
+                ),
+                responseFields(
+                    fieldWithPath("code").description("code(200,400...)"),
+                    fieldWithPath("message").description("message(success...)"),
+                    fieldWithPath("data.resultLogout").description("로그아웃 결과")
+                )
+            ));
     }
 
-    LoginDto.LoginReq getStubLogin() {
-        return LoginDto.LoginReq.builder()
-            .email("j2kb@j2kb.com")
-            .password("j2kb")
+    @DisplayName("new access token 요청")
+    @Test
+    void refresh() throws Exception {
+
+        RefreshReq refreshRes = RefreshReq.builder()
+            .accessToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQ")
+            .refreshToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3NlbGxAbm9zZWxsLmNvbSIsImV4cCI6MTYxNTUyNzU3Nn0.cj4lnaldqwrenfJtMdm7jjhOzto6ZuiOKKiIQPy5p4yg5k3HC1QNd47SfZcDpscSqq_Tcy2tK5rHtx0QtigE-A")
             .build();
+
+        String content = objectMapper.writeValueAsString(
+            refreshRes
+        );
+
+        when(loginService.provideNewAccessToken(eq(refreshRes)))
+            .thenReturn("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IiIsImV4cCI6MTYxNDAxNTk2Nn0.Yp31VtAyFvfyuZh72Qj_pSF3vYsVr4ZfRrM5Kbk4KAAMJDxIWb0SbYXfY9X1rwTkdTwt5lWn_cRkjldfqZFTrQKWC");
+
+        this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/refresh")
+            .content(content)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andDo(document("LoginController/refresh",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                requestFields(
+                    fieldWithPath("accessToken").description("액세스 토큰"),
+                    fieldWithPath("refreshToken").description("리프레쉬 토큰")
+                ),
+                responseFields(
+                    fieldWithPath("code").description("code(200,400...)"),
+                    fieldWithPath("message").description("message(success...)"),
+                    fieldWithPath("data.accessToken").description("새로운 토큰값")
+                )
+            ));
     }
-
-
 
 }

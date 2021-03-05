@@ -5,6 +5,7 @@ import com.j2kb.codev21.global.jwt.JwtAuthenticationEntryPoint;
 import com.j2kb.codev21.global.jwt.JwtSecurityConfig;
 import com.j2kb.codev21.global.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,15 +20,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final RedisTemplate<String, Object> redisTemplate;
     private final JwtTokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     public SecurityConfig(
+        RedisTemplate<String, Object> redisTemplate,
         JwtTokenProvider tokenProvider,
         JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
         JwtAccessDeniedHandler jwtAccessDeniedHandler
     ) {
+        this.redisTemplate = redisTemplate;
         this.tokenProvider = tokenProvider;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
@@ -82,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             //사용자의 모든 요청은 JWT 필터를 통과하는 설정
-            .apply(new JwtSecurityConfig(tokenProvider));
+            .apply(new JwtSecurityConfig(tokenProvider, redisTemplate));
     }
 
 

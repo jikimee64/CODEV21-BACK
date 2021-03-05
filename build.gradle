@@ -34,6 +34,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-json'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.apache.httpcomponents:httpclient:4.5'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	//querydsl 추가
 	implementation 'com.querydsl:querydsl-jpa'
 	//쿼리 파라미터 로그

@@ -70,9 +70,4 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             + "\" }");
     }
 
-//        response.getWriter().println("{ \"message\" : \"" + errorCode.getMessage()
-//            + "\", \"code\" : \"" +  errorCode.getCode()
-//                + "\", \"status\" : " + errorCode.getStatus()
-//                + ", \"errors\" : [ ] }");
-
 }
