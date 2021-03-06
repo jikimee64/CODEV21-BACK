@@ -462,6 +462,9 @@ include::{snippets}/BoardController/deleteBoard/http-response.adoc[]
 === 유저 투표 요청
 
 ==== Request
+====== Header
+include::{snippets}/VoteController/insertVoteOfUser/request-headers.adoc[]
+====== Path Parameters
 include::{snippets}/VoteController/insertVoteOfUser/path-parameters.adoc[]
 
 ===== Request HTTP Example
@@ -482,7 +485,9 @@ include::{snippets}/VoteController/insertVoteOfUser/http-response.adoc[]
 === 유저 투표 취소 요청
 
 ==== Request
-
+====== Header
+include::{snippets}/VoteController/deleteVoteOfUser/request-headers.adoc[]
+====== Path Parameters
 include::{snippets}/VoteController/deleteVoteOfUser/path-parameters.adoc[]
 
 ===== Request HTTP Example
@@ -503,6 +508,10 @@ include::{snippets}/VoteController/deleteVoteOfUser/http-response.adoc[]
 === 투표 다건 조회
 
 ==== Request
+====== header
+include::{snippets}/VoteController/getVoteList/request-headers.adoc[]
+====== Query String
+include::{snippets}/VoteController/getVoteList/request-parameters.adoc[]
 
 ===== Request HTTP Example
 
@@ -522,7 +531,9 @@ include::{snippets}/VoteController/getVoteList/http-response.adoc[]
 === 투표 단건 조회
 
 ==== Request
-
+====== Header
+include::{snippets}/VoteController/getVote/request-headers.adoc[]
+====== Path Parameters
 include::{snippets}/VoteController/getVote/path-parameters.adoc[]
 
 ===== Request HTTP Example
@@ -543,7 +554,9 @@ include::{snippets}/VoteController/getVote/http-response.adoc[]
 === 투표 등록
 
 ==== Request
-
+====== Header
+include::{snippets}/VoteController/insertVote/request-headers.adoc[]
+====== Request Fields
 include::{snippets}/VoteController/insertVote/request-fields.adoc[]
 
 ===== Request HTTP Example
@@ -564,9 +577,11 @@ include::{snippets}/VoteController/insertVote/http-response.adoc[]
 === 투표 수정
 
 ==== Request
-
+====== Header
+include::{snippets}/VoteController/updateVote/request-headers.adoc[]
+====== Path Parameters
 include::{snippets}/VoteController/updateVote/path-parameters.adoc[]
-
+====== Reqeust fields
 include::{snippets}/VoteController/updateVote/request-fields.adoc[]
 
 ===== Request HTTP Example
@@ -587,7 +602,9 @@ include::{snippets}/VoteController/updateVote/http-response.adoc[]
 === 투표 삭제
 
 ==== Request
-
+====== Header
+include::{snippets}/VoteController/deleteVote/request-headers.adoc[]
+====== Path Parameters
 include::{snippets}/VoteController/deleteVote/path-parameters.adoc[]
 
 ===== Request HTTP Example
@@ -601,5 +618,101 @@ include::{snippets}/VoteController/deleteVote/response-fields.adoc[]
 ===== Response HTTP Example:
 
 include::{snippets}/VoteController/deleteVote/http-response.adoc[]
+
+&#160;
+
+[[includeBoardIntoVote]]
+=== 투표 게시글 단건 등록
+
+==== Request
+====== Header
+include::{snippets}/VoteController/includeBoardIntoVote/request-headers.adoc[]
+====== Path Parameters
+include::{snippets}/VoteController/includeBoardIntoVote/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/includeBoardIntoVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/includeBoardIntoVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/includeBoardIntoVote/http-response.adoc[]
+
+&#160;
+
+[[includeBoardListIntoVote]]
+=== 투표 게시글 다건 등록
+
+==== Request
+====== Header
+include::{snippets}/VoteController/includeBoardListIntoVote/request-headers.adoc[]
+====== Path Parameters
+include::{snippets}/VoteController/includeBoardListIntoVote/path-parameters.adoc[]
+====== Reqeust fields
+include::{snippets}/VoteController/includeBoardListIntoVote/request-fields.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/includeBoardListIntoVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/includeBoardListIntoVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/includeBoardListIntoVote/http-response.adoc[]
+
+&#160;
+
+[[excludeBoardInVote]]
+=== 투표 게시글 단건 제외
+
+==== Request
+====== Header
+include::{snippets}/VoteController/excludeBoardInVote/request-headers.adoc[]
+====== Path Parameters
+include::{snippets}/VoteController/excludeBoardInVote/path-parameters.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/excludeBoardInVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/excludeBoardInVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/excludeBoardInVote/http-response.adoc[]
+
+&#160;
+
+[[excludeBoardListInVote]]
+=== 투표 게시글 다건 제외
+
+==== Request
+====== Header
+include::{snippets}/VoteController/excludeBoardListInVote/request-headers.adoc[]
+====== Path Parameters
+include::{snippets}/VoteController/excludeBoardListInVote/path-parameters.adoc[]
+====== Reqeust fields
+include::{snippets}/VoteController/excludeBoardListInVote/request-fields.adoc[]
+
+===== Request HTTP Example
+
+include::{snippets}/VoteController/excludeBoardListInVote/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/VoteController/excludeBoardListInVote/response-fields.adoc[]
+
+===== Response HTTP Example:
+
+include::{snippets}/VoteController/excludeBoardListInVote/http-response.adoc[]
 
 &#160;

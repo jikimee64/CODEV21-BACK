@@ -51,9 +51,9 @@ public class Vote extends BaseTimeEntity {
 		this.endDate = endDate;
 	}
 	
-	public void updateVote(VoteDto.Req req) {
-		this.startDate = req.getStartDate() != null ? req.getStartDate() : this.startDate;
-		this.endDate = req.getEndDate() != null ? req.getEndDate() : this.endDate;
+	public void updateVote(Vote vote) {
+		this.startDate = vote.getStartDate() != null ? vote.getStartDate() : this.startDate;
+		this.endDate = vote.getEndDate() != null ? vote.getEndDate() : this.endDate;
 	}
 	
 	public void addBoardVote(BoardVote boardVote) {

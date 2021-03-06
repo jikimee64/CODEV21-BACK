@@ -10,12 +10,32 @@ public enum ErrorCode {
     MEMBER_IN_ACTIVE(400, "M002", "회원이 정지된 상태입니다."),
     MEMBER_NOT_FOUND(404, "M003", "회원을 찾을 수 없습니다."),
     MEMBER_LOGOUT(400, "M004", "로그아웃된 상태입니다."),
-
+    
+    
     // Common
     BAD_REQUEST(400, "COMMON_001", "입력값이 잘못되었습니다."),
     MEMBER_DUPLICATION(400, "COMMON_001", "중복된 회원입니다."),
     VALIDATION(400, "COMMON_003", ""),
-
+    METHOD_NOT_ALLOWED(405, "COMMON_004", " Invalid HTTP Method"),
+    INTERNAL_SERVER_ERROR(500, "COMMON_005", "Server Error"),
+    
+    ////InvalidValue
+    //Common
+    INVALID_INPUT_VALUE(400, "INVALID_C001", " Invalid Input Value"),
+    //USER
+    NO_USER_FOUND(400, "INVALID_M001", "회원을 찾을 수 없습니다."),
+    //BOARD
+    NO_BOARD_FOUND(400, "INVALID_B001", "게시글을 찾을 수 없습니다."),
+    //Vote
+    NO_VOTE_FOUND(400, "INVALID_V001", "투표를 찾을 수 없습니다."),
+    VOTE_DUPLICATION(400, "INVALID_V002", "중복된 날짜의 투표가 존재합니다."),
+    //BoardVote
+    NO_BOARDVOTE_FOUND(400, "INVALID_BV001", "게시글을 찾을 수 없습니다."),
+    BOARDVOTE_DUPLICATION(400, "INVALID_BV002", "투표에 중복된 게시글이 존재합니다."),
+    //UserBoardVote
+    NO_USERBOARDVOTE_FOUND(400, "INVALID_UBV001", "회원의 투표를 찾을 수 없습니다."),
+    USERBOARDVOTE_DUPLICATION(400, "INVALID_UBV001", "중복된 회원의 투표입니다."),
+    
     // Auth
     AUTHENTICATION_FAILED(401, "AUTH_001", "인증에 실패하였습니다."),
     LOGIN_FAILED(401, "AUTH_001", "로그인에 실패하였습니다."),

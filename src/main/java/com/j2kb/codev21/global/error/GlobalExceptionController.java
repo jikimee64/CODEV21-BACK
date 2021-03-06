@@ -1,10 +1,7 @@
 package com.j2kb.codev21.global.error;
 
-import com.j2kb.codev21.domains.user.exception.MemberNotFoundException;
-import com.j2kb.codev21.global.common.CommonResponse;
-import com.j2kb.codev21.global.common.ErrorResponse;
 import java.nio.file.AccessDeniedException;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -13,6 +10,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.j2kb.codev21.domains.user.exception.MemberNotFoundException;
+import com.j2kb.codev21.global.common.ErrorResponse;
+import com.j2kb.codev21.global.error.exception.InvalidValueException;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestControllerAdvice(annotations = RestController.class)
@@ -29,19 +32,15 @@ public class GlobalExceptionController {
                 .status(000).build(),
             HttpStatus.BAD_REQUEST);
     }
-    
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<?> illegalArgumentException(IllegalArgumentException ex) {
-        log.info("IllegalArgumentException");
-        ex.printStackTrace();
-        return new ResponseEntity<>(
-        		ErrorResponse.builder()
-                .code("IllegalArgumentException")
-                .message("잘못된 요청 파라미터입니다. \n" + "상세 메시지: " + ex.getMessage())
-                .status(000).build(),
-            HttpStatus.BAD_REQUEST);
-    }
 
+    @ExceptionHandler(InvalidValueException.class)
+    protected ResponseEntity<ErrorResponse> handleInvalidValueException(final InvalidValueException e) {
+        log.error("handleInvalidValueException", e);
+        final ErrorCode errorCode = e.getErrorCode();
+        final ErrorResponse response = ErrorResponse.of(e.getErrorCode());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         log.info("MethodArgumentNotValidException");
