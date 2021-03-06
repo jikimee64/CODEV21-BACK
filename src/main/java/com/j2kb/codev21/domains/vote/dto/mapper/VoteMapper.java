@@ -5,8 +5,8 @@ import org.mapstruct.Mapper;
 import com.j2kb.codev21.domains.vote.domain.Vote;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface VoteMapper {
-
-	Vote VoteDtoReqToVote(VoteDto.Req req);
+	
+	Vote reqToVote(VoteDto.Req req);
 }

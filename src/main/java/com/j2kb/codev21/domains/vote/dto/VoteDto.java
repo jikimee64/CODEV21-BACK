@@ -27,7 +27,6 @@ public class VoteDto {
     	private LocalDate endDate;
 
 		private List<Long> boardIds;
-
 	}
 	
 	@Data
