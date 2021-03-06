@@ -113,6 +113,7 @@ public class VoteService {
 										.board(board)
 										.build());
 		}
+		voteRepository.flush();
 
 		return new VoteDto.Res(vote);
 	}

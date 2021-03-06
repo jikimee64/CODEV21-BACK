@@ -3,6 +3,8 @@ package com.j2kb.codev21.domains.vote.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.modifyParameters;
@@ -49,11 +51,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.j2kb.codev21.domains.vote.domain.Vote;
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto;
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto.Res;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
 import com.j2kb.codev21.domains.vote.dto.VoteSearchCondition;
 import com.j2kb.codev21.domains.vote.service.VoteService;
+import com.sun.xml.bind.v2.schemagen.xmlschema.Any;
 
 @SpringBootTest
 @ExtendWith({ MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class })
@@ -109,11 +113,13 @@ class VoteControllerTest {
 		//then
         this.mockMvc
         		.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/votes?processing=true&startDateGoe=2021-03-05&startDateLoe=2021-03-05&endDateGoe=2021-03-05&endDateLoe=2021-03-05")
-        				.accept(MediaType.APPLICATION_JSON))
+        				.accept(MediaType.APPLICATION_JSON)
+        				.header("Authorization", "Bear {token값}"))
                 .andExpect(status().isOk())
                 .andDo(document("VoteController/getVoteList",
                 		preprocessRequest(prettyPrint()),
                 		preprocessResponse(prettyPrint()),
+                		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 		requestParameters(parameterWithName("processing").description("진행중 유무"),
                 					parameterWithName("startDateGoe").description("투표 시작 날짜 <="),
                 					parameterWithName("startDateLoe").description("투표 시작 날짜 >="),
@@ -136,12 +142,14 @@ class VoteControllerTest {
 
 	private List<Res> getDumyBoardVoteDtoList(long voteId, int limit) {
 		return Stream.iterate(BoardVoteDto.Res.builder()
+										.boardVoteId(voteId * 3)
 										.boardId(voteId * 3)
 										.title("someBoardTitle" + (voteId * 3))
 										.count(15 + (int) voteId)
 										.build(), 
 										boardVoteDtoRes -> {
 												return BoardVoteDto.Res.builder()
+																	.boardVoteId(boardVoteDtoRes.getBoardId() + 1)
 																	.boardId(boardVoteDtoRes.getBoardId() + 1)
 																	.title("someBoardTitle" + (boardVoteDtoRes.getBoardId() + 1))
 																	.count(boardVoteDtoRes.getCount() + 2)
@@ -172,13 +180,15 @@ class VoteControllerTest {
 		//when
 		//then
         this.mockMvc
-        		.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/votes/{id}", 0l)
-        				.accept(MediaType.APPLICATION_JSON))
+        		.perform(RestDocumentationRequestBuilders.get("/api/v1/admin/votes/{voteId}", 0l)
+        				.accept(MediaType.APPLICATION_JSON)
+        				.header("Authorization", "Bear {token값}"))
                 .andExpect(status().isOk())
                 .andDo(document("VoteController/getVote",
                 		preprocessRequest(prettyPrint()),
                 		preprocessResponse(prettyPrint()),
-                		pathParameters(parameterWithName("id").description("조회할 투표 번호")),
+                		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+                		pathParameters(parameterWithName("voteId").description("조회할 투표 번호")),
                 		responseFields(fieldWithPath("code").description("code(200,400...)"),
             					fieldWithPath("message").description("message(success...)"),
             					subsectionWithPath("data").description("Response 데이터"),
@@ -198,15 +208,19 @@ class VoteControllerTest {
     @Test
     void insertVoteOfUser() throws Exception {
     	//given
+		when(voteService.insertVoteOfUser(anyLong(), anyLong()))
+			.thenReturn(true);
     	//when
         //then
         this.mockMvc
         	.perform(RestDocumentationRequestBuilders.post("/api/v1/votes/boards/{boardVoteId}/members", 0l)
-        			.accept(MediaType.APPLICATION_JSON))
+        			.accept(MediaType.APPLICATION_JSON)
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/insertVoteOfUser",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		pathParameters(parameterWithName("boardVoteId").description("회원이 투표할 게시글의 게시글_투표 번호")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
         					fieldWithPath("message").description("message(success...)"),
@@ -216,17 +230,21 @@ class VoteControllerTest {
 	
 	@DisplayName("유저 투표 취소 요청")
     @Test
-    void deleteVoteOfUser() throws Exception {
+    void cancleVoteOfUser() throws Exception {
     	//given
+		when(voteService.cancleVoteOfUser(anyLong(), anyLong()))
+			.thenReturn(true);
     	//when
         //then
         this.mockMvc
         	.perform(RestDocumentationRequestBuilders.delete("/api/v1/votes/boards/{boardVoteId}/members", 0l)
-        			.accept(MediaType.APPLICATION_JSON))
+        			.accept(MediaType.APPLICATION_JSON)
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
-            .andDo(document("VoteController/deleteVoteOfUser",
+            .andDo(document("VoteController/cancleVoteOfUser",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		pathParameters(parameterWithName("boardVoteId").description("회원이 투표 취소할 게시글의 게시글_투표 번호")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
         					fieldWithPath("message").description("message(success...)"),
@@ -244,7 +262,7 @@ class VoteControllerTest {
     			 												.boardIds(List.of(0l, 1l, 2l))
     			 												.build());
     	 
-    	 when(voteService.getVote(anyLong()))
+    	 when(voteService.insertVote(any(), any()))
  	 		.thenReturn(VoteDto.Res.builder()	
 					.id(0l)
 					.startDate(LocalDate.of(2021, Month.MARCH, 15))
@@ -259,11 +277,13 @@ class VoteControllerTest {
         	.content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
-            .characterEncoding("UTF-8"))
+            .characterEncoding("UTF-8")
+			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/insertVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		requestFields(fieldWithPath("startDate").description("투표 시작 날짜"),
             				fieldWithPath("endDate").description("투표 종료 날짜"),
             				fieldWithPath("boardIds[]").description("투표에 등록할 게시글 id 배열")),
@@ -291,7 +311,7 @@ class VoteControllerTest {
     	
     	 String content = objectMapper.writeValueAsString(reqMap);
     	 
-    	 when(voteService.updateVote(anyLong(), any(VoteDto.Req.class)))
+    	 when(voteService.updateVote(anyLong(), any(Vote.class)))
     	 	.thenReturn(VoteDto.Res.builder()	
 					.id(0l)
 					.startDate(LocalDate.of(2021, Month.MARCH, 15))
@@ -303,16 +323,18 @@ class VoteControllerTest {
     	 
     	//when
         //then
-        this.mockMvc.perform(RestDocumentationRequestBuilders.patch("/api/v1/admin/votes/{id}", 0l)
+        this.mockMvc.perform(RestDocumentationRequestBuilders.patch("/api/v1/admin/votes/{voteId}", 0l)
         	.content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
-            .characterEncoding("UTF-8"))
+            .characterEncoding("UTF-8")
+			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/updateVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
-            		pathParameters(parameterWithName("id").description("수정할 투표 번호")),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+            		pathParameters(parameterWithName("voteId").description("수정할 투표 번호")),
             		requestFields(fieldWithPath("startDate").description("수정할 투표 시작 날짜"),
             				fieldWithPath("endDate").description("수정할투표 종료 날짜")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
@@ -333,16 +355,20 @@ class VoteControllerTest {
     @Test
     void deleteVote() throws Exception {
     	//given
+		when(voteService.deleteVote(anyLong()))
+			.thenReturn(true);
     	//when
         //then
         this.mockMvc
-        	.perform(RestDocumentationRequestBuilders.delete("/api/v1/admin/votes/{id}", 0l)
-        			.accept(MediaType.APPLICATION_JSON))
+        	.perform(RestDocumentationRequestBuilders.delete("/api/v1/admin/votes/{voteId}", 0l)
+        			.accept(MediaType.APPLICATION_JSON)
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/deleteVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
-            		pathParameters(parameterWithName("id").description("삭제할 투표 번호")),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
+            		pathParameters(parameterWithName("voteId").description("삭제할 투표 번호")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
         					fieldWithPath("message").description("message(success...)"),
         					subsectionWithPath("data").description("Response 데이터"),
@@ -354,11 +380,11 @@ class VoteControllerTest {
     void includeBoardListIntoVote() throws Exception {
     	//given
    	 	String content = objectMapper.writeValueAsString(BoardVoteDto.Req.builder()
-   	 														.boardIds(List.of(0l, 1l, 3l, 4l))
+   	 														.boardIds(List.of(4l, 5l))
    	 														.build());
    	 	
-		when(voteService.includeBoardListIntoVote(anyLong(), any(BoardVoteDto.Req.class)))
-				.thenReturn(getDumyBoardVoteDtoList(0l, 3));
+		when(voteService.includeBoardListIntoVote(anyLong(), any()))
+				.thenReturn(getDumyBoardVoteDtoList(0l, 5));
    	 	//when
         //then
         this.mockMvc
@@ -366,18 +392,22 @@ class VoteControllerTest {
         			.content(content)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .characterEncoding("UTF-8"))
+                    .characterEncoding("UTF-8")
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/includeBoardListIntoVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		pathParameters(parameterWithName("voteId").description("게시글들을 포함시킬 투표 번호")),
+            		requestFields(fieldWithPath("boardIds").description("투표에 포함시킬 게시글 ID List")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
         					fieldWithPath("message").description("message(success...)"),
         					subsectionWithPath("data[]").description("Response 데이터"),
-    						fieldWithPath("data[].boardId").description("게시글을 등록한 투표에 속한 게시글의 id"),
-    						fieldWithPath("data[].title").description("게시글을 등록한 투표에 속한 게시글의 제목"),
-    						fieldWithPath("data[].count").description("게시글을 등록한 투표에 속한 게시글의 득표수"))));
+       						fieldWithPath("data[].boardId").description("투표 게시글의 게시글 ID"),
+    						fieldWithPath("data[].boardVoteId").description("투표 게시글의 ID"),
+    						fieldWithPath("data[].title").description("투표 게시글의 게시글 제목"),
+    						fieldWithPath("data[].count").description("투표 게시글의 득표수"))));
     }
 	
 	@DisplayName("투표 게시글 단건 추가(등록)")
@@ -392,11 +422,13 @@ class VoteControllerTest {
         //then
         this.mockMvc
         	.perform(RestDocumentationRequestBuilders.post("/api/v1/admin/votes/{voteId}/boards/{boardId}", 0l, 0l)
-                    .accept(MediaType.APPLICATION_JSON))
+                    .accept(MediaType.APPLICATION_JSON)
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/includeBoardIntoVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		pathParameters(parameterWithName("voteId").description("게시글을 포함시킬 투표 번호"),
             				parameterWithName("boardId").description("투표에 포함시킬 게시글 번호")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
@@ -412,8 +444,13 @@ class VoteControllerTest {
     void excludeBoardListInVote() throws Exception {
     	//given
    	 	String content = objectMapper.writeValueAsString(BoardVoteDto.Req.builder()
-   	 														.boardIds(List.of(0l, 1l, 3l, 4l))
+   	 														.boardIds(List.of(3l, 4l))
    	 														.build());
+		List<Res> dumyBoardVoteDtoList = getDumyBoardVoteDtoList(0, 3);
+		dumyBoardVoteDtoList.removeIf(dto -> dto.getBoardId() == 0l);
+		when(voteService.excludeBoardListInVote(anyLong(), any()))
+				.thenReturn(dumyBoardVoteDtoList);
+		
     	//when
         //then
         this.mockMvc
@@ -421,37 +458,52 @@ class VoteControllerTest {
         			.content(content)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
-                    .characterEncoding("UTF-8"))
+                    .characterEncoding("UTF-8")
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/excludeBoardListInVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		pathParameters(parameterWithName("voteId").description("게시글들이 제외될 투표 번호")),
+            		requestFields(fieldWithPath("boardIds").description("투표에 제외시킬 게시글 ID List")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
         					fieldWithPath("message").description("message(success...)"),
         					subsectionWithPath("data").description("Response 데이터"),
-    						fieldWithPath("data.result").description("투표 게시글 제외(삭제) 반영 결과"))));
+       						fieldWithPath("data[].boardId").description("투표 게시글의 게시글 ID"),
+    						fieldWithPath("data[].boardVoteId").description("투표 게시글의 ID"),
+    						fieldWithPath("data[].title").description("투표 게시글의 게시글 제목"),
+    						fieldWithPath("data[].count").description("투표 게시글의 득표수"))));
     }
 	
 	@DisplayName("투표 게시글 단건 제외(삭제)")
     @Test
     void excludeBoardInVote() throws Exception {
     	//given
+		List<Res> dumyBoardVoteDtoList = getDumyBoardVoteDtoList(0, 3);
+		dumyBoardVoteDtoList.removeIf(dto -> dto.getBoardId() == 0l);
+		when(voteService.excludeBoardInVote(anyLong(), anyLong()))
+				.thenReturn(dumyBoardVoteDtoList);
     	//when
         //then
         this.mockMvc
         	.perform(RestDocumentationRequestBuilders.delete("/api/v1/admin/votes/{voteId}/boards/{boardId}", 0l, 0l)
-                    .accept(MediaType.APPLICATION_JSON))
+                    .accept(MediaType.APPLICATION_JSON)
+        			.header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
             .andDo(document("VoteController/excludeBoardInVote",
             		preprocessRequest(prettyPrint()),
             		preprocessResponse(prettyPrint()),
+            		requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
             		pathParameters(parameterWithName("voteId").description("게시글이 제외될 투표 번호"),
             				parameterWithName("boardId").description("투표에서 제외될 게시글 번호")),
             		responseFields(fieldWithPath("code").description("code(200,400...)"),
         					fieldWithPath("message").description("message(success...)"),
-        					subsectionWithPath("data").description("Response 데이터"),
-    						fieldWithPath("data.result").description("투표 게시글 제외(삭제) 반영 결과"))));
+        					subsectionWithPath("data[]").description("Response 데이터"),
+    						fieldWithPath("data[].boardId").description("투표 게시글의 게시글 ID"),
+    						fieldWithPath("data[].boardVoteId").description("투표 게시글의 ID"),
+    						fieldWithPath("data[].title").description("투표 게시글의 게시글 제목")
+    						,fieldWithPath("data[].count").description("투표 게시글의 득표수"))));
     }
 	
 	

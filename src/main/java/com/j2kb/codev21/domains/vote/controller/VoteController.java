@@ -54,8 +54,8 @@ public class VoteController {
 	
 	// TODO: 사용자 인증 정보 파라미터 받아오기
 	@PostMapping("/votes/boards/{boardVoteId}/members")
-	public CommonResponse<HashMap<String, Boolean>> insertVoteOfUser(@PathVariable("boardVoteId") long boardVoteId,
-																long userId) {
+	public CommonResponse<HashMap<String, Boolean>> insertVoteOfUser(@PathVariable("boardVoteId") long boardVoteId) {
+		long userId = 0l;
 		HashMap<String, Boolean> wrapper = new HashMap<String, Boolean>();
 		Boolean result = voteService.insertVoteOfUser(userId, boardVoteId);
 		wrapper.put("result", result);
@@ -69,8 +69,8 @@ public class VoteController {
 	
 	// TODO: 사용자 인증 정보 파라미터 받아오기
 	@DeleteMapping("/votes/boards/{boardVoteId}/members")
-	public CommonResponse<HashMap<String, Boolean>> cancleVoteOfUser(@PathVariable("boardVoteId") long boardVoteId,
-																long userId) {
+	public CommonResponse<HashMap<String, Boolean>> cancleVoteOfUser(@PathVariable("boardVoteId") long boardVoteId) {
+		long userId = 0l;
 		HashMap<String, Boolean> wrapper = new HashMap<String, Boolean>();
 		Boolean result = voteService.cancleVoteOfUser(userId, boardVoteId);
 		wrapper.put("result", result);
