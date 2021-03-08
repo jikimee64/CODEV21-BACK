@@ -5,10 +5,13 @@ import static com.j2kb.codev21.domains.vote.domain.QVote.vote;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.j2kb.codev21.domains.vote.domain.Vote;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
 import com.j2kb.codev21.domains.vote.dto.VoteSearchCondition;
+import com.j2kb.codev21.domains.vote.dto.mapper.VoteMapper;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.FactoryExpressionTransformer;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -19,9 +22,9 @@ public class VoteRepositoryImpl implements VoteRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 	
 	@Override
-	public List<VoteDto.Res> search(VoteSearchCondition condition) {
+	public List<Vote> search(VoteSearchCondition condition) {
 		return queryFactory
-					.select(Projections.constructor(VoteDto.Res.class, vote))
+					.select(vote)
 					.from(vote)
 					.where(isProcessing(condition.getProcessing()),
 							startDateGoe(condition.getStartDateGoe()),
@@ -34,9 +37,9 @@ public class VoteRepositoryImpl implements VoteRepositoryCustom {
 	private BooleanExpression isProcessing(Boolean processing) {
 		return processing != null ? 
 					(processing ? vote.startDate.goe(LocalDate.now())
-									.and(vote.endDate.loe(LocalDate.now()))
+									.and(vote.endDate.loe(LocalDate.now())) 
 						: vote.startDate.loe(LocalDate.now())
-							.and(vote.endDate.goe(LocalDate.now()))) 
+							.and(vote.endDate.goe(LocalDate.now())))
 					: null;
 	}
 	

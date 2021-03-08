@@ -17,6 +17,8 @@ import com.j2kb.codev21.domains.vote.domain.Vote;
 import com.j2kb.codev21.domains.vote.dto.BoardVoteDto;
 import com.j2kb.codev21.domains.vote.dto.VoteDto;
 import com.j2kb.codev21.domains.vote.dto.VoteSearchCondition;
+import com.j2kb.codev21.domains.vote.dto.mapper.BoardVoteMapper;
+import com.j2kb.codev21.domains.vote.dto.mapper.VoteMapper;
 import com.j2kb.codev21.domains.vote.repository.BoardVoteRepository;
 import com.j2kb.codev21.domains.vote.repository.UserBoardVoteRepository;
 import com.j2kb.codev21.domains.vote.repository.VoteRepository;
@@ -30,6 +32,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VoteService {
 	
+	private final VoteMapper voteMapper;
+	private final BoardVoteMapper boardVoteMapper;
+	
 	private final VoteRepository voteRepository;
 	private final BoardRepository boardRepository;
 	private final BoardVoteRepository boardVoteRepository;
@@ -37,7 +42,9 @@ public class VoteService {
 	private final UserRepository userRepository;
 
 	public List<VoteDto.Res> getVoteList(VoteSearchCondition condition) {
-		return voteRepository.search(condition);
+		return voteRepository.search(condition).stream()
+					.map(voteMapper::voteToRes)
+					.collect(Collectors.toList());
 	}
 
 	public VoteDto.Res getVote(long id) {
@@ -45,9 +52,9 @@ public class VoteService {
 		
 		if(vote.isEmpty()) {
 			throw new InvalidValueException(ErrorCode.NO_VOTE_FOUND);
+		} else {
+			return voteMapper.voteToRes(vote.get());
 		}
-		
-		return new VoteDto.Res(vote.get());
 	}
 
 	@Transactional
@@ -115,7 +122,7 @@ public class VoteService {
 		}
 		voteRepository.flush();
 
-		return new VoteDto.Res(vote);
+		return voteMapper.voteToRes(vote);
 	}
 
 	@Transactional
@@ -124,7 +131,7 @@ public class VoteService {
 				.orElseThrow(() -> new InvalidValueException(ErrorCode.NO_VOTE_FOUND));
 		persistVote.updateVote(vote);
 		
-		return new VoteDto.Res(persistVote);
+		return voteMapper.voteToRes(persistVote);
 	}
 
 	@Transactional
@@ -156,7 +163,7 @@ public class VoteService {
 										.build());
 
 		return boardVoteRepository.findByVote(vote).stream()
-						.map(BoardVoteDto.Res::new)
+						.map(boardVoteMapper::boardVoteToRes)
 						.collect(Collectors.toList());
 	}
 
@@ -182,9 +189,8 @@ public class VoteService {
 														.build())
 										.collect(Collectors.toList()));
 		
-		List<BoardVote> boardVotes = boardVoteRepository.findByVote(vote);
-		return boardVotes.stream()
-				.map(BoardVoteDto.Res::new)
+		return boardVoteRepository.findByVote(vote).stream()
+				.map(boardVoteMapper::boardVoteToRes)
 				.collect(Collectors.toList());
 	}
 
@@ -197,10 +203,9 @@ public class VoteService {
 		
 		boardVoteRepository.deleteByVoteAndBoard(vote, board);
 		
-		List<BoardVote> boardVotes = boardVoteRepository.findByVote(vote);
-		return boardVotes.stream()
-						.map(BoardVoteDto.Res::new)
-						.collect(Collectors.toList());
+		return boardVoteRepository.findByVote(vote).stream()
+				.map(boardVoteMapper::boardVoteToRes)
+				.collect(Collectors.toList());
 	}
 
 	@Transactional
@@ -216,9 +221,8 @@ public class VoteService {
 					boardVoteRepository.deleteByVoteAndBoard(vote, board);
 				});
 		
-		List<BoardVote> boardVotes = boardVoteRepository.findByVote(vote);
-		return boardVotes.stream()
-						.map(BoardVoteDto.Res::new)
-						.collect(Collectors.toList());
+		return boardVoteRepository.findByVote(vote).stream()
+				.map(boardVoteMapper::boardVoteToRes)
+				.collect(Collectors.toList());
 	}
 }

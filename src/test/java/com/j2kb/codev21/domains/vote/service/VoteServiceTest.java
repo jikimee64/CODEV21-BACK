@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -109,6 +110,16 @@ class VoteServiceTest {
 							.mapToLong(VoteDto.Res::getId)
 							.toArray())
 				.contains(res1.getId(), res2.getId());
+		// 투표 게시물들이 잘 반환 되는지 검증
+		assertThat(result.stream()
+				.flatMap(voteDtoRes -> voteDtoRes.getBoardVotes().stream()
+											.map(BoardVoteDto.Res::getBoardId))
+				.toArray())
+			.containsAll(Arrays.asList(res1.getBoardVotes().stream().mapToLong(BoardVoteDto.Res::getBoardId).toArray(),
+								res2.getBoardVotes().stream().mapToLong(BoardVoteDto.Res::getBoardId).toArray()).stream()
+							.flatMapToLong(Arrays::stream)
+							.boxed()
+							.collect(Collectors.toList()));
 	}
 	
 	@Test

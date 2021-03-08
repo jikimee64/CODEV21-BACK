@@ -26,6 +26,7 @@ public class BoardVoteDto {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
 	public static class Res{
+    	
 		private long boardId;
 		
     	private long boardVoteId;
@@ -33,14 +34,5 @@ public class BoardVoteDto {
 		private String title;
     	
 		private int count;
-
-		public Res(BoardVote boardVote) {
-			this.boardId = boardVote.getBoard().getId();
-			this.boardVoteId = boardVote.getId();
-			this.title = boardVote.getBoard().getTitle();
-			this.count = boardVote.getCount();
-		}
-		
-		
 	}
 }
