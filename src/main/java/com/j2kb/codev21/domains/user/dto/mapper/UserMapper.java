@@ -18,7 +18,11 @@ public interface UserMapper{
         @Mapping(target = "status", constant = "ACTIVE"),
         @Mapping(target = "field", constant = "NONE")
     })
-    User userDtoToEntity(UserDto.JoinReq dto);
+    User joinDtoToEntity(UserDto.JoinReq dto);
+
+    User updateUserDtoToEntity(UserDto.UpdateUserReq dto);
+
+    User updateUserByAdminDtoToEntity(UserDto.UpdateUserByAdminReq dto);
 
     SelectUserRes userToDto(User user);
 

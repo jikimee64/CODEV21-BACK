@@ -2,6 +2,7 @@ package com.j2kb.codev21.domains.user.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -32,9 +33,11 @@ import com.j2kb.codev21.domains.board.dto.BoardDto;
 import com.j2kb.codev21.domains.board.service.BoardService;
 import com.j2kb.codev21.domains.user.domain.Field;
 import com.j2kb.codev21.domains.user.domain.Status;
+import com.j2kb.codev21.domains.user.domain.User;
 import com.j2kb.codev21.domains.user.dto.UserDto;
 import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.UpdateUserReq;
+import com.j2kb.codev21.domains.user.dto.mapper.UserMapper;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
 import com.j2kb.codev21.domains.user.service.UserService;
 import java.time.LocalDateTime;
@@ -44,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -58,6 +62,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -65,6 +70,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+@Slf4j
 @SpringBootTest
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
 class UserControllerTest {
@@ -76,6 +82,9 @@ class UserControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private UserMapper userMapper;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -150,19 +159,30 @@ class UserControllerTest {
     void join() throws Exception {
 
         String content = objectMapper.writeValueAsString(
-            getStubUser()
+            getUserDto()
         );
 
-        when(userService.joinUser(getStubUser())).thenReturn(
-            UserDto.UserIdRes.builder()
+//        User user = User.builder()
+//            .email("jikimee64@gmail.com")
+//            .password("1q2w3e4r1!")
+//            .name("김우철")
+//            .joinGisu("2기")
+//            .githubId("jikimee64@gmail.com")
+//            .build();
+
+        when(userService.joinUser(userMapper.joinDtoToEntity(getUserDto())))
+            .thenReturn(
+                UserDto.UserIdRes.builder()
                 .id(1L)
-                .build());
+                .build()
+            );
 
         this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/users")
             .content(content)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
+            .andDo(print())
             .andDo(document("UserController/joinUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
@@ -230,14 +250,15 @@ class UserControllerTest {
     void updateUser() throws Exception {
 
         UpdateUserReq dto = UpdateUserReq.builder()
-            .password("update password")
+            .password("1q2w3e4r2@")
             .build();
 
         String content = objectMapper.writeValueAsString(
             dto
         );
 
-        when(userService.updateUser(anyLong(), eq(dto)))
+        //any() => 프로덕션코드 - UserMapper.INSTANCE.updateUserDtoToEntity(dto)
+        when(userService.updateUser(anyLong(), any()))
             .thenReturn(UserDto.SelectUserRes.builder()
                 .id(1L)
                 .email("jikimee64@gmail.com")
@@ -259,6 +280,7 @@ class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bear {token값}"))
             .andExpect(status().isOk())
+            .andDo(print())
             .andDo(document("UserController/updateUser",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
@@ -297,7 +319,8 @@ class UserControllerTest {
             dto
         );
 
-        when(userService.updateUserByAdmin(anyLong(), eq(dto)))
+        //any() => 프로덕션코드 - UserMapper.INSTANCE.updateUserByAdminDtoToEntity(dto)
+        when(userService.updateUserByAdmin(anyLong(), any()))
             .thenReturn(UserDto.SelectUserRes.builder()
                 .id(1L)
                 .email("jikimee64@gmail.com")
@@ -374,7 +397,7 @@ class UserControllerTest {
                 pathParameters(parameterWithName("userId").description("삭제할 회원 번호"))));
     }
 
-    UserDto.JoinReq getStubUser() {
+    UserDto.JoinReq getUserDto() {
         return UserDto.JoinReq.builder()
             .email("jikimee64@gmail.com")
             .password("1q2w3e4r1!")

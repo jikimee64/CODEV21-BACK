@@ -69,6 +69,7 @@ public class LoginController {
             .data(
                 LoginRes.builder()
                 .accessToken(String.valueOf(map.get(Token.ACCESS_TOKEN.getName())))
+                .userId((Long) map.get("id"))
                 .build()
             ).build();
     }

@@ -1,9 +1,11 @@
 package com.j2kb.codev21.global.error;
 
+import com.j2kb.codev21.domains.user.exception.MemberDuplicationException;
 import java.nio.file.AccessDeniedException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,6 +18,7 @@ import com.j2kb.codev21.global.common.ErrorResponse;
 import com.j2kb.codev21.global.error.exception.InvalidValueException;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Slf4j
 @RestControllerAdvice(annotations = RestController.class)
@@ -70,10 +73,48 @@ public class GlobalExceptionController {
         return new ResponseEntity<>(
             ErrorResponse.builder()
                 .code(ErrorCode.MEMBER_NOT_FOUND.getCode())
-                .message(ex.getMessage())
+                .message(ErrorCode.MEMBER_NOT_FOUND.getMessage())
                 .status(ErrorCode.MEMBER_NOT_FOUND.getStatus()).build(),
             HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(value = MemberDuplicationException.class)
+    public ResponseEntity<?> memberDuplicationException(MemberDuplicationException ex) {
+        log.info("memberDuplicationException", ex);
+        return new ResponseEntity<>(
+            ErrorResponse.builder()
+                .code(ErrorCode.EMAIL_DUPLICATION.getCode())
+                .message(ErrorCode.EMAIL_DUPLICATION.getMessage())
+                .status(ErrorCode.EMAIL_DUPLICATION.getStatus()).build(),
+            HttpStatus.BAD_REQUEST);
+    }
+
+    //시큐리티 자체 에러
+    @ExceptionHandler(BadCredentialsException.class)
+    protected ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
+        log.info("handleBadCredentialsException", ex);
+        return new ResponseEntity<>(
+            ErrorResponse.builder()
+                .code(ErrorCode.LOGIN_FAILED.getCode())
+                .message(ErrorCode.LOGIN_FAILED.getMessage())
+                .status(ErrorCode.LOGIN_FAILED.getStatus())
+                .build(),
+            HttpStatus.UNAUTHORIZED);
+    }
+
+    //인자값 불일치시 발생하는 스프링 자체 에러
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<?> methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        log.info("methodArgumentTypeMismatchException", ex);
+        return new ResponseEntity<>(
+            ErrorResponse.builder()
+                .code(ErrorCode.BAD_REQUEST.getCode())
+                .message(ErrorCode.BAD_REQUEST.getMessage())
+                .status(ErrorCode.BAD_REQUEST.getStatus())
+                .build(),
+            HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(value = AccessDeniedException.class)
     public ResponseEntity<?> accessDeniedException(AccessDeniedException ex) {

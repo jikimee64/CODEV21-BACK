@@ -10,6 +10,7 @@ import com.j2kb.codev21.domains.user.dto.UserDto.DeleteUserCheckRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.UpdateUserByAdminReq;
 import com.j2kb.codev21.domains.user.dto.mapper.UserMapper;
+import com.j2kb.codev21.domains.user.exception.MemberDuplicationException;
 import com.j2kb.codev21.domains.user.exception.MemberNotFoundException;
 import com.j2kb.codev21.domains.user.repository.AuthorityRepository;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
@@ -34,6 +35,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class UserService {
 
+    private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
     private final PasswordEncoder passwordEncoder;
@@ -47,9 +49,8 @@ public class UserService {
             throw new MemberNotFoundException();
         }
 
-        List<SelectUserRes> collect = all.stream().map(v ->
-            UserMapper.INSTANCE.userToDto(v)
-        ).collect(Collectors.toList());
+        List<SelectUserRes> collect = all.stream().map(userMapper::userToDto)
+            .collect(Collectors.toList());
 
         collect.forEach(v -> {
             v.setCreatedAt(
@@ -62,9 +63,10 @@ public class UserService {
 
     //회원가입
     @Transactional
-    public UserDto.UserIdRes joinUser(UserDto.JoinReq dto) {
-        User user = UserMapper.INSTANCE.userDtoToEntity(dto);
-        user.changePassword((passwordEncoder.encode(dto.getPassword())));
+    public UserDto.UserIdRes joinUser(User entity) {
+        validateDuplicateMember(entity); //중복 회원 검증
+        User user = entity;
+        user.changePassword((passwordEncoder.encode(user.getPassword())));
         //ROLE_USER GET
         Optional<Authority> authorityRoleUser = authorityRepository.findById(1L);
         UserAuthority userAuthorityEntity = UserAuthority.builder()
@@ -81,25 +83,30 @@ public class UserService {
     //회원 단건 조회
     public UserDto.SelectUserRes getUser(Long userId) {
         User user = findUserEntityAndCheckIsEmpty(userId);
-        SelectUserRes selectUserRes = UserMapper.INSTANCE.userToDto(user);
+        log.info("g!!!d user" + user.getGithubId());
+        log.info("g!!!d @@@" + user.getStatus());
+        log.info("g!!!d @@@" + user.getField());
+        SelectUserRes selectUserRes = userMapper.userToDto(user);
+        log.info("g!!!d " + selectUserRes.getStatus());
+        log.info("gd!!!2 " + selectUserRes.getField());
         return changeTimeFormat(selectUserRes);
-
     }
 
     //회원수정(유저권한)
     @Transactional
-    public UserDto.SelectUserRes updateUser(Long userId, UserDto.UpdateUserReq dto) {
-        User byId = userRepository.findById(userId).orElseThrow(() -> new MemberNotFoundException());
-        byId.changePassword((passwordEncoder.encode(dto.getPassword())));
+    public UserDto.SelectUserRes updateUser(Long userId, User entity) {
+        User byId = userRepository.findById(userId)
+            .orElseThrow(MemberNotFoundException::new);
+        byId.changePassword((passwordEncoder.encode(entity.getPassword())));
         SelectUserRes selectUserRes = UserMapper.INSTANCE.userToDto(byId);
         return changeTimeFormat(selectUserRes);
     }
 
     //회원수정(관리자 권한)
     @Transactional
-    public SelectUserRes updateUserByAdmin(Long userId, UpdateUserByAdminReq dto) {
+    public SelectUserRes updateUserByAdmin(Long userId, User entity) {
         User user = findUserEntityAndCheckIsEmpty(userId);
-        user.changeUserInfoByAdmin(dto.getJoinGisu(), Status.valueOf(dto.getStatus()), Field.valueOf(dto.getField()));
+        user.changeUserInfoByAdmin(entity.getJoinGisu(), entity.getStatus(), entity.getField());
         log.info("user status : " + user.getStatus());
         log.info("user field: " + user.getField());
         SelectUserRes selectUserRes = UserMapper.INSTANCE.userToDto(user);
@@ -117,14 +124,22 @@ public class UserService {
     }
 
     private User findUserEntityAndCheckIsEmpty(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new MemberNotFoundException());
+        return userRepository.findById(userId).orElseThrow(MemberNotFoundException::new);
     }
 
-    private SelectUserRes changeTimeFormat(SelectUserRes selectUserRes){
+    private SelectUserRes changeTimeFormat(SelectUserRes selectUserRes) {
         SelectUserRes localRes = selectUserRes;
         localRes.setCreatedAt(LocalDateTime.parse(selectUserRes.getCreatedAt().format(formatter),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         return localRes;
+    }
+
+
+    private void validateDuplicateMember(User entity) {
+        Optional<User> findUser = userRepository.findByEmail(entity.getEmail());
+        if (findUser.isPresent()) {
+            throw new MemberDuplicationException();
+        }
     }
 
 }

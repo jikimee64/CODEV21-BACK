@@ -10,8 +10,9 @@ public enum ErrorCode {
     MEMBER_IN_ACTIVE(400, "M002", "회원이 정지된 상태입니다."),
     MEMBER_NOT_FOUND(404, "M003", "회원을 찾을 수 없습니다."),
     MEMBER_LOGOUT(400, "M004", "로그아웃된 상태입니다."),
-    
-    
+    GITHUB_DUPLICATION(400, "M005", "기존 인증을 받은 깃허브아이디입니다."),
+    NOT_ORGINAZATION(400, "M006", "J2KB 조직에 소속되지 않은 깃허브 계정입니다."),
+
     // Common
     BAD_REQUEST(400, "COMMON_001", "입력값이 잘못되었습니다."),
     MEMBER_DUPLICATION(400, "COMMON_001", "중복된 회원입니다."),
@@ -38,8 +39,8 @@ public enum ErrorCode {
     
     // Auth
     AUTHENTICATION_FAILED(401, "AUTH_001", "인증에 실패하였습니다."),
-    LOGIN_FAILED(401, "AUTH_001", "로그인에 실패하였습니다."),
-    INVALID_JWT_TOKEN(401, "AUTH003", "유효하지 않은 토큰입니다.!!"),
+    LOGIN_FAILED(401, "AUTH_001", "아이디 혹은 비밀번호가 틀립니다."),
+    INVALID_JWT_TOKEN(401, "AUTH003", "유효하지 않은 토큰입니다."),
     EXPIRED_JWT_TOKE(401,"AUTH004","만료된 토큰입니다."),
     ACCESS_DENIED(401, "AUTH005","접근 권한이 없습니다.");
 

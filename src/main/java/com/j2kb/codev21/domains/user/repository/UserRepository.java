@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
     Optional<User> findByEmail(String email);
 
+    Optional<User> findByGithubId(String githubId);
+
     @Query("select m from User m left join fetch m.authorities where m.email= :email")
     Optional<User> findOneWithAuthoritiesByAccount(@Param("email") String email);
 }
