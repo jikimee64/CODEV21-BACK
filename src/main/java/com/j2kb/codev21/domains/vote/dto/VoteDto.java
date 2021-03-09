@@ -43,19 +43,8 @@ public class VoteDto {
 
 		private List<BoardVoteDto.Res> boardVotes;
 
-		private LocalDateTime created_at;
+		private LocalDateTime createdAt;
 		
-		private LocalDateTime updated_at;
-		
-		public Res(Vote vote) {
-			this.id = vote.getId();
-			this.startDate = vote.getStartDate();
-			this.endDate = vote.getEndDate();
-			this.created_at = vote.getCreatedAt();
-			this.updated_at = vote.getUpdatedAt();
-			this.boardVotes = vote.getBoardVotes().stream()
-							.map(boardVote -> new BoardVoteDto.Res(boardVote))
-							.collect(Collectors.toList());
-		}
+		private LocalDateTime updatedAt;
 	}
 }

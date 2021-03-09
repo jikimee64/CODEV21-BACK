@@ -91,8 +91,8 @@ class VoteControllerTest {
 												.startDate(LocalDate.of(2021, Month.MARCH, 15))
 												.endDate(LocalDate.of(2021, Month.MARCH, 22))
 												.boardVotes(getDumyBoardVoteDtoList(0l, 3))
-												.created_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-												.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+												.createdAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+												.updatedAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 												.build()
 							, res -> {
 								return VoteDto.Res.builder()
@@ -100,8 +100,8 @@ class VoteControllerTest {
 										.startDate(res.getStartDate().plusMonths(1))
 										.endDate(res.getEndDate().plusMonths(1))
 										.boardVotes(getDumyBoardVoteDtoList(res.getId() + 1l, 3))
-										.created_at(res.getCreated_at().plusMonths(1))
-										.updated_at(res.getUpdated_at().plusMonths(1))
+										.createdAt(res.getCreatedAt().plusMonths(1))
+										.updatedAt(res.getUpdatedAt().plusMonths(1))
 										.build();
 							}).limit(2)
 				.collect(Collectors.toList());
@@ -170,8 +170,8 @@ class VoteControllerTest {
 					.startDate(LocalDate.of(2021, Month.MARCH, 15))
 					.endDate(LocalDate.of(2021, Month.MARCH, 22))
 					.boardVotes(getDumyBoardVoteDtoList(0l, 3))
-					.created_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-					.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+					.createdAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+					.updatedAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 					.build();
 		
 		when(voteService.getVote(anyLong()))
@@ -268,8 +268,8 @@ class VoteControllerTest {
 					.startDate(LocalDate.of(2021, Month.MARCH, 15))
 					.endDate(LocalDate.of(2021, Month.MARCH, 22))
 					.boardVotes(getDumyBoardVoteDtoList(0l, 3))
-					.created_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
-					.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+					.createdAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+					.updatedAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 					.build());
     	//when
         //then
@@ -317,8 +317,8 @@ class VoteControllerTest {
 					.startDate(LocalDate.of(2021, Month.MARCH, 15))
 					.endDate(LocalDate.of(2021, Month.MARCH, 22))
 					.boardVotes(getDumyBoardVoteDtoList(0l, 3))
-					.created_at(LocalDateTime.of(2021, Month.MARCH, 10, 0, 0))
-					.updated_at(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
+					.createdAt(LocalDateTime.of(2021, Month.MARCH, 10, 0, 0))
+					.updatedAt(LocalDateTime.of(2021, Month.MARCH, 15, 0, 0))
 					.build());
     	 
     	//when
