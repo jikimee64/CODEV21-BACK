@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private org.springframework.security.core.userdetails.User createMember(String username, User user) {
         if (!user.getStatus().equals(Status.ACTIVE)) {
-            throw new IllegalStateException("회원 중복");
+            throw new IllegalStateException("비활성화 회원입니다.");
             //throw new MemberStatusInActiveException();
         }
         List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()

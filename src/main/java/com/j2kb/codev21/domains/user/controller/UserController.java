@@ -4,6 +4,7 @@ import com.j2kb.codev21.domains.user.dto.UserDto;
 import com.j2kb.codev21.domains.user.dto.UserDto.DeleteUserCheckRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.SelectUserRes;
 import com.j2kb.codev21.domains.user.dto.UserDto.UserIdRes;
+import com.j2kb.codev21.domains.user.dto.mapper.UserMapper;
 import com.j2kb.codev21.domains.user.service.UserService;
 import com.j2kb.codev21.global.common.CommonResponse;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     //회원 전체 조회
     //@PreAuthorize("isAuthenticated() and (hasRole('ROLE_ADMIN'))")
@@ -47,7 +49,7 @@ public class UserController {
         return CommonResponse.<UserIdRes>builder()
             .code("200")
             .message("ok")
-            .data(userService.joinUser(dto)).build();
+            .data(userService.joinUser(userMapper.joinDtoToEntity(dto))).build();
     }
 
     //회원 단건 조회
@@ -71,7 +73,7 @@ public class UserController {
         return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
-            .data(userService.updateUser(userId, dto)).build();
+            .data(userService.updateUser(userId, userMapper.updateUserDtoToEntity(dto))).build();
     }
 
     //회원수정(관리자 권한)
@@ -84,7 +86,7 @@ public class UserController {
         return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")
-            .data(userService.updateUserByAdmin(userId, dto)).build();
+            .data(userService.updateUserByAdmin(userId, userMapper.updateUserByAdminDtoToEntity(dto))).build();
     }
 
     //회원삭제

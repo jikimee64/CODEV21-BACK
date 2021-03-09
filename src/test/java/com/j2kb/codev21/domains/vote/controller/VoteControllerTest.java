@@ -135,8 +135,8 @@ class VoteControllerTest {
             						fieldWithPath("data[].boardVotes[].boardId").description("투표에 속한 게시글의 id"),
             						fieldWithPath("data[].boardVotes[].title").description("투표에 속한 게시글의 제목"),
             						fieldWithPath("data[].boardVotes[].count").description("투표에 속한 게시글의 득표수"),
-            						fieldWithPath("data[].created_at").description("투표가 생성된 날짜"),
-            						fieldWithPath("data[].updated_at").description("투표가 수정된 날짜"))));
+            						fieldWithPath("data[].createdAt").description("투표가 생성된 날짜"),
+            						fieldWithPath("data[].updatedAt").description("투표가 수정된 날짜"))));
 
 	}
 
@@ -199,8 +199,8 @@ class VoteControllerTest {
         						fieldWithPath("data.boardVotes[].boardId").description("투표에 속한 게시글의 id"),
         						fieldWithPath("data.boardVotes[].title").description("투표에 속한 게시글의 제목"),
         						fieldWithPath("data.boardVotes[].count").description("투표에 속한 게시글의 득표수"),
-        						fieldWithPath("data.created_at").description("투표가 생성된 날짜"),
-        						fieldWithPath("data.updated_at").description("투표가 수정된 날짜"))));
+        						fieldWithPath("data.createdAt").description("투표가 생성된 날짜"),
+        						fieldWithPath("data.updatedAt").description("투표가 수정된 날짜"))));
 
 	}
 
@@ -297,8 +297,8 @@ class VoteControllerTest {
     						fieldWithPath("data.boardVotes[].boardId").description("등록된 투표에 속한 게시글의 id"),
     						fieldWithPath("data.boardVotes[].title").description("등록된 투표에 속한 게시글의 제목"),
     						fieldWithPath("data.boardVotes[].count").description("등록된 투표에 속한 게시글의 득표수"),
-    						fieldWithPath("data.created_at").description("등록된 투표가 생성된 날짜"),
-    						fieldWithPath("data.updated_at").description("등록된 투표가 수정된 날짜"))));
+    						fieldWithPath("data.createdAt").description("등록된 투표가 생성된 날짜"),
+    						fieldWithPath("data.updatedAt").description("등록된 투표가 수정된 날짜"))));
     }	
 
     @DisplayName("투표 수정")
@@ -347,8 +347,8 @@ class VoteControllerTest {
     						fieldWithPath("data.boardVotes[].boardId").description("수정된 투표에 속한 게시글의 id"),
     						fieldWithPath("data.boardVotes[].title").description("수정된 투표에 속한 게시글의 제목"),
     						fieldWithPath("data.boardVotes[].count").description("수정된 투표에 속한 게시글의 득표수"),
-    						fieldWithPath("data.created_at").description("수정된 투표가 생성된 날짜"),
-    						fieldWithPath("data.updated_at").description("수정된 투표가 수정된 날짜"))));
+    						fieldWithPath("data.createdAt").description("수정된 투표가 생성된 날짜"),
+    						fieldWithPath("data.updatedAt").description("수정된 투표가 수정된 날짜"))));
     }	
     
 	@DisplayName("투표 삭제")

@@ -60,7 +60,7 @@ public class OauthController {
             .data(
                 GithubIdRes.builder()
                     .githubId(oauthService
-                        .requestAccessToken(socialLoginType, code))
+                        .requestGithubId(socialLoginType, code))
                     .build()
             ).build();
     }

@@ -40,7 +40,7 @@ class VoteServiceTest {
 
 	@Autowired
 	VoteMapper voteMapper;
-	
+
 	@Test
 	void 투표_등록() {
 		// given
@@ -60,7 +60,7 @@ class VoteServiceTest {
 						.collect(Collectors.toList()))
 			.containsAll(param.getBoardIds());
 	}
-	
+
 	@Test
 	void 투표_조회() {
 		// given
@@ -84,7 +84,7 @@ class VoteServiceTest {
 						.collect(Collectors.toList()))
 				.containsAll(param.getBoardIds());
 	}
-	
+
 	@Test
 	void 전체_투표_조회() {
 		// given
@@ -121,7 +121,7 @@ class VoteServiceTest {
 							.boxed()
 							.collect(Collectors.toList()));
 	}
-	
+
 	@Test
 	void 투표_수정() {
 		// given
@@ -130,7 +130,7 @@ class VoteServiceTest {
 				.endDate(LocalDate.of(2021, 6, 25).plusDays(7))
 				.boardIds(List.of(1l, 2l, 3l, 4l))
 				.build();
-		
+
 		Req updateParam = VoteDto.Req.builder()
 				.startDate(LocalDate.of(2021, 6, 27))
 				.endDate(LocalDate.of(2021, 6, 27).plusDays(7))
@@ -146,7 +146,7 @@ class VoteServiceTest {
 		assertThat(result.getStartDate()).isEqualTo(updateParam.getStartDate());
 		assertThat(result.getEndDate()).isEqualTo(updateParam.getEndDate());
 	}
-	
+
 	@Test
 	void 투표_삭제() {
 		// given
@@ -158,7 +158,7 @@ class VoteServiceTest {
 
 
 		VoteDto.Res res = voteService.insertVote(voteMapper.reqToVote(insertParam), insertParam.getBoardIds());
-		
+
 		// when
 		Boolean result = voteService.deleteVote(res.getId());
 
@@ -166,9 +166,9 @@ class VoteServiceTest {
 		assertThat(result).isTrue();
 		assertThrows(InvalidValueException.class,
 					() -> voteService.getVote(res.getId()));
-		
+
 	}
-	
+
 	@Test
 	void 투표_게시글_단건_등록() {
 		// given
@@ -183,7 +183,7 @@ class VoteServiceTest {
 
 		// when
 		List<BoardVoteDto.Res> result = voteService.includeBoardIntoVote(res.getId(), 4l);
-		
+
 		// then
 		assertThat(result.stream()
 						.mapToLong(BoardVoteDto.Res::getBoardId)
@@ -191,7 +191,7 @@ class VoteServiceTest {
 			.contains(1l, 2l, 3l, 4l);
 
 	}
-	
+
 	@Test
 	void 투표_게시글_다건_등록() {
 		// given
@@ -208,7 +208,7 @@ class VoteServiceTest {
 				.build();
 		// when
 		List<BoardVoteDto.Res> result = voteService.includeBoardListIntoVote(res.getId(), includeParam.getBoardIds());
-		
+
 		// then
 		assertThat(result.stream()
 						.mapToLong(BoardVoteDto.Res::getBoardId)
@@ -231,7 +231,7 @@ class VoteServiceTest {
 
 		// when
 		List<BoardVoteDto.Res> result = voteService.excludeBoardInVote(res.getId(), 1l);
-		
+
 		// then
 		assertThat(result.stream()
 						.mapToLong(boardVote -> boardVote.getBoardId())
@@ -243,7 +243,7 @@ class VoteServiceTest {
 
 
 	}
-	
+
 	@Test
 	void 투표_게시글_다건_제외() {
 		// given
@@ -258,11 +258,11 @@ class VoteServiceTest {
 		BoardVoteDto.Req excludeParam = BoardVoteDto.Req.builder()
 				.boardIds(List.of(1l, 2l))
 				.build();
-		
+
 		// when
 		List<BoardVoteDto.Res> result = voteService.excludeBoardListInVote(res.getId(), excludeParam.getBoardIds());
-		
-		
+
+
 		// then
 		assertThat(result.stream()
 				.mapToLong(boardVote -> boardVote.getBoardId())
@@ -273,7 +273,7 @@ class VoteServiceTest {
 										.toArray());
 
 	}
-	
+
 	@Test
 	void 사용자_투표_요청() {
 		// given
@@ -290,7 +290,7 @@ class VoteServiceTest {
 		Res beforeVote = voteService.getVote(res.getId());
 		Boolean result = voteService.insertVoteOfUser(1l,
 					beforeVote.getBoardVotes().get(0).getBoardVoteId());
-		
+
 		Res afterVote = voteService.getVote(res.getId());
 		BoardVoteDto.Res boardVote = afterVote.getBoardVotes().stream()
 				.filter(bv -> bv.getBoardVoteId() == beforeVote.getBoardVotes().get(0).getBoardVoteId())
@@ -299,11 +299,11 @@ class VoteServiceTest {
 		assertThat(result).isTrue();
 		assertThat(boardVote.getCount()).isEqualTo(1);
 		// 사용자 투표 중복 시 발생하는 InvalidValueException으로 데이터가 들어갔는 지 검증
-		assertThrows(InvalidValueException.class, 
+		assertThrows(InvalidValueException.class,
 				() -> voteService.insertVoteOfUser(1l,
 						beforeVote.getBoardVotes().get(0).getBoardVoteId()));
 	}
-	
+
 	@Test
 	void 사용자_투표_취소_요청() {
 		// given
@@ -320,10 +320,10 @@ class VoteServiceTest {
 					beforeVote.getBoardVotes().get(0).getBoardVoteId());
 		voteService.insertVoteOfUser(2l,
 				beforeVote.getBoardVotes().get(0).getBoardVoteId());
-		
+
 		// when
 		Boolean result = voteService.cancleVoteOfUser(1l, beforeVote.getBoardVotes().get(0).getBoardVoteId());
-		
+
 		Res afterVote = voteService.getVote(res.getId());
 		BoardVoteDto.Res boardVote = afterVote.getBoardVotes().stream()
 				.filter(bv -> bv.getBoardVoteId() == beforeVote.getBoardVotes().get(0).getBoardVoteId())
@@ -332,7 +332,7 @@ class VoteServiceTest {
 		assertThat(result).isTrue();
 		assertThat(boardVote.getCount()).isEqualTo(1);
 		// 존재하지 않는 투표를 취소하고자할 때 발생하는 IllegalArgumentException으로 삭제가 되었는지 검증
-		assertThrows(InvalidValueException.class, 
+		assertThrows(InvalidValueException.class,
 				() -> voteService.cancleVoteOfUser(1l, beforeVote.getBoardVotes().get(0).getBoardVoteId()));
 
 	}
