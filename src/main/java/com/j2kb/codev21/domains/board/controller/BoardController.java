@@ -1,11 +1,16 @@
 package com.j2kb.codev21.domains.board.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,6 +30,7 @@ import com.j2kb.codev21.domains.board.dto.mapper.BoardMapper;
 import com.j2kb.codev21.domains.board.service.BoardService;
 import com.j2kb.codev21.domains.board.service.MultipartFileService;
 import com.j2kb.codev21.global.common.CommonResponse;
+import com.j2kb.codev21.global.util.TokenMemberEmail;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,9 +66,9 @@ public class BoardController {
 	
 	@PostMapping
 	public CommonResponse<BoardDto.Res> insertBoard(@RequestPart(name = "json-data") BoardDto.Req req, 
-													@RequestPart(name = "image-file", required = false) MultipartFile image) 
+													@RequestPart(name = "image-file", required = false) MultipartFile image,
+													@TokenMemberEmail String email) 
 															throws IllegalStateException, IOException {
-		// TODO: 시큐리티 활용하여 유저 정보 추출
 		Board boardParam = boardMapper.reqToBoard(req);
 
 		String filePath = multipartFileService.saveFile(image);
@@ -74,16 +80,16 @@ public class BoardController {
 		return CommonResponse.<BoardDto.Res>builder()
 				.code("200")
 				.message("ok")
-				.data(boardService.insertBoard(boardParam, req.getTeamId(), req.getGisuId(), 0l))
+				.data(boardService.insertBoard(boardParam, req.getTeamId(), req.getGisuId(), email))
 				.build();
 	}
 	
 	@PatchMapping("/{boardId}")
 	public CommonResponse<BoardDto.Res> updateBoard(@PathVariable("boardId") long boardId, 
 													@RequestPart(name = "json-data", required = false) BoardDto.Req req,
-													@RequestPart(name = "image-file", required = false) MultipartFile image) 
+													@RequestPart(name = "image-file", required = false) MultipartFile image,
+													@TokenMemberEmail String email) 
 															throws IllegalStateException, IOException {
-		// TODO: 시큐리티 활용하여 유저 정보 추출
 		Board boardParam = boardMapper.reqToBoard(req);
 		Long teamIdParam = req != null ? req.getTeamId() : null;
 		Long gisuIdParam = req != null ? req.getGisuId() : null;
@@ -100,7 +106,7 @@ public class BoardController {
 		return CommonResponse.<BoardDto.Res>builder()
 				.code("200")
 				.message("ok")
-				.data(boardService.updateBoard(boardId, boardParam, teamIdParam, gisuIdParam, 0l))
+				.data(boardService.updateBoard(boardId, boardParam, teamIdParam, gisuIdParam, email))
 				.build();
 	}
 	

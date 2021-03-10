@@ -70,12 +70,15 @@ public class BoardDto {
 		@Builder
 		public Res(Board board){
 			this.id = board.getId();
-			this.gisuInfo = new GisuInfo(board.getGisuCategory().getId(), board.getGisuCategory().getGisu());
+			if(board.getGisuCategory() != null)
+				this.gisuInfo = new GisuInfo(board.getGisuCategory().getId(), board.getGisuCategory().getGisu());
 			this.title = board.getTitle();
 			this.content = board.getContent();
 			this.summary = board.getSummary();
-			this.writerInfo = new Writer(board.getUser().getId(), board.getUser().getName());
-			this.teamInfo = new TeamInfo(board.getTeam().getId(), board.getTeam().getTeamName(), board.getTeam().getUserTeams().stream().map(userTeam -> userTeam.getUser().getName()).collect(Collectors.toList()));
+			if(board.getUser() != null)
+				this.writerInfo = new Writer(board.getUser().getId(), board.getUser().getName());
+			if(board.getTeam() != null)
+				this.teamInfo = new TeamInfo(board.getTeam().getId(), board.getTeam().getTeamName(), board.getTeam().getUserTeams().stream().map(userTeam -> userTeam.getUser().getName()).collect(Collectors.toList()));
 			this.image = board.getImage();
 //			this.voteInfo 
 			this.createdAt = board.getCreatedAt();

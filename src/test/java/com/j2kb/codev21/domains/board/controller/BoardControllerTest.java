@@ -2,6 +2,7 @@ package com.j2kb.codev21.domains.board.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -31,6 +32,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +42,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -59,6 +62,7 @@ import com.j2kb.codev21.domains.board.dto.BoardDto.Writer;
 import com.j2kb.codev21.domains.board.service.BoardService;
 
 @SpringBootTest
+@WithMockUser(username = "j2kb@j2kb.com")
 @ExtendWith({ MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class })
 public class BoardControllerTest {
 
@@ -248,7 +252,7 @@ public class BoardControllerTest {
     	String content = objectMapper.writeValueAsString(mockBoardReq);
     	MockMultipartFile json = new MockMultipartFile("json-data", "json-data", "application/json", content.getBytes(StandardCharsets.UTF_8));
         
-    	when(boardService.insertBoard(any(Board.class), anyLong(), anyLong(), anyLong()))
+    	when(boardService.insertBoard(any(Board.class), anyLong(), anyLong(), anyString()))
     	.thenReturn(BoardDto.Res.builder()
     					.id(0l)
     					.gisuInfo(GisuInfo.builder().gisuId(0l).gisuName("*기").build())
@@ -269,7 +273,7 @@ public class BoardControllerTest {
              											.contentType(MediaType.MULTIPART_MIXED)
              											.accept(MediaType.APPLICATION_JSON)
              											.characterEncoding("UTF-8")
-             											.header("Authorization", "Bear {token값}"));
+             											.header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYxNTk4ODk1MH0.FCyRob1oer49nBz99ReRbKHSwh686-NKKzNt2H55aP_jSxI7QoxejegSYwQW02ukG2x5H_Pjomiu_ymDiX5SHw"));
         
 
         
@@ -323,7 +327,7 @@ public class BoardControllerTest {
     	String content = objectMapper.writeValueAsString(mockBoardReq);
    	 	MockMultipartFile json = new MockMultipartFile("json-data", "json-data", "application/json", content.getBytes(StandardCharsets.UTF_8));
         
-   	 	when(boardService.updateBoard(anyLong(), any(Board.class), anyLong(), anyLong(), anyLong()))
+   	 	when(boardService.updateBoard(anyLong(), any(Board.class), anyLong(), anyLong(), anyString()))
     	.thenReturn(BoardDto.Res.builder()
     					.id(0l)
     					.gisuInfo(GisuInfo.builder().gisuId(0l).gisuName("*기").build())
@@ -351,7 +355,7 @@ public class BoardControllerTest {
             										.contentType(MediaType.MULTIPART_MIXED)
             										.accept(MediaType.APPLICATION_JSON)
             										.characterEncoding("UTF-8")
-            										.header("Authorization", "Bear {token값}"));
+            										.header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqMmtiQGoya2IuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYxNTk4ODk1MH0.FCyRob1oer49nBz99ReRbKHSwh686-NKKzNt2H55aP_jSxI7QoxejegSYwQW02ukG2x5H_Pjomiu_ymDiX5SHw"));
                 	
         //then
         result

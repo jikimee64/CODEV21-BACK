@@ -1,6 +1,5 @@
 package com.j2kb.codev21.domains.board.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +51,8 @@ public class BoardService {
 		
 	}
 
-	public BoardDto.Res insertBoard(Board boardParam, long teamId, long gisuId, long userId) {
-		User user = userRepository.findById(userId).orElseThrow();
+	public BoardDto.Res insertBoard(Board boardParam, long teamId, long gisuId, String email) {
+		User user = userRepository.findByEmail(email).orElseThrow();
 		Board board = boardRepository.save(boardParam);
 		Team team = teamRepository.findById(teamId).orElseThrow();
 		GisuCategory gisuCategory = gisuCategoryRepository.findById(gisuId).orElseThrow();
@@ -68,11 +67,11 @@ public class BoardService {
 		
 	}
 
-	public BoardDto.Res updateBoard(long boardId, Board boardParam, Long teamId, Long gisuId, long userId) {
+	public BoardDto.Res updateBoard(long boardId, Board boardParam, Long teamId, Long gisuId, String email) {
 		Team team = null;
 		GisuCategory gisuCategory = null;
 		
-		User user = userRepository.findById(userId).orElseThrow();
+		User user = userRepository.findByEmail(email).orElseThrow();
 		Board board = boardRepository.findById(boardId).orElseThrow();
 		if(teamId != null)
 			team = teamRepository.findById(teamId).orElseThrow();
