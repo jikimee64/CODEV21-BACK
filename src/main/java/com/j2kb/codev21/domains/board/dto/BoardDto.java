@@ -115,7 +115,7 @@ public class BoardDto {
 
 		private String teamName;
 
-		private List<String> teamMembers = new ArrayList<>();
+		private List<String> teamMembers;
 	}
 
 	@Data

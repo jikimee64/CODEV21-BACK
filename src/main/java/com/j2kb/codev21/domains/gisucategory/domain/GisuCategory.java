@@ -47,4 +47,8 @@ public class GisuCategory {
 	public void updateGisuCategory(GisuCategory gisuCategory) {
 		this.gisu = gisuCategory.getGisu();
 	}
+	
+	public void addBoard(Board board) {
+		this.boards.add(board);
+	}
 }

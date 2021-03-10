@@ -1,7 +1,11 @@
 package com.j2kb.codev21.domains.user.domain;
 
+import com.j2kb.codev21.domains.board.domain.Board;
 import com.j2kb.codev21.global.common.BaseTimeEntity;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,6 +60,9 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserAuthority> authorities = new HashSet<>();
+    
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards = new ArrayList<>();
 
     @Builder
     public User(String email, String password, String name,
@@ -83,6 +90,10 @@ public class User extends BaseTimeEntity {
         this.joinGisu = joinGisu;
         this.status = status;
         this.field = field;
+    }
+    
+    public void addBoard(Board board) {
+    	this.boards.add(board);
     }
 
 

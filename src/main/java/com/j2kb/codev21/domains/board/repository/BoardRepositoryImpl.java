@@ -1,7 +1,7 @@
 package com.j2kb.codev21.domains.board.repository;
 
 import static com.j2kb.codev21.domains.board.domain.QBoard.board;
-import static com.j2kb.codev21.domains.board.domain.QGisuCategory.gisuCategory;
+import static com.j2kb.codev21.domains.gisucategory.domain.QGisuCategory.gisuCategory;
 import static com.j2kb.codev21.domains.team.domain.QTeam.team;
 
 import java.util.List;

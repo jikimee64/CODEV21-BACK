@@ -72,4 +72,8 @@ public class Team extends BaseTimeEntity {
 	public void cleanUserTeams() {
 		this.userTeams = new ArrayList<UserTeam>();
 	}
+	
+	public void addBoard(Board board) {
+		this.boards.add(board);
+	}
 }

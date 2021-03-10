@@ -43,7 +43,8 @@ public class TeamController {
         return CommonResponse.<List<SelectTeamRes>>builder()
             .code("200")
             .message("ok")
-            .data(teamService.getTeamList()).build();
+            .data(teamService.getTeamList())
+            .build();
     }
 
     //팀 단건 조회
@@ -60,7 +61,7 @@ public class TeamController {
     //팀 등록
     @PostMapping("/teams")
     public CommonResponse<SelectTeamRes> joinTeam(
-        @RequestBody @Valid TeamDto.Req dto) {
+        @RequestBody TeamDto.Req dto) {
 
         return CommonResponse.<SelectTeamRes>builder()
             .code("200")
@@ -76,7 +77,7 @@ public class TeamController {
     @PatchMapping(value = "/admin/teams/{teamId}")
     public CommonResponse<SelectTeamRes> updateTeamByAdmin(
         @PathVariable("teamId") final Long teamId,
-        @RequestBody @Valid TeamDto.Req dto) {
+        @RequestBody TeamDto.Req dto) {
 
         return CommonResponse.<SelectTeamRes>builder()
             .code("200")
