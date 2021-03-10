@@ -1,6 +1,6 @@
 package com.j2kb.codev21.domains.team.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -18,15 +18,9 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.j2kb.codev21.domains.team.dto.TeamDto;
-import com.j2kb.codev21.domains.team.dto.TeamDto.SelectTeamRes;
-import com.j2kb.codev21.domains.team.dto.TeamDto.TeamMemberList;
-import com.j2kb.codev21.domains.team.service.TeamService;
-import com.j2kb.codev21.domains.user.dto.UserDto;
-import com.j2kb.codev21.domains.user.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,6 +37,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.j2kb.codev21.domains.board.dto.BoardDto.GisuInfo;
+import com.j2kb.codev21.domains.team.dto.TeamDto;
+import com.j2kb.codev21.domains.team.dto.TeamDto.SelectTeamRes;
+import com.j2kb.codev21.domains.team.dto.TeamDto.TeamMemberList;
+import com.j2kb.codev21.domains.team.service.TeamService;
+import com.j2kb.codev21.domains.user.service.UserService;
 
 @SpringBootTest
 @ExtendWith({MockitoExtension.class, RestDocumentationExtension.class, SpringExtension.class})
@@ -83,7 +85,7 @@ class TeamControllerTest {
         teamList.add(
             TeamDto.SelectTeamRes.builder()
                 .id(1L)
-                .gisu("1기")
+                .gisuInfo(GisuInfo.builder().gisuId(0l).gisuName("1기").build())
                 .teamName("팀이름")
                 .teamMemberLists(getStubMemberList())
                 .build()
@@ -103,12 +105,14 @@ class TeamControllerTest {
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
-                    fieldWithPath("data[0].id").description("팀 고유번호"),
-                    fieldWithPath("data[0].gisu").description("기수명(1기, 2기..)"),
-                    fieldWithPath("data[0].teamName").description("팀이름"),
-                    fieldWithPath("data[0].teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("data[0].teamMemberLists[0].isLeader")
-                        .description("리더 여부(true, false)")
+                    fieldWithPath("data[].id").description("팀 고유번호"),
+                    fieldWithPath("data[].gisuInfo").description("기수 정보"),
+                    fieldWithPath("data[].gisuInfo.gisuId").description("기수 ID"),
+                    fieldWithPath("data[].gisuInfo.gisuName").description("기수명(1기, 2기..)"),
+                    fieldWithPath("data[].teamName").description("팀이름"),
+                    fieldWithPath("data[].teamMemberLists[].userId").description("유저 고유번호"),
+                    fieldWithPath("data[].teamMemberLists[].userName").description("유저 Name"),
+                    fieldWithPath("data[].teamMemberLists[].isLeader").description("리더 여부(true, false)")
                 )
             ));
     }
@@ -121,7 +125,7 @@ class TeamControllerTest {
         SelectTeamRes team =
             TeamDto.SelectTeamRes.builder()
                 .id(1L)
-                .gisu("1기")
+                .gisuInfo(GisuInfo.builder().gisuId(0l).gisuName("1기").build())
                 .teamName("팀이름")
                 .teamMemberLists(getStubMemberList())
                 .build();
@@ -143,11 +147,13 @@ class TeamControllerTest {
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
                     fieldWithPath("data.id").description("팀 고유번호"),
-                    fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
+                    fieldWithPath("data.gisuInfo").description("기수 정보"),
+                    fieldWithPath("data.gisuInfo.gisuId").description("기수 ID"),
+                    fieldWithPath("data.gisuInfo.gisuName").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
-                    fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("data.teamMemberLists[0].isLeader")
-                        .description("리더 여부(true, false)")
+                    fieldWithPath("data.teamMemberLists[].userId").description("유저 고유번호"),
+                    fieldWithPath("data.teamMemberLists[].userName").description("유저 Name"),
+                    fieldWithPath("data.teamMemberLists[].isLeader").description("리더 여부(true, false)")
                 ),
                 pathParameters(parameterWithName("teamId").description("조회할 팀번호"))));
     }
@@ -159,8 +165,8 @@ class TeamControllerTest {
 
         TeamDto.Req team =
             TeamDto.Req.builder()
-                .gisu("1기")
-                .teamName("팀이름")
+            	.gisuId(1l)
+            	.teamName("팀이름")
                 .teamMemberLists(getStubMemberList())
                 .build();
 
@@ -171,13 +177,13 @@ class TeamControllerTest {
         SelectTeamRes selectTeam =
             TeamDto.SelectTeamRes.builder()
                 .id(1L)
-                .gisu("1기")
+                .gisuInfo(GisuInfo.builder().gisuId(0l).gisuName("1기").build())
                 .teamName("팀이름")
                 .teamMemberLists(getStubMemberList())
                 .build();
 
-        when(teamService.joinTeam(team)).thenReturn(
-            selectTeam);
+        when(teamService.insertTeam(any(), any(), any()))
+        	.thenReturn(selectTeam);
 
         this.mockMvc.perform(RestDocumentationRequestBuilders.post("/api/v1/teams")
             .content(content)
@@ -190,19 +196,23 @@ class TeamControllerTest {
                 preprocessResponse(prettyPrint()),
                 requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 requestFields(
-                    fieldWithPath("gisu").description("기수명"),
+                    fieldWithPath("gisuId").description("기수ID"),
                     fieldWithPath("teamName").description("팀명"),
-                    fieldWithPath("teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("teamMemberLists[0].isLeader")
+                    fieldWithPath("teamMemberLists[].userId").description("유저 고유번호"),
+                    fieldWithPath("teamMemberLists[].userName").description("유저 네임"),
+                    fieldWithPath("teamMemberLists[].isLeader")
                         .description("리더 여부(true, false)")
                 ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
                     fieldWithPath("data.id").description("팀 고유번호"),
-                    fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
+                    fieldWithPath("data.gisuInfo").description("기수 정보"),
+                    fieldWithPath("data.gisuInfo.gisuId").description("기수 ID"),
+                    fieldWithPath("data.gisuInfo.gisuName").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
                     fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("data.teamMemberLists[0].userName").description("유저 Name"),
                     fieldWithPath("data.teamMemberLists[0].isLeader")
                         .description("리더 여부(true, false)")
                 )
@@ -214,7 +224,7 @@ class TeamControllerTest {
     void updateTeamrByAdmin() throws Exception {
 
         TeamDto.Req dto = TeamDto.Req.builder()
-            .gisu("2기(수정)")
+        	.gisuId(0l)
             .teamName("팀이름(수정)")
             .teamMemberLists(getStubMemberList())
             .build();
@@ -226,7 +236,7 @@ class TeamControllerTest {
         when(teamService.updateTeamByAdmin(anyLong(), eq(dto)))
             .thenReturn(TeamDto.SelectTeamRes.builder()
                 .id(1L)
-                .gisu("2기(수정)")
+                .gisuInfo(GisuInfo.builder().gisuId(0l).gisuName("1기").build())
                 .teamName("팀이름(수정)")
                 .teamMemberLists(getStubMemberList())
                 .build());
@@ -243,19 +253,23 @@ class TeamControllerTest {
                 preprocessResponse(prettyPrint()),
                 requestHeaders(headerWithName("Authorization").description("Bear {token값}")),
                 requestFields(
-                    fieldWithPath("gisu").description("기수명"),
-                    fieldWithPath("teamName").description("팀명"),
-                    fieldWithPath("teamMemberLists[0].userId").description("유저 고유번호"),
-                    fieldWithPath("teamMemberLists[0].isLeader")
-                        .description("리더 여부(true, false)")
-                ),
+                        fieldWithPath("gisuId").description("기수ID"),
+                        fieldWithPath("teamName").description("팀명"),
+                        fieldWithPath("teamMemberLists[].userId").description("유저 고유번호"),
+                        fieldWithPath("teamMemberLists[].userName").description("유저 네임"),
+                        fieldWithPath("teamMemberLists[].isLeader")
+                            .description("리더 여부(true, false)")
+                    ),
                 responseFields(
                     fieldWithPath("code").description("code(200,400...)"),
                     fieldWithPath("message").description("message(success...)"),
                     fieldWithPath("data.id").description("팀 고유번호"),
-                    fieldWithPath("data.gisu").description("기수명(1기, 2기..)"),
+                    fieldWithPath("data.gisuInfo").description("기수 정보"),
+                    fieldWithPath("data.gisuInfo.gisuId").description("기수 ID"),
+                    fieldWithPath("data.gisuInfo.gisuName").description("기수명(1기, 2기..)"),
                     fieldWithPath("data.teamName").description("팀이름"),
                     fieldWithPath("data.teamMemberLists[0].userId").description("유저 고유번호"),
+                    fieldWithPath("data.teamMemberLists[].userName").description("유저 네임"),
                     fieldWithPath("data.teamMemberLists[0].isLeader")
                         .description("리더 여부(true, false)")
                 ),
@@ -297,18 +311,21 @@ class TeamControllerTest {
         memberList.add(
             TeamMemberList.builder()
                 .userId(1L)
+                .userName("userName1")
                 .isLeader(true)
                 .build()
         );
         memberList.add(
             TeamMemberList.builder()
                 .userId(2L)
+                .userName("userName2")
                 .isLeader(false)
                 .build()
         );
         memberList.add(
             TeamMemberList.builder()
                 .userId(3L)
+                .userName("userName3")
                 .isLeader(false)
                 .build()
         );

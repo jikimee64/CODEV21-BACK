@@ -4,6 +4,7 @@ package com.j2kb.codev21.domains.team.controller;
 import com.j2kb.codev21.domains.team.dto.TeamDto;
 import com.j2kb.codev21.domains.team.dto.TeamDto.SelectTeamRes;
 import com.j2kb.codev21.domains.team.dto.TeamDto.TeamIdRes;
+import com.j2kb.codev21.domains.team.dto.mapper.TeamMapper;
 import com.j2kb.codev21.domains.team.service.TeamService;
 import com.j2kb.codev21.domains.user.dto.UserDto;
 import com.j2kb.codev21.domains.user.service.UserService;
@@ -11,6 +12,8 @@ import com.j2kb.codev21.global.common.CommonResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class TeamController {
 
+	private final TeamMapper teamMapper;
+	
     private final TeamService teamService;
 
     //팀 전체 조회(기수, 유저 다)
@@ -38,7 +43,8 @@ public class TeamController {
         return CommonResponse.<List<SelectTeamRes>>builder()
             .code("200")
             .message("ok")
-            .data(teamService.getTeamList()).build();
+            .data(teamService.getTeamList())
+            .build();
     }
 
     //팀 단건 조회
@@ -55,12 +61,15 @@ public class TeamController {
     //팀 등록
     @PostMapping("/teams")
     public CommonResponse<SelectTeamRes> joinTeam(
-        @RequestBody @Valid TeamDto.Req dto) {
+        @RequestBody TeamDto.Req dto) {
 
         return CommonResponse.<SelectTeamRes>builder()
             .code("200")
             .message("ok")
-            .data(teamService.joinTeam(dto)).build();
+            .data(teamService.insertTeam(teamMapper.reqToTeam(dto), 
+            		dto.getGisuId(),
+            		dto.getTeamMemberLists()))
+            .build();
     }
 
     //팀 수정
@@ -68,12 +77,13 @@ public class TeamController {
     @PatchMapping(value = "/admin/teams/{teamId}")
     public CommonResponse<SelectTeamRes> updateTeamByAdmin(
         @PathVariable("teamId") final Long teamId,
-        @RequestBody @Valid TeamDto.Req dto) {
+        @RequestBody TeamDto.Req dto) {
 
         return CommonResponse.<SelectTeamRes>builder()
             .code("200")
             .message("ok")
-            .data(teamService.updateTeamByAdmin(teamId, dto)).build();
+            .data(teamService.updateTeamByAdmin(teamId, dto))
+            .build();
     }
 
     //팀 삭제

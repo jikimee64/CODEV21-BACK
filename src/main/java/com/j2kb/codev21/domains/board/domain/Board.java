@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.j2kb.codev21.domains.gisucategory.domain.GisuCategory;
+import com.j2kb.codev21.domains.team.domain.Team;
 import com.j2kb.codev21.domains.user.domain.User;
 import com.j2kb.codev21.domains.vote.domain.BoardVote;
 import com.j2kb.codev21.global.common.BaseTimeEntity;
@@ -57,14 +59,14 @@ public class Board extends BaseTimeEntity {
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	private List<BoardVote> boardVotes = new ArrayList<>();
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "TEAM_ID")
-//	private Team team;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TEAM_ID")
+	private Team team;
 	
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "GISU_CATEGORY_ID")
-//	private GisuCategory gisuCategory;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "GISU_CATEGORY_ID")
+	private GisuCategory gisuCategory;
 	
 	@Builder
 	public Board(String title, String content, String summary, String writer, String image, User user) {
@@ -76,5 +78,35 @@ public class Board extends BaseTimeEntity {
 		this.user = user;
 	}
 	
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+		this.writer = user.getName();
+		user.addBoard(this);
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+		team.addBoard(this);
+	}
+
+	public void setGisuCategory(GisuCategory gisuCategory) {
+		this.gisuCategory = gisuCategory;
+		gisuCategory.addBoard(this);
+	}
+	
+	public void update(Board boardParam) {
+		if(boardParam.getTitle() != null) 
+			this.title = boardParam.getTitle();
+		if(boardParam.getSummary() != null) 
+			this.summary = boardParam.getSummary();
+		if(boardParam.getContent() != null) 
+			this.content = boardParam.getContent();
+		if(boardParam.getImage() != null) 
+			this.image = boardParam.getImage();
+	}
 	
 }
