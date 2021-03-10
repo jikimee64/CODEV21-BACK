@@ -52,12 +52,6 @@ public class UserService {
         List<SelectUserRes> collect = all.stream().map(userMapper::userToDto)
             .collect(Collectors.toList());
 
-        collect.forEach(v -> {
-            v.setCreatedAt(
-                LocalDateTime.parse(v.getCreatedAt().format(formatter),
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-            );
-        });
         return collect;
     }
 
@@ -83,13 +77,8 @@ public class UserService {
     //회원 단건 조회
     public UserDto.SelectUserRes getUser(Long userId) {
         User user = findUserEntityAndCheckIsEmpty(userId);
-        log.info("g!!!d user" + user.getGithubId());
-        log.info("g!!!d @@@" + user.getStatus());
-        log.info("g!!!d @@@" + user.getField());
         SelectUserRes selectUserRes = userMapper.userToDto(user);
-        log.info("g!!!d " + selectUserRes.getStatus());
-        log.info("gd!!!2 " + selectUserRes.getField());
-        return changeTimeFormat(selectUserRes);
+        return selectUserRes;
     }
 
     //회원수정(유저권한)
@@ -99,7 +88,7 @@ public class UserService {
             .orElseThrow(MemberNotFoundException::new);
         byId.changePassword((passwordEncoder.encode(entity.getPassword())));
         SelectUserRes selectUserRes = UserMapper.INSTANCE.userToDto(byId);
-        return changeTimeFormat(selectUserRes);
+        return selectUserRes;
     }
 
     //회원수정(관리자 권한)
@@ -112,7 +101,7 @@ public class UserService {
         SelectUserRes selectUserRes = UserMapper.INSTANCE.userToDto(user);
         log.info("status : " + selectUserRes.getStatus());
         log.info("field : " + selectUserRes.getField());
-        return changeTimeFormat(selectUserRes);
+        return selectUserRes;
     }
 
     //회원삭제
@@ -127,12 +116,6 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(MemberNotFoundException::new);
     }
 
-    private SelectUserRes changeTimeFormat(SelectUserRes selectUserRes) {
-        SelectUserRes localRes = selectUserRes;
-        localRes.setCreatedAt(LocalDateTime.parse(selectUserRes.getCreatedAt().format(formatter),
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        return localRes;
-    }
 
 
     private void validateDuplicateMember(User entity) {

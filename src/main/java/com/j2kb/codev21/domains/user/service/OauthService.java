@@ -9,6 +9,8 @@ import com.j2kb.codev21.domains.user.dto.AuthDto.GithubProfileRes;
 import com.j2kb.codev21.domains.user.exception.GithubDuplicationException;
 import com.j2kb.codev21.domains.user.repository.UserRepository;
 import com.j2kb.codev21.domains.user.service.social.SocialOauth;
+import com.j2kb.codev21.global.error.ErrorCode;
+import com.j2kb.codev21.global.error.exception.InvalidValueException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +68,7 @@ public class OauthService {
         return socialOauthList.stream()
             .filter(x -> x.type() == socialLoginType)
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("알 수 없는 SocialType 입니다."));
+            .orElseThrow(() -> new InvalidValueException("알 수 없는 SocialType 입니다.", ErrorCode.BAD_REQUEST));
     }
 
 }
