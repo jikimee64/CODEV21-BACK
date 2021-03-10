@@ -7,6 +7,7 @@ import com.j2kb.codev21.domains.user.dto.UserDto.UserIdRes;
 import com.j2kb.codev21.domains.user.dto.mapper.UserMapper;
 import com.j2kb.codev21.domains.user.service.UserService;
 import com.j2kb.codev21.global.common.CommonResponse;
+import com.j2kb.codev21.global.util.TokenMemberEmail;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,8 @@ public class UserController {
     //@PreAuthorize("(( #dto.email == principal.username ) and hasRole('ROLE_USER'))")
     public CommonResponse<SelectUserRes> updateUser(
         @PathVariable("userId") Long userId,
-        @RequestBody @Valid UserDto.UpdateUserReq dto) {
+        @RequestBody @Valid UserDto.UpdateUserReq dto
+        ) {
         return CommonResponse.<SelectUserRes>builder()
             .code("200")
             .message("ok")

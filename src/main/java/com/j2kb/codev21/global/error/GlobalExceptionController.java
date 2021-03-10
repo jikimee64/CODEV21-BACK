@@ -1,6 +1,7 @@
 package com.j2kb.codev21.global.error;
 
 import com.j2kb.codev21.domains.user.exception.MemberDuplicationException;
+import com.j2kb.codev21.domains.user.exception.NotHaveAccessTokenException;
 import java.nio.file.AccessDeniedException;
 
 import org.springframework.http.HttpStatus;
@@ -111,6 +112,18 @@ public class GlobalExceptionController {
                 .code(ErrorCode.BAD_REQUEST.getCode())
                 .message(ErrorCode.BAD_REQUEST.getMessage())
                 .status(ErrorCode.BAD_REQUEST.getStatus())
+                .build(),
+            HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotHaveAccessTokenException.class)
+    protected ResponseEntity<?> notHaveAccessTokenException(NotHaveAccessTokenException ex) {
+        log.info("notHaveAccessTokenException", ex);
+        return new ResponseEntity<>(
+            ErrorResponse.builder()
+                .code(ErrorCode.NOT_HAVE_TOKEN.getCode())
+                .message(ErrorCode.NOT_HAVE_TOKEN.getMessage())
+                .status(ErrorCode.NOT_HAVE_TOKEN.getStatus())
                 .build(),
             HttpStatus.BAD_REQUEST);
     }
