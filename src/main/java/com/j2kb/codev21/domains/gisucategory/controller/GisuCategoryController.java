@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
-public class GisuCategoryController {
+public class GisuCategoryController{
 	
 	private final GisuCategoryMapper gisuCategoryMapper;
 	

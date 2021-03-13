@@ -1,8 +1,10 @@
 package com.j2kb.codev21.domains.gisucategory.domain;
 
+import com.j2kb.codev21.global.common.BaseTimeEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.prefs.BackingStoreException;
 import javax.jdo.annotations.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class GisuCategory {
+public class GisuCategory extends BaseTimeEntity {
 	
 	@Id @GeneratedValue
 	@Column(name = "ID")

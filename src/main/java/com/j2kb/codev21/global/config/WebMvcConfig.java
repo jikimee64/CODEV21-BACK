@@ -10,6 +10,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -36,14 +37,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolvers.add(memberEmailDecodeResolver);
     }
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
         DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
         registrar.setDateFormatter(DateTimeFormatter.ISO_DATE); //  such as '2011-12-03' or '2011-12-03+01:00'. 
         registrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         registrar.registerFormatters(registry);
-	}
-    
-    
+    }
+
+
 }
 

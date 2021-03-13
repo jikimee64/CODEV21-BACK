@@ -71,10 +71,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            //.antMatchers("/api/v1/users").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/admin/users").permitAll()
+            //.antMatchers("/**").permitAll()
+            //.antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+            .antMatchers("/**").permitAll() //이미지 경로
+            .antMatchers( "/api/v1/login").permitAll() //로그인
+            .antMatchers( "/api/v1/users").permitAll() //회원가입
+            .antMatchers( "/api/v1/admin/**").permitAll() //관리자
+            .antMatchers( "/api/v1/oauth/**").permitAll() //깃허브인증
+            .antMatchers( "/api/v1/boards").permitAll() //깃허브인증
+
+            //.antMatchers(HttpMethod.GET, "/api/v1/admin/users").permitAll()
 //            .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
 //            .antMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
 //            .antMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()

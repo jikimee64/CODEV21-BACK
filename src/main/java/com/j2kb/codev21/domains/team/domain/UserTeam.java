@@ -1,5 +1,6 @@
 package com.j2kb.codev21.domains.team.domain;
 
+import com.j2kb.codev21.global.common.BaseTimeEntity;
 import javax.jdo.annotations.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "USER_TEAM")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserTeam {
+public class UserTeam extends BaseTimeEntity {
 	
 	@Id @GeneratedValue
 	@Column(name = "ID")
