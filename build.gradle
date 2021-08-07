@@ -1,10 +1,13 @@
 plugins {
 	id 'org.springframework.boot' version '2.3.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'org.asciidoctor.convert' version "1.5.3" // (1)
 	//querydsl 추가
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-	id 'java'
-	id "org.asciidoctor.convert" version "1.5.9.2"
+
+	//mapstruct 이클립스 지원 플러그
+	id "com.diffplug.eclipse.apt" version "3.26.0"
 }
 
 group = 'com.j2kb'
@@ -21,37 +24,48 @@ ext {
 	snippetsDir = file('build/generated-snippets')          // (2)
 }
 
-ext['spring-restdocs.version'] = '2.0.4.BUILD-SNAPSHOT'   // (3)
+//ext['spring-restdocs.version'] = '2.0.4.BUILD-SNAPSHOT'   // (3)
 
 dependencies {
 
-	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'  // (4)
-
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.6.RELEASE' // (4)
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	//implementation 'org.springframework.boot:spring-boot-starter-security:'
+	implementation 'org.springframework.boot:spring-boot-starter-security:'
 	implementation 'org.springframework.boot:spring-boot-starter-json'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.apache.httpcomponents:httpclient:4.5'
-	//쿼리 파라미터 로그
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	//querydsl 추가
 	implementation 'com.querydsl:querydsl-jpa'
 	//쿼리 파라미터 로그
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
-	compileOnly 'org.projectlombok:lombok'
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
+
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.1.0"
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	compile group: 'org.projectlombok', name: 'lombok-mapstruct-binding', version: '0.2.0'
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
-	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'      // (5)
+	testCompile group: 'org.springframework.restdocs', name: 'spring-restdocs-mockmvc', version: '2.0.2.RELEASE' //
 	compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
 	runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
 	runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+	compile('org.projectlombok:lombok')
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testCompileOnly ('org.projectlombok:lombok') // 테스트 의존성 추가
+	testAnnotationProcessor('org.projectlombok:lombok')
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
 }
 
 test {
@@ -64,11 +78,26 @@ asciidoctor {
 	dependsOn test          // (8)
 }
 
-bootJar {
-	dependsOn asciidoctor                      // (9)
-	from ("${asciidoctor.outputDir}/html5") {  // (10)
-		into 'static/docs'
-	}
+//bootJar {
+//	dependsOn asciidoctor                      // (9)
+//	from ("${asciidoctor.outputDir}/html5") {  // (10)
+//		into 'static/docs'
+//	}
+//}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+
+	from file("build/asciidoc/html5/")
+	into file("src/main/resources/static/docs")
+}
+
+compileJava {
+	options.compilerArgs += [
+			'-Amapstruct.suppressGeneratorTimestamp=true',
+			'-Amapstruct.suppressGeneratorVersionInfoComment=true',
+			'-Amapstruct.verbose=true'
+	]
 }
 
 
@@ -87,4 +116,17 @@ configurations {
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
 }
-//querydsl 추가 끝
+
+project.afterEvaluate {
+	project.tasks.compileQuerydsl.options.compilerArgs = [
+			"-proc:only",
+			"-processor", project.querydsl.processors() +
+					',lombok.launch.AnnotationProcessorHider$AnnotationProcessor'
+	]
+}
+
+//querydsl 추가
+
+build {
+	dependsOn copyDocument
+}

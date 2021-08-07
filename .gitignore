@@ -251,3 +251,5 @@ gradle-app.setting
 **/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle,windows,eclipse,intellij,vscode,java
+### CUSTOM ###
+/src/main/resources/application-secret.properties
